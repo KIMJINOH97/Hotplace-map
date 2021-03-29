@@ -1,10 +1,11 @@
 crawling-module/pymysql_practice/pymysql_practice1/config.py
 
 # crawling module
-__cache__
-.DS_Store
-.cache/
-.vscode/
-.idea
 
 # server
+.idea/.gitignore
+.idea/Hotplace-map.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/profiles_settings.xml

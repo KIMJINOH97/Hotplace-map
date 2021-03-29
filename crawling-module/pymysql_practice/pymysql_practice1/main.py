@@ -17,3 +17,4 @@ for i in cur:
     print(i)
 con.commit();
 con.close();
+#test
