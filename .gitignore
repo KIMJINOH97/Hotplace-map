@@ -1,18 +1,10 @@
-crawling-module/pymysql_practice/pymysql_practice1/config.py
-
 # crawling module
-
-# server
-.idea/.gitignore
-.idea/Hotplace-map.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/inspectionProfiles/profiles_settings.xml
+venv
 __pycache__
 .DS_Store
 .cache/
 .vscode/
 .idea
-crawling-module/pymysql_practice/.idea
+/crawling-module/config.py
+
 # server
