@@ -9,3 +9,10 @@ crawling-module/pymysql_practice/pymysql_practice1/config.py
 .idea/modules.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/profiles_settings.xml
+__pycache__
+.DS_Store
+.cache/
+.vscode/
+.idea
+crawling-module/pymysql_practice/.idea
+# server
