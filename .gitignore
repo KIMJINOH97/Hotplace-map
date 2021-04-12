@@ -1,1 +1,10 @@
-crawling-module/pymysql_practice/pymysql_practice1/config.py
+# crawling module
+venv
+__pycache__
+.DS_Store
+.cache/
+.vscode/
+.idea
+/crawling-module/config.py
+
+# server
