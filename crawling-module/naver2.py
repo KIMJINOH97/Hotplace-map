@@ -9,6 +9,7 @@ url = 'https://map.naver.com/'
 chrome_driver = config.DRIVER_PATH
 
 driver = webdriver.Chrome(chrome_driver)
+driver.maximize_window()
 driver.implicitly_wait(5)
 
 food = ['상수동 카페']
@@ -75,14 +76,42 @@ for f in food:
 
     # scroll_down()
 
-    list_element = driver.find_element_by_css_selector('#_pcmap_list_scroll_container > ul')
-    driver.execute_script('arguments[0].scrollIntoView(true);',list_element)
+
+    sleep(3)
+
+
+    # list_element = driver.find_element_by_css_selector('#_pcmap_list_scroll_container > ul > li:nth-child(18)')
+    # driver.execute_script(' document.querySelector(\'#_pcmap_list_scroll_container > ul > li:nth-child(9)\').scrollIntoView(true);')
     # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
 
     # list_container = driver.find_element_by_css_selector('._1Az1K > ul') #  _1Az1K 모든 리스트들을 담고 있는 div태그
     # for i in range(10):
-    #     driver.send_keys(Keys.PAGE_DOWN)
+    #     list_container.send_keys(Keys.PAGE_DOWN)
 
+
+    # SCROLL_PAUSE_TIME = 0.5
+    #
+    # # Get scroll height
+    # last_height = driver.execute_script("return document.body.scrollHeight")
+    #
+    # while True:
+    #     # Scroll down to bottom
+    #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #
+    #     # Wait to load page
+    #     time.sleep(SCROLL_PAUSE_TIME)
+    #
+    #     # Calculate new scroll height and compare with last scroll height
+    #     new_height = driver.execute_script("return document.body.scrollHeight")
+    #     if new_height == last_height:
+    #         break
+    #     last_height = new_height
+
+    # element = driver.find_element_by_tag_name('#_pcmap_list_scroll_container > ul > li:nth-child(1) ._28E5D')
+    # element.click();
+    # for i in range(10):
+    #     element.send_keys(Keys.PAGE_DOWN)
 
 
     # print(iframes)
@@ -99,6 +128,7 @@ for f in food:
     for i in range(1,51):
         #실제로 왼쪽의 리스트(가게 하나하나)를 누르는 부분
 
+        driver.execute_script(' document.querySelector(\'#_pcmap_list_scroll_container > ul > li:nth-child('+str(i)+')\').scrollIntoView(true);')
         driver.find_element_by_css_selector('#_pcmap_list_scroll_container > ul > li:nth-child('+str(i)+') ._28E5D').click()
         #_1uXIN 는 각 리스트의 가게이름을 의미함
 
@@ -131,6 +161,7 @@ for f in food:
         html2 = driver.page_source
         sp = bs(html2, 'html.parser')
         # print(sp)
+        # print(sp)
         phoneNum = ""
         if isRealPhoneNum:
             phoneNum = sp.find('span',class_='_3ZA0S')
@@ -143,8 +174,11 @@ for f in food:
         rating = sp.find('span',class_='_1A8_M')
         address = sp.find('span',class_='_2yqUQ')
 
-
-        phonNumString = phoneNum.getText()
+        phonNumString = ''
+        try:
+            phonNumString = phoneNum.getText()
+        except:
+            phonNumString = "전번없음"
         # print(phonNumString)
         # print("$$$$$$$$$$$$$$$$$$")
         print(st.getText() ,"/" ,rating.getText(),"/" ,address.getText() , "/",phonNumString) #이부분 예외처리가 필요함
