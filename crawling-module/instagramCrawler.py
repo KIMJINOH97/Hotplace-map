@@ -11,7 +11,7 @@ FOOD_STORE_1 = ['bts', '괴르츠', '카미야', '앵춘', '어반 플레이트'
               '앵춘', '어반 플레이트','bts','괴르츠', '카미야', '앵춘', '어반 플레이트','bts', '괴르츠', '카미야', '앵춘',
               '어반 플레이트','bts', '괴르츠','카미야', '앵춘', '어반 플레이트']
 
-FOOD_STORE_2 = ['지노', '지노']
+FOOD_STORE_2 = ['지노', '지노', 'bts']
 
 
 def instagram_crawling(food_list):
@@ -34,14 +34,15 @@ def instagram_crawling(food_list):
     driver.find_element_by_css_selector('#loginForm > div > div:nth-child(3) > button') \
         .send_keys(Keys.RETURN)
 
-    sleep(1.5)
+    sleep(2)
 
-    for food in food_list:
+    for i, food in enumerate(food_list):
         food_tag = ''.join(food.split())
         # 인스타그램 태그 검색 URL = (인스타그램 태그 URL + 이름)로 가능
         url = TAG_URL+food_tag
         driver.get(url)
         try:
+            print(i, food)
             post_cnt = driver.find_element_by_css_selector('#react-root > section > main > header > div.WSpok >'
                                         ' div > div.Igw0E.IwRSH.eGOV_._4EzTm.a39_R > span > span').text
             post_cnt = int(''.join(post_cnt.split(',')))
