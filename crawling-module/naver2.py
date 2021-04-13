@@ -134,7 +134,7 @@ for f in food:
 
 
             except Exception as err:
-                print("별점이나 전화번호 주소가 없는 상황"+err)
+                print("별점이나 전화번호 주소가 없는 상황")
 
             finally:
                 driver.switch_to.default_content()#바깥 프레임으로 나오기
