@@ -7,4 +7,34 @@ __pycache__
 .idea
 /crawling-module/config.py
 
-# server
+# Mac os
+web-server/.DS_Store
+
+# web-server
+web-server/.gradle
+
+# api
+web-server/api/.gradle
+web-server/api/out/
+web-server/api/build/
+web-server/!gradle/wrapper/gradle-wrapper.jar
+web-server/api/!**/src/main/**
+web-server/api/!**/src/test/**
+web-server/api/src/main/resources/application-*.yml
+web-server/api/src/test/resources/application-*.yml
+web-server/api/*.iml
+web-server/api/src/main/generated
+
+### NetBeans ###
+web-server/nbproject/private/
+web-server/nbbuild/
+web-server/dist/
+web-server/nbdist/
+web-server/.nb-gradle/
+
+### IntelliJ IDEA ###
+web-server/.idea
+web-server/*.iws
+web-server/*.iml
+web-server/*.ipr
+web-server/out/
