@@ -1,8 +1,11 @@
 package com.hotplace.api.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
 @Entity
 public class Gu {
     @Id

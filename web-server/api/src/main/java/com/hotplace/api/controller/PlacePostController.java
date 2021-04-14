@@ -1,5 +1,6 @@
 package com.hotplace.api.controller;
 
+import com.hotplace.api.controller.dto.PlaceResponseDto;
 import com.hotplace.api.domain.Place;
 import com.hotplace.api.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class PlacePostController {
     private final PlaceService placeService;
 
     @GetMapping("/places")
-    public List<Place> findAllPlaces(){
+    public List<PlaceResponseDto> findAllPlaces(){
         return placeService.findAllPlaces();
     }
 }
