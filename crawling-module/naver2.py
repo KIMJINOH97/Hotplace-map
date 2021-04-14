@@ -12,7 +12,7 @@ chrome_driver = config.DRIVER_PATH
 driver = webdriver.Chrome(chrome_driver)
 driver.implicitly_wait(5)
 
-food = ['상수동 술집']
+food = ['상수동 일식집']
 dong="상수동";
 patten = re.compile("restaurant/\d+/review")
 
@@ -33,18 +33,18 @@ for f in food:
 
 
 
-    sleep(4)
+    sleep(2)
     driver.implicitly_wait(3);
 
-    isEndPoint = False #상수동 이 안나왔을 경우.
+    noneValCnt = 3
 
     for j in range(0,6):
 
-        if isEndPoint:
+        if noneValCnt == 0 :
             break
 
-        for i in range(1,51):
-            if isEndPoint:
+        for i in range(1,3):
+            if noneValCnt == 0 :
                 break
 
             store_click_target = ['._28E5D','._1uXIN']  ##_28E5D 는 각 리스트의 가게이름을 의미함  #카페검색시 // ##__1uXIN 는 카페가 아닐경우 각리스트의 가게이름의 클래스이름
@@ -117,7 +117,7 @@ for f in food:
 
                 if store_address.find(dong) == -1:
                     print(dong + " 데이터가 더이상 나오지 않습니다.")
-                    isEndPoint = True
+                    noneValCnt -=1
                     raise Exception
 
                 store_info={}
@@ -131,11 +131,12 @@ for f in food:
                 store_info['store_phone']=store_phone           #가게 전화번호(안심번호 아님)
                 store_info['store_web_site']=store_web_site      #가게 자체 웹사이트 주소
 
-
+                noneValCnt = 3
                 print(store_info)
 
 
             except Exception as err:
+                noneValCnt -=1
                 print("별점이나 전화번호 주소가 없는 상황")
 
             finally:
