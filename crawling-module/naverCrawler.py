@@ -49,12 +49,12 @@ class Crawler:
             for j in range(0,6):
 
                 if noneValCnt==0 :
-                    print("종료합니다 isEndPoint : ",isEndPoint," noneValCnt : ",noneValCnt);
+                    print(" noneValCnt : ",noneValCnt);
                     break
 
                 for i in range(1,51):
                     if noneValCnt==0:
-                        print("종료합니다 isEndPoint : ",isEndPoint," noneValCnt : ",noneValCnt);
+                        print("noneValCnt : ",noneValCnt);
                         break
 
                     store_click_target = ['._28E5D','._1uXIN']  ##_28E5D 는 각 리스트의 가게이름을 의미함  #카페검색시 // ##__1uXIN 는 카페가 아닐경우 각리스트의 가게이름의 클래스이름
