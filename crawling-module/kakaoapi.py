@@ -7,7 +7,6 @@ import json
 KEYWORD_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json'
 ADDRESS_URL = 'https://dapi.kakao.com/v2/local/search/address'
 
-searching = '상수동 맛집'
 headers = {"Authorization": "KakaoAK "+config.key}
 
 # 동의 중심을 기준으로 할 때 필요한 request
@@ -20,24 +19,31 @@ dong_x, dong_y = address_info['x'], address_info['y']
 print(dong_x, dong_y)
 
 # 00동 기준 반경 1키로 검색
-key_params = {'page': 1, 'size': 15, 'query': searching, 'category_group_code': 'CE7',
-              'x': dong_x, 'y': dong_y, 'radius': 1000}
+searching = '마포구 카페'
+key_params = {'page': 5, 'size': 15, 'query': searching, 'category_group_code': 'CE7'}
+#'x': dong_x, 'y': dong_y, 'radius': 300
 key_res = requests.get(KEYWORD_URL, params=key_params, headers=headers).json()
 
 place_list, meta = key_res['documents'], key_res['meta']
 total_count = meta['total_count']
 page_cnt = total_count//15
+if total_count % 15 > 0: page_cnt += 1
 
 # 검색 정보
 print(meta)
 
 all_place = []
-for i in range(1, page_cnt):
-    if i > 45: break
-
+i = 1
+is_last = False
+while True:
+    if is_last: break
     key_params['page'] = i
+    i += 1
     key_res = requests.get(KEYWORD_URL, params=key_params, headers=headers).json()
-    place_list = key_res['documents']
+    place_list, meta = key_res['documents'], key_res['meta']
+    print(meta['is_end'])
+    if meta['is_end']: is_last = True
+
     for place_dic in place_list:
         place_name = place_dic['place_name']
         all_place.append(place_name)
