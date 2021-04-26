@@ -15,11 +15,11 @@ FOOD_STORE_2 = ['bts', '괴르츠', '카미야', '앵춘', '어반 플레이트'
 
 
 # 가게 게시글 정보, 인스타그램 URL  { 가게: [ 해시태그개수, URL] , ... }
-class instagram_crawling():
+class INSTAGRAM_CRAWLER():
     def __init__(self):
         self.dic = {}
 
-    def find_info(self, food_list):
+    def find(self, food_list):
         dic = self.dic
         LOGIN_URL = 'https://www.instagram.com/accounts/login/'
         TAG_URL = 'https://www.instagram.com/explore/tags/'
@@ -62,5 +62,5 @@ class instagram_crawling():
 
 
 if __name__ == '__main__':
-    instagram_crawler = instagram_crawling()
-    print(instagram_crawler.find_info(FOOD_STORE_2))
+    instagram_crawler = INSTAGRAM_CRAWLER()
+    print(instagram_crawler.find(FOOD_STORE_2))
