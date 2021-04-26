@@ -17,18 +17,19 @@ key_res = requests.get(KEYWORD_URL, params=key_params, headers=headers).json()
 """
 
 
-class kakao_api:
+def get_code(word):
+    if "카페" == word: return "CE7"
+    elif "핫플레이스" == word: return "AT4"
+    else: return "FD6"
+
+
+class KAKAO_API:
     def __init__(self):
         self.all_place = []
 
-    def get_code(self, word):
-        if "카페" == word: return "CE7"
-        elif "핫플레이스" == word: return "AT4"
-        else: return "FD6"
-
     def find(self, gu, dong, keyword):
         searching = gu + dong + keyword
-        key_params = {'size': 15, 'query': searching, 'category_group_code': self.get_code(keyword)}
+        key_params = {'size': 15, 'query': searching, 'category_group_code': get_code(keyword)}
 
         all_place = self.all_place
         i = 1
@@ -54,12 +55,13 @@ class kakao_api:
                 if dong in address_name:
                     all_place.append({'id': id, 'phone': phone, 'place_name': place_name, 'place_url': place_url,
                                   'address_name': address_name, 'road_address_name': road_address_name, 'x': x, 'y': y})
+        return self.all_place
 
 
 if __name__ == '__main__':
-    pl = kakao_api()
-    pl.find("마포구", "상수동", "카페")
-    for place in pl.all_place:
+    pl = KAKAO_API()
+    all_place = pl.find("마포구", "상수동", "카페")
+    for place in all_place:
         print(place)
 
 """ 
