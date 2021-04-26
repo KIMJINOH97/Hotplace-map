@@ -36,8 +36,9 @@ for location in locations_code:
     print('입력코드 : ',location,'  값 :',locations_code[location])
 
 
+
 selected_location = int(input('원하는 입력코드를 입력:'))
-print(selected_location)
+# print(selected_location)
 gu_id , gu_name  , dong_id , dong_name = \
     int(locations_code[selected_location]['gu_id']) , \
     locations_code[selected_location]['gu_name']  , \
@@ -89,7 +90,7 @@ for res in result:
     print(gu_id , dong_id,phone_number,place_name,x,y,address_name,id,place_url,category_id,sub_category_id)
 
     sql = "insert into `PLACE` (`gu_id`,`dong_id`,`phone_number`,`name`,`longitude_x`,`latitude_y`,`address`,`kakao_id`,`kakao_url`,`category_id`,`sub_category_id` ) " \
-          "values(%s %s %s %s %s %s %s %s %s,%s,%s) "
+          "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) "
 
     cur.execute(sql,(gu_id , dong_id,phone_number,place_name,x,y,address_name,id,place_url,category_id,sub_category_id))
 
