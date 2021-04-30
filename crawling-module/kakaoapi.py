@@ -52,7 +52,7 @@ class KAKAO_API:
                 x, y = place_dic['x'], place_dic['y']
 
                 # 쿼리 날린 동과 일치하면 넣음
-                if dong in address_name:
+                if dong in address_name.split():
                     all_place.append({'id': id, 'phone': phone, 'place_name': place_name, 'place_url': place_url,
                                   'address_name': address_name, 'road_address_name': road_address_name, 'x': x, 'y': y})
         return self.all_place
