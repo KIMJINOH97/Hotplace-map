@@ -16,7 +16,6 @@ con = pymysql.connect(
 def is_duplicate(store,foreign_key_info):
     [gu_id , dong_id , category_id ,dong_name] = foreign_key_info
     store_phone = store['store_phone']
-    print(gu_id , dong_id , category_id ,dong_name)
 
     cur = con.cursor()
     sql = "select * from PLACE " \
@@ -39,22 +38,27 @@ def get_same_phone_store(store,foreign_key_info):
     cur = con.cursor()
     sql = "select * from PLACE " \
           "where PLACE.phone_number LIKE '%{}%' " \
-          "and dong_id = {}".format(store_phone,dong_id)
+          "and PLACE.dong_id = {} " \
+          "and PLACE.naver_star_rate is NULL".format(store_phone,dong_id)
 
     cur.execute(sql);
     res = list(cur.fetchall())
     return res;
 
 
-def insert_store(store):
+def insert_store(store, foreign_key_info):
+    [gu_id , dong_id , category_id ,dong_name] = foreign_key_info
+    print("INSERT!!!")
     print("DB에 새로운 record 를 생성합니다!")
     print("새로 갱신되는 record 정보 : ",store)
     pass
 
 
 def update_store(store, foreign_key_info,target_id):
+    [gu_id , dong_id , category_id ,dong_name] = foreign_key_info
+    print("UPDATE!!!")
     print("DB에 존재했던 record 를 업데이트합니다.!")
-    print("새로 갱신되는 record 정보 : ",store," place_id :",target_id)
+    print("업데이트되는 record 정보 : ",store,"\n", "place_id :",target_id)
     pass
 
 
@@ -70,14 +74,33 @@ def get_same_name_store(same_phone_store, store):
     return list(filter(lambda x: store_first_name in x, same_phone_store))
 
 
+def get_same_address_and_name_store(store, foreign_key_info):
+    [gu_id , dong_id , category_id ,dong_name] = foreign_key_info
+    store_name = store['store_name'].split(' ')[0]
+    store_address = store['store_address'].split(' ')[3]
+    cur = con.cursor()
+    sql = "select * from PLACE " \
+          "where PLACE.address LIKE '%{}%' " \
+          "and PLACE.name LIKE '%{}%' " \
+          "and PLACE.dong_id = {} " \
+          "and PLACE.naver_star_rate is NULL".format(store_address,store_name,dong_id)
+
+    cur.execute(sql);
+    res = list(cur.fetchall())
+    return res
+
 
 def fetch_store(store,foreign_key_info):
     same_phone_store = get_same_phone_store(store,foreign_key_info)
     same_phone_store_count = len(same_phone_store)
 
     if same_phone_store_count == 0:
-        insert_store(store)
-
+        same_address_and_name_store = get_same_address_and_name_store(store,foreign_key_info)
+        if len(same_address_and_name_store) == 1:
+            place_target_id = same_address_and_name_store[0][0]
+            update_store(store , foreign_key_info,place_target_id)
+        else:
+            insert_store(store,foreign_key_info)
     if is_duplicate(store,foreign_key_info):
         return
 
@@ -153,7 +176,9 @@ ul = crawler.get_info()
 for li in ul:
     phone_number = li['store_phone']
 
+    print("\n검색된 결과")
     fetch_store(li,foreign_keys) #li 는 현재 넣을려고 하는 dictionary 를 나타냅니다.
+    print("")
     #
     # cur = con.cursor()
     #
