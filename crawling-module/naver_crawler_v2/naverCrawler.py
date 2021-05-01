@@ -1,10 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+import config
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 import re
-import time
-import config
 
 url = 'https://map.naver.com/'
 chrome_driver = config.DRIVER_PATH
@@ -120,8 +122,8 @@ class Crawler:
                         store_rating = store_rating.getText()
                         store_rating = re.findall('\d.?\d*/',store_rating)[0][:-1]
                         store_naver_page = get_naver_url(store_naver_id)
-                        store_review_count = store_review_count.getText()
-                        store_blog_count = store_blog_count.getText()
+                        store_review_count = store_review_count.getText().replace(',','')
+                        store_blog_count = store_blog_count.getText().replace(',','')
                         store_address = store_address.getText()
                         store_phone = store_phone.getText()
 
