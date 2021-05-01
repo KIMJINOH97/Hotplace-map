@@ -1,3 +1,5 @@
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 from selenium import webdriver
 from time import sleep
@@ -30,7 +32,6 @@ class INSTAGRAM_CRAWLER():
         driver.implicitly_wait(5)
 
         driver.get(LOGIN_URL)
-        driver.maximize_window()
 
         element_id = driver.find_element_by_name("username")
         element_id.send_keys(config.INSTAGRAM_USERID)
@@ -43,7 +44,10 @@ class INSTAGRAM_CRAWLER():
         sleep(2)
 
         for i, food in enumerate(food_list):
-            food_tag = ''.join(food.split())
+            food_store = food.split()
+            if len(food_store) >= 2 and food_store[-1][-1] == '점':
+                food_store.pop()
+            food_tag = ''.join(food_store)
             # 인스타그램 태그 검색 URL = (인스타그램 태그 URL + 이름)로 가능
             url = TAG_URL+food_tag
             driver.get(url)
@@ -53,11 +57,14 @@ class INSTAGRAM_CRAWLER():
                                             ' div > div.Igw0E.IwRSH.eGOV_._4EzTm.a39_R > span > span').text
                 post_cnt = int(''.join(post_cnt.split(',')))
                 print(post_cnt, url)
-                if food_tag not in dic:
-                    dic[food_tag] = [post_cnt, url]
+                if food not in dic:
+                    dic[food] = [post_cnt, url]
             except:
+                if food not in dic:
+                    dic[food] = [0, url]
                 continue
 
+        driver.close()
         return dic
 
 
