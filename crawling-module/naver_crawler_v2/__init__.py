@@ -20,10 +20,13 @@ cur.execute(sql)
 locations = cur.fetchall()
 
 for li in locations:
-    print(li)
+    print("dong_id : ",li[2]," / dong_name : ",li[3])
 
-start_id = int(input("시작할 dong_id 를 입력하세요"))
-end_id = int(input("끝날 dong_id 를 입력하세요"))
+print("\n[dong_id 를 기준으로 어디부터 어디까지 순회를 할지 입력하세요\n"
+      "입력범위 start_dong_id 와 end_dong_id 둘다 닫힌범위입니다.]\n")
+
+start_id = int(input("start_dong_id 를 입력하세요 ex)345 :"))
+end_id = int(input("end_dong_id 를 입력하세요 ex)345 :"))
 
 input_list = list(filter(lambda x: start_id <= x[2] and x[2]<=end_id ,locations))
 
