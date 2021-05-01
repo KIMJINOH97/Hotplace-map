@@ -12,7 +12,7 @@ chrome_driver = config.DRIVER_PATH
 driver = webdriver.Chrome(chrome_driver)
 driver.implicitly_wait(5)
 
-food = ['상수동 일식집']
+food = ['상수동 카페']
 dong="상수동";
 patten = re.compile("restaurant/\d+/review")
 
@@ -43,7 +43,7 @@ for f in food:
         if noneValCnt == 0 :
             break
 
-        for i in range(1,3):
+        for i in range(1,51):
             if noneValCnt == 0 :
                 break
 
