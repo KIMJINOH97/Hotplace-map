@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/hot_place?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: rla123
+
+#  datasource:
+#    url: jdbc:h2:mem:test-db
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+
+server:
+  port: 8090
