@@ -1,8 +1,8 @@
-package com.hotplace.api.service;
+package com.hotplace.api.place.service;
 
-import com.hotplace.api.controller.dto.PlaceResponseDto;
-import com.hotplace.api.domain.Place;
-import com.hotplace.api.repository.PlaceRepository;
+import com.hotplace.api.place.domain.Place;
+import com.hotplace.api.place.domain.PlaceRepository;
+import com.hotplace.api.place.dto.PlaceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
