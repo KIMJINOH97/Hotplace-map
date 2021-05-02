@@ -1,6 +1,6 @@
-package com.hotplace.api.controller.dto;
+package com.hotplace.api.place.dto;
 
-import com.hotplace.api.domain.Place;
+import com.hotplace.api.place.domain.Place;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
