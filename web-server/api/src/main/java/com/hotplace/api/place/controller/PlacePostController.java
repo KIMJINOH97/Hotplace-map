@@ -1,8 +1,7 @@
-package com.hotplace.api.controller;
+package com.hotplace.api.place.controller;
 
-import com.hotplace.api.controller.dto.PlaceResponseDto;
-import com.hotplace.api.domain.Place;
-import com.hotplace.api.service.PlaceService;
+import com.hotplace.api.place.dto.PlaceResponseDto;
+import com.hotplace.api.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
