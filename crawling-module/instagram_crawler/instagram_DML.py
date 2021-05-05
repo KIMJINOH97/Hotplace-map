@@ -61,7 +61,6 @@ class InstaUpdateManager():
         print("\n" + "*"*10 + "ID : {}".format(dong) + "번 update 끝남" + "*"*10)
         # 만약 넣을 때는 그냥 주석 풀어주면 됨.
         # con.commit()
-        # con.close()
 
 if __name__ == '__main__':
     manager = InstaUpdateManager()
