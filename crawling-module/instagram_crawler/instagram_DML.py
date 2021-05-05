@@ -19,23 +19,16 @@ class InstaUpdateManager():
     def input_dong(self):
         con = self.con
         cur = con.cursor()
-        sql = "select G.gu_id, G.gu_name from GU G;"
+        sql = "select D.dong_id, D.dong_name, G.gu_name from GU G, DONG D where G.gu_id = D.gu_id;"
         cur.execute(sql)
         gu_list = cur.fetchall()
         for i, gu in enumerate(gu_list):
-            if i % 5 == 0: print()
+            if i % 2 == 0: print()
             print(gu, end=" ")
-        GU_ID = input("\n구 ID를 입력하세요: ")
+        START_ID = int(input("\n시작할 동 ID를 입력하세요: "))
+        END_ID = int(input("\n끝날 동 ID를 입력하세요: "))
 
-        sql = "select D.dong_id, D.dong_name from GU G, DONG D where G.gu_id = D.gu_id and G.gu_id = %s;"
-        cur.execute(sql, GU_ID)
-        dong_list = cur.fetchall()
-        for i, d in enumerate(dong_list):
-            if i % 5 == 0: print()
-            print(d, end=" ")
-
-        dong_id = input("\n동 ID를 입력하세요: ")
-        return dong_id
+        return [i for i in range(START_ID, END_ID + 1)]
 
     def update_instagram(self, dong):
         con = self.con
@@ -52,6 +45,8 @@ class InstaUpdateManager():
         crawler = INSTAGRAM_CRAWLER()
         place_dic = crawler.find(place_name_list)
         print(place_dic)
+        print("*"*10 + "ID : {}".format(dong) + "번 update 시작" + "*"*10)
+        print("update 된 음식점들 출력")
         for place in place_dic:
             hashtag_cnt, instagram_url = place_dic[place]
             sql = 'select * from PLACE P where P.name = %s and P.dong_id = %s;'
@@ -62,7 +57,8 @@ class InstaUpdateManager():
             update_sql = "update PLACE SET instagram_hashtag = %s, instagram_url = %s " \
                   "where place_id = %s;"
             cur.execute(update_sql, (hashtag_cnt, instagram_url, update_place_id))
-
+            print(place, end=", ")
+        print("\n" + "*"*10 + "ID : {}".format(dong) + "번 update 끝남" + "*"*10)
         # 만약 넣을 때는 그냥 주석 풀어주면 됨.
         # con.commit()
         # con.close()
