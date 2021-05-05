@@ -5,3 +5,4 @@ if __name__ == '__main__':
     dong_list = insta_manager.input_dong()
     for dong in dong_list:
         insta_manager.update_instagram(dong)
+    insta_manager.con.close()
