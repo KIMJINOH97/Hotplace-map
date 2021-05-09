@@ -1,4 +1,6 @@
-import os, sys, pymysql, requests
+import os, sys, pymysql
+from random import *
+from urllib.request import Request
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 from selenium import webdriver
@@ -32,6 +34,7 @@ class KAKAO_CRAWLER():
 
     def crawler_kakao_map(self, url_list):
         chrome_driver = config.DRIVER_PATH
+        headers = {'User-Agent': 'Chrome/81.0.4044.92'}
 
         driver = webdriver.Chrome(chrome_driver)
         driver.implicitly_wait(5)
@@ -45,7 +48,7 @@ class KAKAO_CRAWLER():
                 star_list.append(-1)
                 continue
             star_list.append(star)
-            sleep(0.1)
+            sleep(random()*3+1)
         driver.close()
         return star_list
         # html = requests.get(url).text
