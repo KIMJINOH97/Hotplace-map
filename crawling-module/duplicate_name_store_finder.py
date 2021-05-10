@@ -23,10 +23,14 @@ def get_dong_id_list(dong_id):
 
     for i in diction:
         if len(diction[i])>1:
-            print()
-            for j in list(filter(lambda  x:x['place_id'] in diction[i],res)):
-                a+=1
-                print(j)
+            li = list(filter(lambda x:x['place_id'] in diction[i],res))
+            se = set(map(lambda x:x['phone_number'],li));
+            # print(se)
+            if len(se)==1:
+                print()
+                for j in list(filter(lambda  x:x['place_id'] in diction[i],res)):
+                    a+=1
+                    print(j)
 
     # for i in list(filter(lambda x:x['place_id'] in duplicate_list,res)):
     #     print(i)
