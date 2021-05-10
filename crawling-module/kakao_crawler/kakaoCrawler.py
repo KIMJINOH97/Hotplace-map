@@ -48,7 +48,7 @@ class KAKAO_CRAWLER():
                 star_list.append(-1)
                 continue
             star_list.append(star)
-            sleep(random()*3+1)
+            sleep(random()*2.5+1.5)
         driver.close()
         return star_list
         # html = requests.get(url).text
