@@ -48,7 +48,7 @@ class KAKAO_CRAWLER():
                 star_list.append(-1)
                 continue
             star_list.append(star)
-            sleep(random()*2.5+1.5)
+            sleep(random()*2.5+2.5)
         driver.close()
         return star_list
         # html = requests.get(url).text
@@ -69,6 +69,7 @@ class KAKAO_CRAWLER():
 
         print("*" * 10 + "ID : {}".format(dong) + "번 update 시작" + "*" * 10)
         print("update 된 음식점들 출력")
+        cur = con.cursor()
         for star, place in zip(kakao_star, place_info):
             print("가게 이름: " + place[2] + "별점: " + str(star))
             update_sql = "update PLACE SET kakao_star_rate = %s where place_id = %s;"
