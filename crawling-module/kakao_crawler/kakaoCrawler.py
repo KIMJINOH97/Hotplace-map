@@ -34,9 +34,23 @@ class KAKAO_CRAWLER():
 
     def crawler_kakao_map(self, url_list):
         chrome_driver = config.DRIVER_PATH
+
+        ####### headless 추가 ####
         headers = {'User-Agent': 'Chrome/81.0.4044.92'}
 
-        driver = webdriver.Chrome(chrome_driver)
+        webdriver_options = webdriver.ChromeOptions()
+        webdriver_options.add_argument('headless')
+
+        driver = webdriver.Chrome(chrome_driver,options=webdriver_options)
+
+        ######################
+
+        # driver = webdriver.Chrome(chrome_driver)  #  브라우저 띄워서 실행
+
+
+
+
+
         driver.implicitly_wait(5)
         star_list = []
         for url in url_list:
