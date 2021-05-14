@@ -48,17 +48,18 @@ class KAKAO_CRAWLER():
         # driver = webdriver.Chrome(chrome_driver)  #  브라우저 띄워서 실행
 
 
-
-
-
         driver.implicitly_wait(5)
         star_list = []
-        for url in url_list:
+        for url_ in url_list:
+            url, name = url_
             driver.get(url)
+            print(name, url, end="  ")
             # 만약 검색이 되지 않는 가게는 -1 대입 나중에 지워주면 됨.
             try:
                 star = driver.find_element_by_css_selector('#mArticle > div.cont_essential > div:nth-child(1) > div.place_details > div > div > a:nth-child(3) > span.color_b').text
+                print(star)
             except:
+                print(-1)
                 star_list.append(-1)
                 continue
             star_list.append(star)
@@ -78,7 +79,7 @@ class KAKAO_CRAWLER():
         sql = "select P.place_id, P.kakao_url, P.name from PLACE P where P.dong_id = %s and P.kakao_url is not NULL;"
         cur.execute(sql, dong)
         place_info = cur.fetchall()
-        url_list = [p[1] for p in place_info]
+        url_list = [(p[1], p[2]) for p in place_info]
         kakao_star = self.crawler_kakao_map(url_list)
 
         print("*" * 10 + "ID : {}".format(dong) + "번 update 시작" + "*" * 10)
