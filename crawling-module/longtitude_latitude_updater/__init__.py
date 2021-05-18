@@ -26,8 +26,15 @@ sql = 'select * from PLACE where longitude_x is NULL ;'
 cur.execute(sql)
 res = list(cur.fetchall())
 
+
+def update_record(target_id, x, y):
+    cur = con.cursor()
+    sql = 'update PLACE set longitude_x=%s, latitude_y=%s where place_id = %s'
+    cur.execute(sql,(x,y,target_id))
+    con.commit()
+
 for record in res:
-    # print(record)
+
     target_id = record['place_id']
     target_addr = record['address']
 
@@ -36,8 +43,6 @@ for record in res:
     key_params = {'query': target_addr}
     key_res = requests.get(KEYWORD_URL, params=key_params, headers=headers).json()
 
-    # for i in key_res['documents']:
-    #     print(i)
 
     places = key_res['documents']
 
@@ -45,9 +50,10 @@ for record in res:
         x,y = places[0]['x'],places[0]['y']
         print(target_addr)
         print(target_id , target_addr , x,y)
+        update_record(target_id,x,y);
         print("")
 
 
 
-    # print("\n\n")
+
 
