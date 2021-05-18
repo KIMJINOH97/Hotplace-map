@@ -377,7 +377,10 @@ class NaverUpdateManager():
                 for li in ul:
                     # li 는 딕셔너리구조,  네이버크롤링중 하나의 가게에 해당되는 속성
                     print("\n검색된 결과")
-                    self.fetch_store(li, foreign_keys) #li 는 현재 넣을려고 하는 dictionary 를 나타냅니다.
+                    try:
+                        self.fetch_store(li, foreign_keys) #li 는 현재 넣을려고 하는 dictionary 를 나타냅니다.
+                    except Exception as err:
+                        print("DB 조회 예외 발생!",err)
                     print("")
 
         con.close()

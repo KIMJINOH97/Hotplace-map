@@ -40,7 +40,7 @@ for j in range(1,4):
         })
 
 
-ret = list(filter(lambda x:if dong in x))
+# ret = list(filter(lambda x:if dong in x))
 
 # {
 #     # 'id': '2057792795'
