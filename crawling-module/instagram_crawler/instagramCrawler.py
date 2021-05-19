@@ -28,7 +28,16 @@ class INSTAGRAM_CRAWLER():
 
         chrome_driver = config.DRIVER_PATH
 
-        driver = webdriver.Chrome(chrome_driver)
+        # driver = webdriver.Chrome(chrome_driver)
+
+        options = webdriver.ChromeOptions()
+        options.headless = True
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument(
+            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
+        driver = webdriver.Chrome(chrome_driver, options=options)
+
         driver.implicitly_wait(5)
 
         driver.get(LOGIN_URL)
@@ -41,7 +50,7 @@ class INSTAGRAM_CRAWLER():
         driver.find_element_by_css_selector('#loginForm > div > div:nth-child(3) > button') \
             .send_keys(Keys.RETURN)
 
-        sleep(2)
+        sleep(3)
 
         for i, food in enumerate(food_list):
             food_store = food.split()
@@ -56,7 +65,7 @@ class INSTAGRAM_CRAWLER():
                 post_cnt = driver.find_element_by_css_selector('#react-root > section > main > header > div.WSpok >'
                                             ' div > div.Igw0E.IwRSH.eGOV_._4EzTm.a39_R > span > span').text
                 post_cnt = int(''.join(post_cnt.split(',')))
-                print(post_cnt, url)
+                print(food , "해쉬태그 개수: ", post_cnt, url)
                 if food not in dic:
                     dic[food] = [post_cnt, url]
             except:
