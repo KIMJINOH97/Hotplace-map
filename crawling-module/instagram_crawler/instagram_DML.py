@@ -15,8 +15,10 @@ class InstaUpdateManager():
             db=config.db_config['db'],
             charset="utf8"
         )
+        self.crawler = INSTAGRAM_CRAWLER()
 
     def input_dong(self):
+        crawler = self.crawler
         con = self.con
         cur = con.cursor()
         sql = "select D.dong_id, D.dong_name, G.gu_name from GU G, DONG D where G.gu_id = D.gu_id;"
@@ -42,7 +44,7 @@ class InstaUpdateManager():
         for place in place_list:
             place_name_list.append(place[4])
 
-        crawler = INSTAGRAM_CRAWLER()
+        crawler = self.crawler
         place_dic = crawler.find(place_name_list)
         print(place_dic)
         print("*"*10 + "ID : {}".format(dong) + "번 update 시작" + "*"*10)

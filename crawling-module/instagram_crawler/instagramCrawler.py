@@ -20,23 +20,21 @@ FOOD_STORE_2 = ['bts', '괴르츠', '카미야', '앵춘', '어반 플레이트'
 class INSTAGRAM_CRAWLER():
     def __init__(self):
         self.dic = {}
+        self.driver = 0
 
-    def find(self, food_list):
-        dic = self.dic
+    def login(self):
         LOGIN_URL = 'https://www.instagram.com/accounts/login/'
-        TAG_URL = 'https://www.instagram.com/explore/tags/'
-
         chrome_driver = config.DRIVER_PATH
 
-        # driver = webdriver.Chrome(chrome_driver)
+        driver = webdriver.Chrome(chrome_driver)
 
-        options = webdriver.ChromeOptions()
-        options.headless = True
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument(
-            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
-        driver = webdriver.Chrome(chrome_driver, options=options)
+        # options = webdriver.ChromeOptions()
+        # options.headless = True
+        # options.add_argument("--headless")
+        # options.add_argument("--disable-gpu")
+        # options.add_argument(
+        #     "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
+        # driver = webdriver.Chrome(chrome_driver, options=options)
 
         driver.implicitly_wait(5)
 
@@ -49,8 +47,21 @@ class INSTAGRAM_CRAWLER():
 
         driver.find_element_by_css_selector('#loginForm > div > div:nth-child(3) > button') \
             .send_keys(Keys.RETURN)
-
+        self.driver = driver
         sleep(3)
+
+    # def logout(self):
+    #     driver = self.driver
+    #     driver.find_element_by_css_selector('#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg > div > div:nth-child(5) > span > img')\
+    #         .send_keys(Keys.RETURN)
+    #
+    #     driver.find_element_by_css_selector('#f279fd515d2023c > div > div > div')\
+    #         .send_keys(Keys.RETURN)
+
+    def find(self, food_list):
+        dic = self.dic
+        driver = self.driver
+        TAG_URL = 'https://www.instagram.com/explore/tags/'
 
         for i, food in enumerate(food_list):
             food_store = food.split()
@@ -72,7 +83,6 @@ class INSTAGRAM_CRAWLER():
                 if food not in dic:
                     dic[food] = [0, url]
                 continue
-
         driver.close()
         return dic
 
