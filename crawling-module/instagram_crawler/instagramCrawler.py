@@ -50,8 +50,9 @@ class INSTAGRAM_CRAWLER():
         self.driver = driver
         sleep(3)
 
-    # def logout(self):
-    #     driver = self.driver
+    def logout(self):
+        driver = self.driver
+        driver.close()
     #     driver.find_element_by_css_selector('#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg > div > div:nth-child(5) > span > img')\
     #         .send_keys(Keys.RETURN)
     #
@@ -83,7 +84,6 @@ class INSTAGRAM_CRAWLER():
                 if food not in dic:
                     dic[food] = [0, url]
                 continue
-        driver.close()
         return dic
 
 
