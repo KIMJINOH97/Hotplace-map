@@ -55,7 +55,8 @@ class InstaUpdateManager():
             cur.execute(sql, (place, dong))
 
             # 해시태그, URL 업데이트
-            update_place_id = cur.fetchall()[0][0]
+            result = cur.fetchall()
+            update_place_id = result[0][0]
             update_sql = "update PLACE SET instagram_hashtag = %s, instagram_url = %s " \
                   "where place_id = %s;"
             cur.execute(update_sql, (hashtag_cnt, instagram_url, update_place_id))
