@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,5 +22,11 @@ public class PlaceService {
             responseDtos.add(new PlaceResponseDto(place));
         }
         return responseDtos;
+    }
+
+    public List<PlaceResponseDto> findAllByDong(Integer id){
+
+        List<Place> all = placeRepository.findAllByDongId(id);
+        return all.stream().map(o->new PlaceResponseDto(o)).collect(Collectors.toList());
     }
 }
