@@ -7,6 +7,7 @@ import com.hotplace.api.gu.domain.Gu;
 import com.hotplace.api.sub_category.domain.SubCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -43,13 +44,13 @@ public class Place {
     private String address;
 
     @Column(name = "naver_star_rate")
-    private float naverStar;
+    private Float naverStar;
 
     @Column(name = "instagram_hashtag")
-    private int instagramHashtag;
+    private Integer instagramHashtag;
 
     @Column(name = "kakao_star_rate")
-    private float kakaoStar;
+    private Float kakaoStar;
 
     @ManyToOne @JoinColumn (name = "category_id")
     private Category category;
@@ -58,10 +59,10 @@ public class Place {
     private SubCategory subCategory;
 
     @Column(name = "naver_blog_review_count")
-    private int naverBlogReview;
+    private Integer naverBlogReview;
 
     @Column(name = "naver_buyer_review_count")
-    private int naverBuyerReview;
+    private Integer naverBuyerReview;
 
     @Column(name = "naver_url")
     private String naverUrl;
