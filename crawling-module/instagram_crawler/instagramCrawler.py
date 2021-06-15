@@ -1,6 +1,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
+from random import *
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -26,11 +27,11 @@ class INSTAGRAM_CRAWLER():
         chrome_driver = config.DRIVER_PATH
 
         options = webdriver.ChromeOptions()
-        options.headless = True
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument(
-            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
+        # options.headless = True
+        # options.add_argument("--headless")
+        # options.add_argument("--disable-gpu")
+        # options.add_argument(
+        #     "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
         driver = webdriver.Chrome(chrome_driver, options=options)
 
         driver.implicitly_wait(5)
@@ -69,7 +70,7 @@ class INSTAGRAM_CRAWLER():
             # 인스타그램 태그 검색 URL = (인스타그램 태그 URL + 이름)로 가능
             url = TAG_URL+food_tag
             driver.get(url)
-            sleep(0.3)
+            sleep(random()*0.3 + 0.2)
             try:
                 print(i, food)
                 post_cnt = driver.find_element_by_css_selector('#react-root > section > main > header > div.WSpok >'
