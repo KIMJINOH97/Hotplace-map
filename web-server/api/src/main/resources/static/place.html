@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hot Place 지도</title>
+    <style>
+        input {
+            all: unset;
+        }
+        body{
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="place.css">
+</head>
+<body>
+<div id="container">
+    <form class="search-form" action="">
+        <div class="search-wrap">
+            <div class="search-title">Hot Place 지도</div>
+            <input class="search-input" placeholder="주소를 입력해 주세요 ex) 서울시 독막로 19길 30, 상수동 64-1" type="text">
+            <input type="submit" value="검색" class="search-button">
+        </div>
+    </form>
+    <div class="map-wrap">
+        <div id="kakao-map"></div>
+        <script
+                type="text/javascript"
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e5bf97cdf145aea23988e758faeacc6&libraries=services,clusterer,drawing"
+        ></script>
+        <script src=/api/placeApi.js></script>
+        <script src=place.js></script>
+<!--        <script src=placeMethod.js></script>-->
+    </div>
+</div>
+</body>
+</html>
