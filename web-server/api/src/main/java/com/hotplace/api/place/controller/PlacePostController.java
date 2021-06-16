@@ -1,5 +1,6 @@
 package com.hotplace.api.place.controller;
 
+import com.hotplace.api.api_form.ApiForm;
 import com.hotplace.api.place.dto.PlaceResponseDto;
 import com.hotplace.api.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -9,18 +10,15 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api")
 public class PlacePostController {
 
     private final PlaceService placeService;
 
     @GetMapping("/places")
-    public List<PlaceResponseDto> findAllPlacesByDong(@RequestParam("dong") Integer id){
+    public ApiForm<List<PlaceResponseDto>> findAllPlacesByDong(@RequestParam("dong") Integer id){
         System.out.println("test :"+id);
         return placeService.findAllByDong(id);
     }
-
-
-
 
 }

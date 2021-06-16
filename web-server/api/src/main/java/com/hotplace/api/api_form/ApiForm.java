@@ -15,8 +15,8 @@ public class ApiForm<T> {
         this.message = message;
     }
 
-    public static <T> ApiForm <T> succeed (int status, T data, String message){
-        return new ApiForm<T>(status, data, message);
+    public static <T> ApiForm <T> succeed (T data, String message){
+        return new ApiForm<T>(200, data, message);
     }
 
     public static <T> ApiForm <T> failed (int status, String message){
