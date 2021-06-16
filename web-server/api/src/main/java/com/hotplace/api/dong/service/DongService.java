@@ -19,6 +19,6 @@ public class DongService {
     public ApiForm<List<DongDto>> findAll(){
         List<DongDto> dongDtos = new ArrayList<DongDto>();
         dongRepository.findAll().forEach((dong) -> dongDtos.add(new DongDto(dong.getId(), dong.getName())));
-        return succeed(200, dongDtos, "동 정보를 가져왔습니다.");
+        return succeed(dongDtos, "동 정보를 가져왔습니다.");
     }
 }
