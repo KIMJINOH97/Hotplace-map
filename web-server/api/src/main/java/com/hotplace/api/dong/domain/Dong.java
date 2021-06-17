@@ -21,6 +21,5 @@ public class Dong {
     private String name;
 
     @ManyToOne @JoinColumn(name = "gu_id")
-    @JsonIgnore
     private Gu gu;
 }
