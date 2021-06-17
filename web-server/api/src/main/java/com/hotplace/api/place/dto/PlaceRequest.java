@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlaceRequestDto {
+public class PlaceRequest {
     private Integer gu;
     private Integer dong;
 
@@ -19,7 +19,7 @@ public class PlaceRequestDto {
     @JsonProperty("place_name")
     private String placeName;
 
-    public PlaceRequestDto(Integer gu, Integer dong, Integer subCategory, String placeName){
+    public PlaceRequest(Integer gu, Integer dong, Integer subCategory, String placeName){
         this.gu = gu;
         this.dong = dong;
         this.subCategory = subCategory;
