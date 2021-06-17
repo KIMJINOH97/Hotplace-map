@@ -29,7 +29,7 @@ public class PlaceService {
         Integer dong = requestDto.getDong();
         Integer category = requestDto.getSubCategory();
         String name = requestDto.getPlaceName();
-        List<Place> all = placeRepository.findByGuIdAndDongIdAndCategoryIdAndNameContains(gu, dong, category, name);
+        List<Place> all = placeRepository.findByGuIdAndDongIdAndSubCategoryIdAndNameContains(gu, dong, category, name);
         List<PlaceResponse> places = all.stream().map(o -> new PlaceResponse(o)).collect(Collectors.toList());
         return succeed(places, "검색에 성공 했습니다.");
     }
