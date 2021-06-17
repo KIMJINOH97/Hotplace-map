@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
-    List<Place> findAllByDongId( Integer id);
+    List<Place> findAllByDongId(Integer id);
+    List<Place> findByGuIdAndDongIdAndCategoryIdAndNameContains(Integer gu, Integer dong, Integer category, String name);
+    List<Place> findByGuIdAndDongIdAndCategoryId(Integer gu, Integer dong, Integer category);
 
 }

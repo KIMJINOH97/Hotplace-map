@@ -1,6 +1,7 @@
 package com.hotplace.api.place.controller;
 
 import com.hotplace.api.api_form.ApiForm;
+import com.hotplace.api.place.dto.PlaceRequestDto;
 import com.hotplace.api.place.dto.PlaceResponseDto;
 import com.hotplace.api.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -21,4 +22,8 @@ public class PlacePostController {
         return placeService.findAllByDong(id);
     }
 
+    @PostMapping("/places")
+    public ApiForm<List<PlaceResponseDto>> searchPlaces(@RequestBody PlaceRequestDto requestDto){
+        return placeService.searchPlaces(requestDto);
+    }
 }
