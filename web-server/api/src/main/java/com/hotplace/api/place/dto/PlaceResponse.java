@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PlaceResponseDto {
+public class PlaceResponse {
     private String name;
     private String address;
     private String gu;
@@ -14,7 +14,7 @@ public class PlaceResponseDto {
     private String longitude_x;
     private String latitude_y;
 
-    public PlaceResponseDto(Place place){
+    public PlaceResponse(Place place){
         this.name = place.getName();
         this.address = place.getAddress();
         this.gu = place.getGu().getName();
