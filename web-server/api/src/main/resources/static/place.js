@@ -26,43 +26,76 @@ window.addEventListener('DOMContentLoaded', (event) => {
     $gu_select.addEventListener("change",changeGuSelect);
 });
 
-function searchEvent(e){
+async function searchEvent(e){
     e.preventDefault();
-    console.log("form addEventlister");
 
-    // input 태그에 아무것도 없을 경우
-    // if (input.value === "") {
-    //     getLocation();
-    //     return;
-    // }
+    const $gu_select = document.querySelector("#gu-select")
+    const $dong_select = document.querySelector("#dong-select")
+    const $category_select = document.querySelector("#category-select")
+    const $place_name_input = document.querySelector("#place-name-input")
 
-    let geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(input.value, async function (result, status) {
-        console.log(result[0]);
-        const { y: lat, x: long } = result[0];
-        let coords;
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-            // resetCircle(marker, circle, infoWindow);
-            coords = new kakao.maps.LatLng(lat, long);
+    const select_gu_value = $gu_select.options[$gu_select.selectedIndex].value;
+    const select_dong_value = $dong_select.options[$dong_select.selectedIndex].value;
+    const select_category_value = $category_select.options[$category_select.selectedIndex].value;
+    const place_name = $place_name_input.value;
 
-            // fetch 서버에 요청 하는 부분
-            let coordinate = await getPlaceByDong();
-            console.log(coordinate);
-            coordinate.map((d) => {
-                let latLng = new kakao.maps.LatLng(d.latitude_y, d.longitude_x);
-                marker = new kakao.maps.Marker({
-                    position: latLng
-                });
-                return marker.setMap(KAKAO_MAP);
-            });
-        }
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        KAKAO_MAP.panTo(coords);
-    });
-    input.value = "";
-    console.log("function end");
+    const requestDto = {
+        "gu":select_gu_value,
+        "dong":select_dong_value,
+        "sub_category":select_category_value,
+        "place_name":place_name
+    }
+
+    const response = await fetch("/api/places",{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body:JSON.stringify(requestDto)
+    })
+
+    const result = await response.json();
+    console.log(result);
+    console.log(result.data);
 }
+
+// function searchEvent(e){
+//     e.preventDefault();
+//     console.log("form addEventlister");
+//
+//     // input 태그에 아무것도 없을 경우
+//     // if (input.value === "") {
+//     //     getLocation();
+//     //     return;
+//     // }
+//
+//     let geocoder = new kakao.maps.services.Geocoder();
+//     geocoder.addressSearch(input.value, async function (result, status) {
+//         console.log(result[0]);
+//         const { y: lat, x: long } = result[0];
+//         let coords;
+//         // 정상적으로 검색이 완료됐으면
+//         if (status === kakao.maps.services.Status.OK) {
+//             // resetCircle(marker, circle, infoWindow);
+//             coords = new kakao.maps.LatLng(lat, long);
+//
+//             // fetch 서버에 요청 하는 부분
+//             let coordinate = await getPlaceByDong();
+//             console.log(coordinate);
+//             coordinate.map((d) => {
+//                 let latLng = new kakao.maps.LatLng(d.latitude_y, d.longitude_x);
+//                 marker = new kakao.maps.Marker({
+//                     position: latLng
+//                 });
+//                 return marker.setMap(KAKAO_MAP);
+//             });
+//         }
+//         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+//         KAKAO_MAP.panTo(coords);
+//     });
+//     input.value = "";
+//     console.log("function end");
+// }
 
 let input = document.querySelector(".search-input");
 let btn = document.querySelector(".search-button");
@@ -106,16 +139,15 @@ function initDongSelect(GU_ID){
 }
 
 function initCategorySelect($category_select) {
-    fetch('/api/dong/'+GU_ID)
+    fetch('/api/sub_category')
         .then(res=>res.json())
         .then(res_json =>{
             const {data} = res_json
             let htmlString ='';
 
-            for(let dong of data){
-                htmlString += `<option value=${dong.dongId}>${dong.dongName}</option>`
+            for(let category of data){
+                htmlString += `<option value=${category.id}>${category.name}</option>`
             }
-            $dong_select.innerHTML = htmlString;
+            $category_select.innerHTML = htmlString;
         })
-
 }
