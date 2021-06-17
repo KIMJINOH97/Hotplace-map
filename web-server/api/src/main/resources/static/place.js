@@ -1,10 +1,11 @@
 let KAKAO_MAP;
+
+
+
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed')
 
-
     const container = document.getElementById("kakao-map");
-
     const currentLat = 37.5666805;
     const currentLong = 126.9784147;
     const options = {
@@ -12,13 +13,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
         level: 3,
     };
 
+
     KAKAO_MAP = new kakao.maps.Map(container, options);
     const form = document.querySelector(".search-form");
     form.addEventListener("submit",searchEvent);
 
 
     const $gu_select = document.querySelector('#gu-select');
+    const $category_select = document.querySelector("#category-select");
     initGuSelect($gu_select);
+    initCategorySelect($category_select);
     $gu_select.addEventListener("change",changeGuSelect);
 });
 
@@ -86,7 +90,32 @@ function changeGuSelect(){
     initDongSelect(select_value)
 }
 
-function initDongSelect(){
+function initDongSelect(GU_ID){
+    const $dong_select = document.querySelector("#dong-select");
+    fetch('/api/dong/'+GU_ID)
+        .then(res=>res.json())
+        .then(res_json =>{
+            const {data} = res_json
+            let htmlString ='';
 
+            for(let dong of data){
+                htmlString += `<option value=${dong.dongId}>${dong.dongName}</option>`
+            }
+            $dong_select.innerHTML = htmlString;
+    })
 }
 
+function initCategorySelect($category_select) {
+    fetch('/api/dong/'+GU_ID)
+        .then(res=>res.json())
+        .then(res_json =>{
+            const {data} = res_json
+            let htmlString ='';
+
+            for(let dong of data){
+                htmlString += `<option value=${dong.dongId}>${dong.dongName}</option>`
+            }
+            $dong_select.innerHTML = htmlString;
+        })
+
+}
