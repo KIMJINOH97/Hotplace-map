@@ -12,27 +12,51 @@
             margin: 0px;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="place.css">
 </head>
 <body>
-<div id="container">
-    <form class="search-form" action="">
-        <div class="search-wrap">
-            <div class="search-title">Hot Place 지도</div>
-            <input class="search-input" placeholder="주소를 입력해 주세요 ex) 서울시 독막로 19길 30, 상수동 64-1" type="text">
-            <input type="submit" value="검색" class="search-button">
+    <div id="container">
+        <form class="search-form" action="">
+            <div class="search-wrap">
+                <div class="search-title">Hot Place 지도</div>
+                <label>구</label>
+                <select class="form-select" id="gu-select" aria-label="gu">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>동</label>
+                <select class="form-select" aria-label="dong">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>카테고리</label>
+                <select class="form-select" aria-label="category">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <input class="search-input" placeholder="가게이름을 입력해주세요." type="text">
+                <input type="submit" value="검색" class="search-button">
+            </div>
+        </form>
+        <div class="map-wrap">
+            <div id="kakao-map"></div>
+
         </div>
-    </form>
-    <div class="map-wrap">
-        <div id="kakao-map"></div>
-        <script
-                type="text/javascript"
-                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e5bf97cdf145aea23988e758faeacc6&libraries=services,clusterer,drawing"
-        ></script>
-        <script src=/api/placeApi.js></script>
-        <script src=place.js></script>
-<!--        <script src=placeMethod.js></script>-->
     </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e5bf97cdf145aea23988e758faeacc6&libraries=services,clusterer,drawing"
+    ></script>
+    <script src="/api/placeApi.js"></script>
+    <!--        <script src=placeMethod.js></script>-->
+    <script src="/place.js"></script>
 </body>
 </html>
