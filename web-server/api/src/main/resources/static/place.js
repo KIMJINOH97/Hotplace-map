@@ -1,24 +1,25 @@
 let KAKAO_MAP;
-
-let currentLat = 37.5666805;
-let currentLong = 126.9784147;
-
-
-
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed')
 
-    let container = document.getElementById("kakao-map");
 
+    const container = document.getElementById("kakao-map");
+
+    const currentLat = 37.5666805;
+    const currentLong = 126.9784147;
     const options = {
         center: new kakao.maps.LatLng(currentLat, currentLong),
         level: 3,
     };
 
     KAKAO_MAP = new kakao.maps.Map(container, options);
-
     const form = document.querySelector(".search-form");
     form.addEventListener("submit",searchEvent);
+
+
+    const $gu_select = document.querySelector('#gu-select');
+    initGuSelect($gu_select);
+    $gu_select.addEventListener("change",changeGuSelect);
 });
 
 function searchEvent(e){
@@ -59,27 +60,33 @@ function searchEvent(e){
     console.log("function end");
 }
 
-
-
 let input = document.querySelector(".search-input");
 let btn = document.querySelector(".search-button");
 
+function initGuSelect($gu_select){
+    fetch('/api/gu')
+        .then(res=>res.json())
+        .then(res_json =>{
+            const {data} = res_json
+            let htmlString ='';
 
+            for(let gu of data){
+                htmlString += `<option value=${gu.guId}>${gu.guName}</option>`
+            }
+            $gu_select.innerHTML = htmlString;
+    })
+}
 
+function changeGuSelect(){
+    const $gu_select = document.querySelector('#gu-select');
+    const select_value = $gu_select.options[$gu_select.selectedIndex].value;
+    const select_text = $gu_select.options[$gu_select.selectedIndex].text;
+    console.log(select_value , select_text);
 
-// kakao.maps.event.addListener(KAKAO_MAP, "click", function (mouseEvent) {
-//     const latLng = mouseEvent.latLng;
-//     const lat = latLng.getLat(),
-//         long = latLng.getLng();
-//     const rad = 100;
-//     // resetCircle(marker, circle, infoWindow);
-//
-//     marker = new kakao.maps.Marker({
-//         map: KAKAO_MAP,
-//         position: latLng,
-//     });
-//
-//     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-//     KAKAO_MAP.panTo(latlng);
-// });
+    initDongSelect(select_value)
+}
+
+function initDongSelect(){
+
+}
 
