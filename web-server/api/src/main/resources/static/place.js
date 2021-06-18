@@ -5,14 +5,13 @@ let INFO_WINDOWS=[]; //windows들을 보관하기 위한 배열
 window.addEventListener('DOMContentLoaded', (event) => {
 
     const container = document.getElementById("kakao-map");
-    const currentLat = 37.5666805;
-    const currentLong = 126.9784147;
     const options = {
-        center: new kakao.maps.LatLng(currentLat, currentLong),
+        center: new kakao.maps.LatLng(37.5666805, 126.9784147), //default 서울 시청 기준
         level: 3,
     };
 
     KAKAO_MAP = new kakao.maps.Map(container, options);
+
     const form = document.querySelector(".search-form");
     form.addEventListener("submit",searchEvent);
 
@@ -20,6 +19,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const $gu_select = document.querySelector('#gu-select');
     const $category_select = document.querySelector("#category-select");
     initGuSelect($gu_select);
+    initDongSelect(1);
     initCategorySelect($category_select);
     $gu_select.addEventListener("change",changeGuSelect);
 });
@@ -63,7 +63,7 @@ async function searchEvent(e){
 
     const result = await response.json();
     clearPlaceMarker();
-    setPlaceMarker(result);
+    await setPlaceMarker(result);
 }
 
 /*
@@ -82,6 +82,7 @@ function clearPlaceMarker(){
 }
 
 /*
+   !! ASYNC !!
    name : setPlaceMarker(places)
 
    feature : "/places"주소로 API 로 받아온 place 객체들의 배열
@@ -90,7 +91,7 @@ function clearPlaceMarker(){
           각각 MARKERS 와 INFO_WINDOWS 배열에 저장해야함
           이후 addListener 라는 API 사용하여 이벤트속성부여
  */
-function setPlaceMarker(places){
+async function setPlaceMarker(places){
 
     // MARKERS 와 INFO_WINDOWS 배열에 지도생성에 필요한 객체 삽입
     for(let place of places.data){
@@ -102,7 +103,7 @@ function setPlaceMarker(places){
         }));
 
         INFO_WINDOWS.push(new kakao.maps.InfoWindow({
-            content:`<button type="button" class="btn btn-primary">${name}</button>`
+            content:makeInfoContent(place)
         }));
     }
 
@@ -119,6 +120,22 @@ function setPlaceMarker(places){
     }
 }
 
+/*
+   name : makeInfoContent(place)
+
+   feature : place 객체를 받아서 window content html 을 만드는 template 기능함수
+ */
+function makeInfoContent(place){
+    return `<div class="card border-primary mb-3" style="max-width: 18rem;">
+        <div class="card-header">가게 정보</div>
+        <div class="card-body text-primary">
+            <div class="card-header"> 이름 : ${place.name}</div>
+            ${ place.kakao_star !== null ?`<p class="card-text">카카오 별점 : ${place.kakao_star}</p>`:""}
+            ${ place.naver_star !== null ?`<p class="card-text">네이버 별점 : ${place.naver_star}</p>`:""}
+            <p class="card-text">주소 : ${place.address}</p>
+        </div>
+    </div>`;
+}
 
 /*
    name : panTo(latitude_y,longitude_x)
@@ -253,3 +270,4 @@ function initCategorySelect($category_select) {
             $category_select.innerHTML = htmlString;
     })
 }
+
