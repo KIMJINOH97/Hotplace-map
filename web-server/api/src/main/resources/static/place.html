@@ -17,31 +17,34 @@
 </head>
 <body>
     <div id="container">
-        <form class="search-form" action="">
-            <div class="search-wrap">
-                <div class="search-title">Hot Place 지도</div>
-                <label>구</label>
-                <select class="form-select" id="gu-select" aria-label="gu">
+        <div id="search">
+            <form class="search-form" action="">
+                <div class="search-wrap">
+                    <div class="search-title">Hot Place 지도</div>
 
-                </select>
-                <label>동</label>
-                <select class="form-select" id="dong-select" aria-label="dong">
+                    <div class="search-keyword">
+                        <label class="search-label">00구</label>
+                        <select class="form-select" id="gu-select" aria-label="gu"></select>
 
-                </select>
-                <label>카테고리</label>
-                <select class="form-select" id="category-select" aria-label="category">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <input class="search-input" id="place-name-input" placeholder="가게이름을 입력해주세요." type="text">
-                <input type="submit" value="검색" class="search-button">
-            </div>
-        </form>
+                        <label class="search-label">00동</label>
+                        <select class="form-select" id="dong-select" aria-label="dong"></select>
+                    </div>
+
+                    <div class="search-keyword">
+                        <label class="search-label">카테고리</label>
+                        <select class="form-select" id="category-select" aria-label="category"></select>
+                    </div>
+
+                    <div class="search-input-box">
+                        <label class="search-label">가게명</label>
+                        <input class="search-input" id="place-name-input" placeholder="가게이름을 입력해주세요." type="text">
+                        <input type="submit" value="검색" class="search-button">
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="map-wrap">
             <div id="kakao-map"></div>
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
