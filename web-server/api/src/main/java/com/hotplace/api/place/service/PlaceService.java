@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.hotplace.api.api_form.ApiForm.succeed;
 
@@ -20,7 +21,7 @@ public class PlaceService {
 
     public ApiForm<List<PlaceResponse>> findAllByDong(Integer id){
         List<Place> all = placeRepository.findAllByDongId(id);
-        List<PlaceResponse> places = all.stream().map(o -> new PlaceResponse(o)).collect(Collectors.toList());
+        List<PlaceResponse> places = all.stream().map(PlaceResponse::new).collect(Collectors.toList());
         return succeed(places, "검색에 성공 했습니다.");
     }
 
@@ -29,8 +30,22 @@ public class PlaceService {
         Integer dong = requestDto.getDong();
         Integer category = requestDto.getSubCategory();
         String name = requestDto.getPlaceName();
+        Float minimumKakaoRating = requestDto.getMinimumKakaoRating();
+        Float minimumNaverRating = requestDto.getMinimumNaverRating();
+
         List<Place> all = placeRepository.findByGuIdAndDongIdAndSubCategoryIdAndNameContains(gu, dong, category, name);
-        List<PlaceResponse> places = all.stream().map(o -> new PlaceResponse(o)).collect(Collectors.toList());
+
+        Stream<Place> stream = all.stream();
+
+        if(minimumKakaoRating != null){
+            stream = stream.filter(o -> (o.getKakaoStar() != null && o.getKakaoStar() > minimumKakaoRating));
+        }
+        if(minimumNaverRating != null){
+            stream = stream.filter(o -> (o.getNaverStar() != null && o.getNaverStar() > minimumNaverRating));
+        }
+
+        List<PlaceResponse> places = stream.map(PlaceResponse::new).collect(Collectors.toList());
+
         return succeed(places, "검색에 성공 했습니다.");
     }
 }

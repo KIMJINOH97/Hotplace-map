@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class PlaceRequest {
     private Integer gu;
     private Integer dong;
+
+
 
     @JsonProperty("sub_category")
     private Integer subCategory;
@@ -19,10 +23,18 @@ public class PlaceRequest {
     @JsonProperty("place_name")
     private String placeName;
 
-    public PlaceRequest(Integer gu, Integer dong, Integer subCategory, String placeName){
+    @JsonProperty("minimum_kakao_rating")
+    private Float minimumKakaoRating;
+
+    @JsonProperty("minimum_naver_rating")
+    private Float minimumNaverRating;
+
+    public PlaceRequest(Integer gu, Integer dong, Integer subCategory, String placeName, Float minimumKakaoRating, Float minimumNaverRating) {
         this.gu = gu;
         this.dong = dong;
         this.subCategory = subCategory;
         this.placeName = placeName;
+        this.minimumKakaoRating = minimumKakaoRating;
+        this.minimumNaverRating = minimumNaverRating;
     }
 }
