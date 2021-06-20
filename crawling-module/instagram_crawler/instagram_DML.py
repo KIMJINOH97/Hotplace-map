@@ -15,8 +15,10 @@ class InstaUpdateManager():
             db=config.db_config['db'],
             charset="utf8"
         )
+        self.crawler = INSTAGRAM_CRAWLER()
 
     def input_dong(self):
+        crawler = self.crawler
         con = self.con
         cur = con.cursor()
         sql = "select D.dong_id, D.dong_name, G.gu_name from GU G, DONG D where G.gu_id = D.gu_id;"
@@ -42,7 +44,7 @@ class InstaUpdateManager():
         for place in place_list:
             place_name_list.append(place[4])
 
-        crawler = INSTAGRAM_CRAWLER()
+        crawler = self.crawler
         place_dic = crawler.find(place_name_list)
         print(place_dic)
         print("*"*10 + "ID : {}".format(dong) + "번 update 시작" + "*"*10)
@@ -53,14 +55,15 @@ class InstaUpdateManager():
             cur.execute(sql, (place, dong))
 
             # 해시태그, URL 업데이트
-            update_place_id = cur.fetchall()[0][0]
+            result = cur.fetchall()
+            update_place_id = result[0][0]
             update_sql = "update PLACE SET instagram_hashtag = %s, instagram_url = %s " \
                   "where place_id = %s;"
             cur.execute(update_sql, (hashtag_cnt, instagram_url, update_place_id))
             print(place, end=", ")
         print("\n" + "*"*10 + "ID : {}".format(dong) + "번 update 끝남" + "*"*10)
         # 만약 넣을 때는 그냥 주석 풀어주면 됨.
-        # con.commit()
+        con.commit()
 
 if __name__ == '__main__':
     manager = InstaUpdateManager()
