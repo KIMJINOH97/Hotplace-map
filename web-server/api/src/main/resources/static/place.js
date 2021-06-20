@@ -3,7 +3,6 @@ let MARKERS=[];  //마커들을 보관하기 위한 배열
 let INFO_WINDOWS=[]; //windows들을 보관하기 위한 배열
 
 window.addEventListener('DOMContentLoaded', (event) => {
-
     const container = document.getElementById("kakao-map");
     const options = {
         center: new kakao.maps.LatLng(37.5666805, 126.9784147), //default 서울 시청 기준
@@ -131,22 +130,29 @@ async function setPlaceMarker(places){
     }
 }
 
+function openWin(url){
+    return window.open(url);
+}
+
 /*
    name : makeInfoContent(place)
 
    feature : place 객체를 받아서 window content html 을 만드는 template 기능함수
  */
 function makeInfoContent(place){
+    const {name, address, kakao_url, naver_url, instagram_url, instagram_hashtag, kakao_star, naver_star} = place;
     return `<div class="card border-primary mb-3" style="max-width: 18rem;">
         <div class="card-header">가게 정보</div>
         <div class="card-body ">
-            <div class="card-header"> 이름 : ${place.name}</div>
-            ${ place.kakao_star !== null ?`<p class="card-text text-primary">카카오 별점 : ${place.kakao_star}</p>`:""}
-            ${ place.naver_star !== null ?`<p class="card-text text-success">네이버 별점 : ${place.naver_star}</p>`:""}
-            <p class="card-text">주소 : ${place.address}</p>
+            <div class="card-header"> 이름 : ${name}</div>
+            ${ place.kakao_star !== null ?`<div class="card-list"><a href=${kakao_url} class="card-link">카카오 </a><div class="card-text text-primary">별점 : ${kakao_star}</div></div>`:""}
+            ${ naver_star !== null ?`<div class="card-list"><a href=${naver_url} class="card-link">네이버 </a><div class="card-text text-success">별점 : ${naver_star}</div></div>`:""}
+            ${ instagram_hashtag !== null ?`<div class="card-list"><a href=${instagram_url} class="card-link">인스타그램 </a><div class="card-text text-success">해시태그 : ${instagram_hashtag}</div></div>`:""}
+            <p class="card-text">주소 : ${address}</p>
         </div>
     </div>`;
 }
+
 
 /*
    name : panTo(latitude_y,longitude_x)
