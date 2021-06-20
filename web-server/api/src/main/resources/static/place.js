@@ -40,17 +40,27 @@ async function searchEvent(e){
     const $dong_select = document.querySelector("#dong-select")
     const $category_select = document.querySelector("#category-select")
     const $place_name_input = document.querySelector("#place-name-input")
+    const $kakao_rating_input = document.querySelector("#kakaoControlRange");
+    const $naver_rating_input = document.querySelector("#naverControlRange");
+
 
     const select_gu_value = $gu_select.options[$gu_select.selectedIndex].value;
     const select_dong_value = $dong_select.options[$dong_select.selectedIndex].value;
     const select_category_value = $category_select.options[$category_select.selectedIndex].value;
     const place_name = $place_name_input.value;
+    const kakao_rating_input_value = parseFloat($kakao_rating_input.value);
+    const naver_rating_input_value = parseFloat($naver_rating_input.value);
+
+    console.log("kakao log : ",kakao_rating_input_value)
+    console.log("naver log : ",naver_rating_input_value)
 
     const requestDto = {
         "gu":select_gu_value,
         "dong":select_dong_value,
         "sub_category":select_category_value,
-        "place_name":place_name
+        "place_name":place_name,
+        "minimum_kakao_rating":kakao_rating_input_value,
+        "minimum_naver_rating":naver_rating_input_value
     }
 
     const response = await fetch("/api/places",{
@@ -96,21 +106,21 @@ async function setPlaceMarker(places){
     // MARKERS 와 INFO_WINDOWS 배열에 지도생성에 필요한 객체 삽입
     for(let place of places.data){
         const {address,dong,gu,name,latitude_y,longitude_x} = place;
-        console.log(place);
         MARKERS.push(new kakao.maps.Marker({
             map:KAKAO_MAP,
             position: new kakao.maps.LatLng(parseFloat(latitude_y),parseFloat(longitude_x))
         }));
 
         INFO_WINDOWS.push(new kakao.maps.InfoWindow({
-            content:makeInfoContent(place)
+            content:makeInfoContent(place),
+            removable : true
         }));
     }
 
     //마커에 이벤트속성 추가
     for(let i=0;i<MARKERS.length;i++){
-        kakao.maps.event.addListener(MARKERS[i],'mouseover',makeOverListener(KAKAO_MAP,MARKERS[i],INFO_WINDOWS[i]));
-        kakao.maps.event.addListener(MARKERS[i],'mouseout',makeOutListener(INFO_WINDOWS[i]));
+        kakao.maps.event.addListener(MARKERS[i],'click',makeOverListener(KAKAO_MAP,MARKERS[i],INFO_WINDOWS[i]));
+        // kakao.maps.event.addListener(MARKERS[i],'mouseout',makeOutListener(INFO_WINDOWS[i]));
     }
 
     //화면이동에 필요한 로직
@@ -128,10 +138,10 @@ async function setPlaceMarker(places){
 function makeInfoContent(place){
     return `<div class="card border-primary mb-3" style="max-width: 18rem;">
         <div class="card-header">가게 정보</div>
-        <div class="card-body text-primary">
+        <div class="card-body ">
             <div class="card-header"> 이름 : ${place.name}</div>
-            ${ place.kakao_star !== null ?`<p class="card-text">카카오 별점 : ${place.kakao_star}</p>`:""}
-            ${ place.naver_star !== null ?`<p class="card-text">네이버 별점 : ${place.naver_star}</p>`:""}
+            ${ place.kakao_star !== null ?`<p class="card-text text-primary">카카오 별점 : ${place.kakao_star}</p>`:""}
+            ${ place.naver_star !== null ?`<p class="card-text text-success">네이버 별점 : ${place.naver_star}</p>`:""}
             <p class="card-text">주소 : ${place.address}</p>
         </div>
     </div>`;
