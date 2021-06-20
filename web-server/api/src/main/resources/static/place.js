@@ -72,6 +72,7 @@ async function searchEvent(e){
     })
 
     const result = await response.json();
+    console.log(result);
     clearPlaceMarker();
     await setPlaceMarker(result);
 }
