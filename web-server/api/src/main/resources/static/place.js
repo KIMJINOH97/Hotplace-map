@@ -145,9 +145,9 @@ function makeInfoContent(place){
         <div class="card-header">가게 정보</div>
         <div class="card-body ">
             <div class="card-header"> 이름 : ${name}</div>
-            ${ place.kakao_star !== null ?`<div class="card-list"><a href=${kakao_url} class="card-link">카카오 </a><div class="card-text text-primary">별점 : ${kakao_star}</div></div>`:""}
-            ${ naver_star !== null ?`<div class="card-list"><a href=${naver_url} class="card-link">네이버 </a><div class="card-text text-success">별점 : ${naver_star}</div></div>`:""}
-            ${ instagram_hashtag !== null ?`<div class="card-list"><a href=${instagram_url} class="card-link">인스타그램 </a><div class="card-text text-success">해시태그 : ${instagram_hashtag}</div></div>`:""}
+            ${ place.kakao_star !== null ?`<div class="card-list"><a href=${kakao_url} target="_blank" class="card-link">카카오 </a><div class="card-text text-primary">별점 : ${kakao_star}</div></div>`:""}
+            ${ naver_star !== null ?`<div class="card-list"><a href=${naver_url} target="_blank" class="card-link text-success">네이버 </a><div class="card-text text-success">별점 : ${naver_star}</div></div>`:""}
+            ${ instagram_hashtag !== null ?`<div class="card-list"><a href=${instagram_url} target="_blank" class="card-link">인스타그램 </a><div class="card-text text-success">해시태그 : ${instagram_hashtag}</div></div>`:""}
             <p class="card-text">주소 : ${address}</p>
         </div>
     </div>`;
