@@ -47,8 +47,17 @@ async function searchEvent(e){
     const select_dong_value = $dong_select.options[$dong_select.selectedIndex].value;
     const select_category_value = $category_select.options[$category_select.selectedIndex].value;
     const place_name = $place_name_input.value;
-    const kakao_rating_input_value = parseFloat($kakao_rating_input.value);
-    const naver_rating_input_value = parseFloat($naver_rating_input.value);
+    let kakao_rating_input_value = parseFloat($kakao_rating_input.value);
+    let naver_rating_input_value = parseFloat($naver_rating_input.value);
+
+    if(kakao_rating_input_value === 0){
+        kakao_rating_input_value = null;
+    }
+    if(naver_rating_input_value === 0){
+        naver_rating_input_value = null;
+    }
+    console.log("kakao_rating_input_value : ",kakao_rating_input_value)
+    console.log("naver_rating_input_value : ",naver_rating_input_value)
 
     console.log("kakao log : ",kakao_rating_input_value)
     console.log("naver log : ",naver_rating_input_value)
@@ -101,15 +110,22 @@ function clearPlaceMarker(){
           각각 MARKERS 와 INFO_WINDOWS 배열에 저장해야함
           이후 addListener 라는 API 사용하여 이벤트속성부여
  */
+
 async function setPlaceMarker(places){
 
     // MARKERS 와 INFO_WINDOWS 배열에 지도생성에 필요한 객체 삽입
+    let avg_latitude_y=0;
+    let avg_longitude_x=0;
     for(let place of places.data){
         const {address,dong,gu,name,latitude_y,longitude_x} = place;
+
         MARKERS.push(new kakao.maps.Marker({
             map:KAKAO_MAP,
             position: new kakao.maps.LatLng(parseFloat(latitude_y),parseFloat(longitude_x))
         }));
+
+        avg_latitude_y+=parseFloat(latitude_y)
+        avg_longitude_x+=parseFloat(longitude_x)
 
         INFO_WINDOWS.push(new kakao.maps.InfoWindow({
             content:makeInfoContent(place),
@@ -125,8 +141,9 @@ async function setPlaceMarker(places){
 
     //화면이동에 필요한 로직
     if(places.data.length !== 0 ){
-        const {latitude_y,longitude_x} = places.data[0];
-        panTo(latitude_y,longitude_x)
+        avg_latitude_y = avg_latitude_y/places.data.length;
+        avg_longitude_x = avg_longitude_x/places.data.length;
+        panTo(avg_latitude_y,avg_longitude_x)
     }
 }
 
