@@ -21,8 +21,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
     initDongSelect(1);
     initCategorySelect($category_select);
     $gu_select.addEventListener("change",changeGuSelect);
+
+    initRangeControllers();
 });
 
+function initRangeControllers(){
+
+    const $kakao_control_range_input = document.querySelector("#kakaoControlRange")
+    const $kakao_start_monitor = document.querySelector("#kakao-star-monitor")
+
+    const $naver_control_range_input = document.querySelector("#naverControlRange")
+    const $naver_start_monitor = document.querySelector("#naver-star-monitor")
+    initMonitor($kakao_control_range_input,$kakao_start_monitor);
+    initMonitor($naver_control_range_input,$naver_start_monitor);
+}
+function initMonitor($range_input , $monitor){
+    $range_input.addEventListener('change',function(e){
+        e.preventDefault();
+        $monitor.innerHTML = $range_input.value;
+    });
+}
 
 /*
   !! ASYNC !!
