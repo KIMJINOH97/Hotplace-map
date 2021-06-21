@@ -37,6 +37,8 @@ public class PlaceService {
 
         Stream<Place> stream = all.stream();
 
+        stream = stream.filter(o -> o.getLatitude_y() != null);
+
         if(minimumKakaoRating != null){
             stream = stream.filter(o -> (o.getKakaoStar() != null && o.getKakaoStar() > minimumKakaoRating));
         }
