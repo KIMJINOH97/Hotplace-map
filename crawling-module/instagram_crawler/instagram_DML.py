@@ -54,7 +54,8 @@ class InstaUpdateManager():
         instagramCrawler.login()
 
         for index, dong in enumerate(allOfDongId):
-            selectAllPlaceByDongQuery = "select * from PLACE P where P.dong_id = {};".format(dong)
+            selectAllPlaceByDongQuery = "select * from PLACE P where P.dong_id = {} and " \
+                                        "(P.instagram_hashtag = -1 or P.instagram_hashtag = 0 or P.instagram_hashtag is null);".format(dong)
             cur.execute(selectAllPlaceByDongQuery)
 
             allOfPlace = cur.fetchall()
