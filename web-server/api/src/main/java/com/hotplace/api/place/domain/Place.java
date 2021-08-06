@@ -23,13 +23,13 @@ public class Place {
     private String name;
 
     // 'GU' 테이블과 N:1 관계
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gu_id")
     @JsonIgnore
     private Gu gu;
 
     // 'Dong' 테이블과 N:1 관계
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dong_id")
     @JsonIgnore
     private Dong dong;
@@ -52,10 +52,12 @@ public class Place {
     @Column(name = "kakao_star_rate")
     private Float kakaoStar;
 
-    @ManyToOne @JoinColumn (name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "category_id")
     private Category category;
 
-    @ManyToOne @JoinColumn (name = "sub_category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "sub_category_id")
     private SubCategory subCategory;
 
     @Column(name = "naver_blog_review_count")
