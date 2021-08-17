@@ -11,11 +11,19 @@ spring:
   h2:
     console:
       enabled: true
+
   datasource:
-    url: jdbc:mysql://localhost:3306/hot_place?serverTimezone=UTC&characterEncoding=UTF-8
+    hikari:
+      jdbc-url: jdbc:mysql://hot-place-database.ciyvo1rsrceb.ap-northeast-2.rds.amazonaws.com:3306/hot_place?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: rla123
+    username: ADMIN
+    password: qewr1324!!
+
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/hot_place?serverTimezone=UTC&characterEncoding=UTF-8
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: rla123
 
 #  datasource:
 #    url: jdbc:h2:mem:test-db
@@ -24,4 +32,4 @@ spring:
 #    password:
 
 server:
-  port: 8090
+  port: 8080
