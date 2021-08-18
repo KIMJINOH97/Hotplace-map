@@ -32,6 +32,7 @@ function initRangeControllers(){
 
     const $naver_control_range_input = document.querySelector("#naverControlRange")
     const $naver_start_monitor = document.querySelector("#naver-star-monitor")
+
     initMonitor($kakao_control_range_input,$kakao_start_monitor);
     initMonitor($naver_control_range_input,$naver_start_monitor);
 }
