@@ -24,3 +24,13 @@ export const placeState = atom({
   key: 'store_list',
   default: [],
 });
+
+export const queryState = atom({
+  key: 'query',
+  default: {
+    gu: null,
+    dong: null,
+    subCategory: null,
+    keyword: null,
+  },
+});
