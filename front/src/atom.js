@@ -1,10 +1,5 @@
 import { atom } from 'recoil';
 
-export const urlState = atom({
-  key: 'url',
-  default: 'http://localhost:8080',
-});
-
 export const guState = atom({
   key: 'gu',
   default: [],
