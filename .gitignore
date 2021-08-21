@@ -14,6 +14,7 @@ web-server/.DS_Store
 web-server/.gradle
 
 # api
+application.yml
 web-server/api/.gradle
 web-server/api/out/
 web-server/api/build/
