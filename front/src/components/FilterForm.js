@@ -7,6 +7,7 @@ import {
   dongState,
   guState,
   queryState,
+  storeState,
   subCategoryState,
   urlState,
 } from '../atom';
@@ -17,6 +18,7 @@ const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);
   const [dong, setDong] = useRecoilState(dongState);
   const [subCategory, setSubCategory] = useRecoilState(subCategoryState);
+  const [storeList, setStoreList] = useRecoilState(storeState);
   const [url] = useRecoilState(urlState);
   const [query, setQuery] = useRecoilState(queryState);
 
@@ -53,15 +55,21 @@ const FilterForm = () => {
   }
 
   const onChangeGu = (value, key) => {
+    console.log(value, key);
+    setQuery({ ...query, gu: parseInt(key.key) });
     setCurGu(value);
     guSelectChange(value, key);
   };
 
-  const onChangeDong = (value) => {
+  const onChangeDong = (value, key) => {
+    console.log(value, key);
+    setQuery({ ...query, dong: parseInt(key.key) });
     setCurDong(value);
   };
 
-  const onChangeSubCategory = (value) => {
+  const onChangeSubCategory = (value, key) => {
+    console.log(value, key);
+    setQuery({ ...query, sub_category: parseInt(key.key) });
     setCurSubCategory(value);
   };
 
@@ -71,16 +79,11 @@ const FilterForm = () => {
     getSubCategory();
   }, []);
 
-  const onClickEvent = () => {
-    console.log(gu);
-    console.log(dong);
-    console.log(subCategory);
-
-    console.log({
-      curGu,
-      curDong,
-      curSubCategory,
-    });
+  const onClickEvent = async () => {
+    console.log(query);
+    const res = await axios.post(url + '/api/places', query);
+    setStoreList(res.data.data);
+    console.log(res);
   };
 
   const isLoad = () => {

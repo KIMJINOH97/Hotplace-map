@@ -20,17 +20,19 @@ export const subCategoryState = atom({
   default: [],
 });
 
-export const placeState = atom({
-  key: 'store_list',
+export const storeState = atom({
+  key: 'storeList',
   default: [],
 });
 
 export const queryState = atom({
   key: 'query',
   default: {
-    gu: null,
-    dong: null,
-    subCategory: null,
-    keyword: null,
+    gu: 1,
+    dong: 1,
+    sub_category: 1,
+    place_name: '',
+    minimum_kakao_rating: null,
+    minimum_naver_rating: null,
   },
 });
