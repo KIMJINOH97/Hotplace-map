@@ -3,6 +3,7 @@ package com.hotplace.api.sub_category.controller;
 import com.hotplace.api.api_form.ApiForm;
 import com.hotplace.api.sub_category.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
