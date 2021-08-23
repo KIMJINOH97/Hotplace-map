@@ -10,11 +10,30 @@ __pycache__
 # Mac os
 web-server/.DS_Store
 
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+
 # web-server
 web-server/.gradle
 
 # api
 web-server/api/.gradle
+web-server/api/bin/
 web-server/api/out/
 web-server/api/build/
 web-server/!gradle/wrapper/gradle-wrapper.jar
@@ -40,8 +59,15 @@ web-server/*.ipr
 web-server/out/
 
 ### Front ###
+### react ###
+.DS_*
+logs
+**/*.backup.*
+**/*.back.*
+
 # dependencies
 node_modules
+bower_components
 /.pnp
 .pnp.js
 
