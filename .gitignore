@@ -32,6 +32,7 @@ web-server/.DS_Store
 web-server/.gradle
 
 # api
+application.yml
 web-server/api/.gradle
 web-server/api/bin/
 web-server/api/out/
