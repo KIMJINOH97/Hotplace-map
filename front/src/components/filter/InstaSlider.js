@@ -6,6 +6,7 @@ import { queryState } from '../../atom';
 const InstaSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
   const [disabled, setDisabled] = useState(false);
+
   const handleDisabledChange = (isDisabled) => {
     setDisabled(isDisabled);
     console.log(disabled);
@@ -19,9 +20,8 @@ const InstaSlider = () => {
   return (
     <>
       <Slider
-        range
         step={0.1}
-        defaultValue={[0, 3]}
+        defaultValue={3}
         min={0}
         max={5}
         disabled={disabled}
