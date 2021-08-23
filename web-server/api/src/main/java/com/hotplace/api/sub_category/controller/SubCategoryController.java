@@ -12,7 +12,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class SubCategoryController {
     private final SubCategoryService subCategoryService;

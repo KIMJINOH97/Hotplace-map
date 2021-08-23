@@ -14,7 +14,6 @@ import static com.hotplace.api.api_form.ApiForm.succeed;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class GuController {
     private final GuService guService;
