@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useRecoilState } from 'recoil';
 import { cityApi, placeApi } from '../api/index.js';
 
@@ -12,6 +12,8 @@ import {
 } from '../atom';
 
 import FilterSelect from './filter/FilterSelect';
+import KakaoSlider from './filter/KakaoSlider.js';
+import NaverSlider from './filter/NaverSlider.js';
 
 const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);
@@ -101,6 +103,13 @@ const FilterForm = () => {
     }
   };
 
+  const onInputChange = (event) => {
+    setQuery({
+      ...query,
+      place_name: event.target.value,
+    });
+  };
+
   const isLoad = () => {
     return gu.length && dong.length && subCategory.length;
   };
@@ -126,6 +135,13 @@ const FilterForm = () => {
           />
         </>
       )}
+      <Input
+        placeholder="검색어를 입력하세요"
+        maxLength={20}
+        onChange={onInputChange}
+      ></Input>
+      <KakaoSlider></KakaoSlider>
+      <NaverSlider></NaverSlider>
       <Button onClick={onClickEvent}>click!</Button>
     </>
   );
