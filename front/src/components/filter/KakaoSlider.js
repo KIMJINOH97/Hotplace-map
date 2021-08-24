@@ -32,6 +32,14 @@ const KakaoSlider = () => {
   return (
     <>
       <Button onClick={check}>check!!</Button>
+      <div>
+        KAKAO 별점:
+        <Switch
+          size="small"
+          checked={disabled}
+          onChange={handleDisabledChange}
+        />
+      </div>
       <Slider
         step={0.1}
         defaultValue={3}
@@ -40,8 +48,6 @@ const KakaoSlider = () => {
         disabled={disabled}
         onChange={sliderOnChange}
       />
-      Disabled:{' '}
-      <Switch size="small" checked={disabled} onChange={handleDisabledChange} />
     </>
   );
 };
