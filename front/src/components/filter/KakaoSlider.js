@@ -5,19 +5,36 @@ import { queryState } from '../../atom';
 
 const KakaoSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
-  const [disabled, setDisabled] = useState(false);
+  const [activated, setActivated] = useState(true);
+  const [curValue, setCurValue] = useState(3);
 
-  const handleDisabledChange = (isDisabled) => {
-    setDisabled(isDisabled);
-    console.log(disabled);
+  useEffect(() => {
     setQuery({
       ...query,
-      kakao_filter: !isDisabled,
+      minimum_kakao_rating: curValue,
     });
+  }, []);
+
+  const handleDisabledChange = (counterActive) => {
+    setActivated(counterActive);
+
+    if (counterActive === false) {
+      // toggle off 상태
+      setQuery({
+        ...query,
+        minimum_kakao_rating: null,
+      });
+    } else {
+      // toggle on 상태
+      setQuery({
+        ...query,
+        minimum_kakao_rating: curValue,
+      });
+    }
   };
 
   const sliderOnChange = (value) => {
-    console.log(value);
+    setCurValue(value);
     setQuery({
       ...query,
       minimum_kakao_rating: value,
@@ -25,7 +42,7 @@ const KakaoSlider = () => {
   };
 
   const check = () => {
-    console.log(disabled);
+    console.log(activated);
     console.log(query);
   };
 
@@ -36,16 +53,16 @@ const KakaoSlider = () => {
         KAKAO 별점:
         <Switch
           size="small"
-          checked={disabled}
+          checked={activated}
           onChange={handleDisabledChange}
         />
       </div>
       <Slider
         step={0.1}
-        defaultValue={3}
+        defaultValue={curValue}
         min={0}
         max={5}
-        disabled={disabled}
+        disabled={!activated}
         onChange={sliderOnChange}
       />
     </>

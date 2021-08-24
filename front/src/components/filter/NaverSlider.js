@@ -5,20 +5,40 @@ import { queryState } from '../../atom';
 
 const NaverSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
-  const [disabled, setDisabled] = useState(false);
+  const [activated, setActivated] = useState(true);
+  const [curValue, setCurValue] = useState(3);
 
-  const handleDisabledChange = (isDisabled) => {
-    setDisabled(isDisabled);
-    console.log(disabled);
+  useEffect(() => {
     setQuery({
       ...query,
-      naver_filter: !isDisabled,
+      minimum_naver_rating: curValue,
     });
+  }, []);
+
+  const handleDisabledChange = (counterActive) => {
+    setActivated(counterActive);
+
+    if (counterActive === false) {
+      // toggle off 상태
+      setQuery({
+        ...query,
+        minimum_naver_rating: null,
+      });
+    } else {
+      // toggle on 상태
+      setQuery({
+        ...query,
+        minimum_naver_rating: curValue,
+      });
+    }
   };
 
   const sliderOnChange = (value) => {
-    console.log(value);
-    setQuery({ ...query, minimum_naver_rating: value });
+    setCurValue(value);
+    setQuery({
+      ...query,
+      minimum_naver_rating: value,
+    });
   };
 
   return (
@@ -27,16 +47,16 @@ const NaverSlider = () => {
         NAVER 별점:{' '}
         <Switch
           size="small"
-          checked={disabled}
+          checked={activated}
           onChange={handleDisabledChange}
         />
       </div>
       <Slider
         step={0.1}
-        defaultValue={3}
+        defaultValue={curValue}
         min={0}
         max={5}
-        disabled={disabled}
+        disabled={!activated}
         onChange={sliderOnChange}
       />
     </>
