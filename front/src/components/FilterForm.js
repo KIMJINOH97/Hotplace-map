@@ -142,7 +142,7 @@ const FilterForm = () => {
       ></Input>
       <KakaoSlider></KakaoSlider>
       <NaverSlider></NaverSlider>
-      <Button onClick={onClickEvent}>click!</Button>
+      <Button onClick={onClickEvent}>검색</Button>
     </>
   );
 };

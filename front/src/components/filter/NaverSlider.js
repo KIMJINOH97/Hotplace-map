@@ -23,6 +23,14 @@ const NaverSlider = () => {
 
   return (
     <>
+      <div>
+        NAVER 별점:{' '}
+        <Switch
+          size="small"
+          checked={disabled}
+          onChange={handleDisabledChange}
+        />
+      </div>
       <Slider
         step={0.1}
         defaultValue={3}
@@ -31,8 +39,6 @@ const NaverSlider = () => {
         disabled={disabled}
         onChange={sliderOnChange}
       />
-      Disabled:{' '}
-      <Switch size="small" checked={disabled} onChange={handleDisabledChange} />
     </>
   );
 };

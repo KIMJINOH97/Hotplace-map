@@ -13,7 +13,7 @@ const HotPlaceMap = () => {
       <Layout>
         <Header
           className="site-layout-sub-header-background"
-          style={{ padding: 0 }}
+          style={{ padding: 0, backgroundColor: 'white' }}
         ></Header>
         <Content>
           <KakaoMap></KakaoMap>

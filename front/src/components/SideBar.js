@@ -16,6 +16,7 @@ const SiderBar = () => {
       breakpoint="lg"
       collapsedWidth="0"
       width="400"
+      style={{ backgroundColor: 'yellow' }}
       onBreakpoint={(broken) => {
         console.log(broken);
       }}
