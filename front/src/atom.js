@@ -30,8 +30,5 @@ export const queryState = atom({
     minimum_kakao_rating: null,
     minimum_naver_rating: null,
     minimum_instagram_hashtag: null,
-    kakao_filter: false,
-    naver_filter: false,
-    instagram_filter: false,
   },
 });
