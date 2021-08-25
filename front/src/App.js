@@ -1,4 +1,4 @@
-import HotPlaceMap from './screens/HotPlaceMapScreen';
+import HotPlaceMapScreen from './screens/HotPlaceMapScreen';
 import { RecoilRoot } from 'recoil';
 import 'antd/dist/antd.css';
 import './index.css';
@@ -6,7 +6,7 @@ import './index.css';
 function App() {
   return (
     <RecoilRoot>
-      <HotPlaceMap></HotPlaceMap>;
+      <HotPlaceMapScreen></HotPlaceMapScreen>;
     </RecoilRoot>
   );
 }
