@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input } from 'antd';
 import { useRecoilState } from 'recoil';
-import { cityApi, placeApi } from '../api/index.js';
+import { cityApi, placeApi } from '../../api/index.js';
 
 import {
   dongState,
@@ -9,11 +9,11 @@ import {
   queryState,
   storeState,
   subCategoryState,
-} from '../atom';
+} from '../../atom';
 
-import FilterSelect from './filter/FilterSelect';
-import KakaoSlider from './filter/KakaoSlider.js';
-import NaverSlider from './filter/NaverSlider.js';
+import FilterSelect from './FilterSelect';
+import KakaoSlider from './KakaoSlider.js';
+import NaverSlider from './NaverSlider.js';
 
 const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);

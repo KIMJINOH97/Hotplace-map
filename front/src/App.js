@@ -1,12 +1,5 @@
-import HotPlaceMap from './components/HotPlaceMap';
-import KakaoMap from './components/KakaoMap';
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import HotPlaceMap from './screens/HotPlaceMapScreen';
+import { RecoilRoot } from 'recoil';
 import 'antd/dist/antd.css';
 import './index.css';
 

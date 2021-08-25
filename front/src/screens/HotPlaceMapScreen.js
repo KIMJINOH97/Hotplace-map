@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import KakaoMap from './KakaoMap';
-import SiderBar from './SideBar';
+import React, { useEffect } from 'react';
+import KakaoMap from '../components/map/KakaoMap';
+import SiderBar from '../components/SideBar';
 import { Layout } from 'antd';
 // import 'antd/dist/antd.css';
 

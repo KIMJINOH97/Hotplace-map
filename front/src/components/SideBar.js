@@ -6,7 +6,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import FilterForm from './FilterForm';
+import FilterForm from './filter/FilterForm';
 
 const { Sider } = Layout;
 
