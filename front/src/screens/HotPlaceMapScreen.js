@@ -6,7 +6,7 @@ import { Layout } from 'antd';
 
 const { Header, Footer, Content } = Layout;
 
-const HotPlaceMap = () => {
+const HotPlaceMapScreen = () => {
   return (
     <Layout>
       <SiderBar></SiderBar>
@@ -24,4 +24,4 @@ const HotPlaceMap = () => {
   );
 };
 
-export default HotPlaceMap;
+export default HotPlaceMapScreen;
