@@ -24,6 +24,6 @@ public class PlacePostController {
 
     @PostMapping("/places")
     public ApiForm<List<PlaceResponse>> searchPlaces(@RequestBody PlaceRequest requestDto){
-        return placeService.searchPlaces(requestDto);
+        return placeService.searchPlaceRequest(requestDto);
     }
 }
