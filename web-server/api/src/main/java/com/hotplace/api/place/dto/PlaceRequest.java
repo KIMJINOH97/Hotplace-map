@@ -2,20 +2,16 @@ package com.hotplace.api.place.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class PlaceRequest {
+
     private Integer gu;
     private Integer dong;
-
-
 
     @JsonProperty("sub_category")
     private Integer subCategory;
@@ -29,12 +25,8 @@ public class PlaceRequest {
     @JsonProperty("minimum_naver_rating")
     private Float minimumNaverRating;
 
-    public PlaceRequest(Integer gu, Integer dong, Integer subCategory, String placeName, Float minimumKakaoRating, Float minimumNaverRating) {
-        this.gu = gu;
-        this.dong = dong;
-        this.subCategory = subCategory;
-        this.placeName = placeName;
-        this.minimumKakaoRating = minimumKakaoRating;
-        this.minimumNaverRating = minimumNaverRating;
-    }
+    @JsonProperty("minimum_instagram_hashtag")
+    private Integer minimumInstagramHashtag;
+
+
 }

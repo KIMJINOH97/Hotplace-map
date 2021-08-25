@@ -36,8 +36,12 @@ public class Place {
 
     @Column(name = "phone_number")
     private String phoneNumber;
-    private String longitude_x;
-    private String latitude_y;
+
+    @Column(name = "longitude_x")
+    private String longitudeX;
+
+    @Column(name = "latitude_y")
+    private String latitudeY;
 
     @Column(name = "road_address")
     private String roadAddress;
