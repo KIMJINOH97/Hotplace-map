@@ -6,6 +6,8 @@ import com.hotplace.api.place.repository.PlaceRepository;
 import com.hotplace.api.place.dto.PlaceRequest;
 import com.hotplace.api.place.dto.PlaceResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +54,11 @@ public class PlaceService {
 
     public ApiForm<List<PlaceResponse>> searchPlaceRequest(PlaceRequest requestDto){
         List<PlaceResponse> places = placeRepository.search(requestDto);
-
        return succeed(places,"검색에 성공 했습니다.");
+    }
+
+    public ApiForm<Page<PlaceResponse>> searchPage(PlaceRequest request, Pageable pageable){
+        Page<PlaceResponse> page = placeRepository.searchPage(request, pageable);
+        return succeed(page, "페이지 검색에 성공 했습니다.");
     }
 }

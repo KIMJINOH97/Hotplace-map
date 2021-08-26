@@ -5,6 +5,8 @@ import com.hotplace.api.place.dto.PlaceRequest;
 import com.hotplace.api.place.dto.PlaceResponse;
 import com.hotplace.api.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +27,10 @@ public class PlacePostController {
     @PostMapping("/places")
     public ApiForm<List<PlaceResponse>> searchPlaces(@RequestBody PlaceRequest requestDto){
         return placeService.searchPlaceRequest(requestDto);
+    }
+
+    @PostMapping("/paging/places")
+    public ApiForm<Page<PlaceResponse>> pagePlaces(@RequestBody PlaceRequest requestDto, Pageable pageable){
+        return placeService.searchPage(requestDto, pageable);
     }
 }
