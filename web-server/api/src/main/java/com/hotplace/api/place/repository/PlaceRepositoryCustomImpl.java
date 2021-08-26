@@ -8,6 +8,9 @@ import com.hotplace.api.place.dto.PlaceResponse;
 import com.hotplace.api.place.dto.QPlaceResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -51,6 +54,48 @@ public class PlaceRepositoryCustomImpl implements PlaceRepositoryCustom{
                 ).fetch();
 
         return result;
+    }
+
+    @Override
+    public Page<PlaceResponse> searchPage(PlaceRequest condition, Pageable pageable) {
+        List<PlaceResponse> result = queryFactory
+                .select(new QPlaceResponse(
+                        place.name,
+                        place.address,
+                        place.longitudeX,
+                        place.latitudeY,
+                        place.naverStar,
+                        place.kakaoStar,
+                        place.instagramHashtag,
+                        place.naverUrl,
+                        place.kakaoUrl,
+                        place.instagramUrl,
+                        place.homepageUrl
+                ))
+                .from(place)
+                .where(guEq(condition.getGu()),
+                        dongEq(condition.getDong()),
+                        subCategoryEq(condition.getSubCategory()),
+                        placeNameContains(condition.getPlaceName()),
+                        minimumKakaoRatingGoe(condition.getMinimumKakaoRating()),
+                        minimumNaverRatingGoe(condition.getMinimumNaverRating()),
+                        minimumInstagramHashtagGoe(condition.getMinimumInstagramHashtag()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = queryFactory
+                .selectFrom(place)
+                .where(guEq(condition.getGu()),
+                        dongEq(condition.getDong()),
+                        subCategoryEq(condition.getSubCategory()),
+                        placeNameContains(condition.getPlaceName()),
+                        minimumKakaoRatingGoe(condition.getMinimumKakaoRating()),
+                        minimumNaverRatingGoe(condition.getMinimumNaverRating()),
+                        minimumInstagramHashtagGoe(condition.getMinimumInstagramHashtag()))
+                .fetchCount();
+
+        return new PageImpl<>(result, pageable, total);
     }
 
     private BooleanExpression guEq(Integer gu){
