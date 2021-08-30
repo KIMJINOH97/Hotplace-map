@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { storeState } from '../atom';
-import { makeInfoWindow } from '../utils/KakaoMapUtil';
+import { storeState } from '../../atom';
+import { makeInfoWindow } from '../../utils/KakaoMapUtil';
 
 const KakaoMapContainer = styled.div`
   width: 100%;

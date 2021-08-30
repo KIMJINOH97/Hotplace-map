@@ -32,3 +32,30 @@ export const queryState = atom({
     minimum_instagram_hashtag: null,
   },
 });
+
+export const foodListState = atom({
+  key: 'foodList',
+  default: [
+    {
+      id: 1,
+      name: '상수동 밥한끼',
+      naverRating: 4.5,
+      kakaoRating: 4.5,
+      instagramHashtag: 10000,
+    },
+    {
+      id: 1,
+      name: '상수동 밥한끼',
+      naverRating: 4.5,
+      kakaoRating: 4.5,
+      instagramHashtag: 10000,
+    },
+    {
+      id: 1,
+      name: '상수동 밥한끼',
+      naverRating: 4.5,
+      kakaoRating: 4.5,
+      instagramHashtag: 10000,
+    },
+  ],
+});
