@@ -2,16 +2,23 @@ package com.hotplace.api.place.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hotplace.api.place.domain.Place;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class PlaceResponse {
     private String name;
     private String address;
-    private String longitude_x;
-    private String latitude_y;
+
+    @JsonProperty("longitude_x")
+    private String longitudeX;
+
+    @JsonProperty("latitude_y")
+    private String latitudeY;
 
     @JsonProperty("naver_star")
     private Float naverStar;
@@ -37,8 +44,8 @@ public class PlaceResponse {
     public PlaceResponse(Place place){
         this.name = place.getName();
         this.address = place.getAddress();
-        this.longitude_x = place.getLongitude_x();
-        this.latitude_y = place.getLatitude_y();
+        this.longitudeX = place.getLongitudeX();
+        this.latitudeY = place.getLatitudeY();
         this.naverStar = place.getNaverStar();
         this.kakaoStar = place.getKakaoStar();
         this.instagramHashtag = place.getInstagramHashtag();
@@ -46,5 +53,20 @@ public class PlaceResponse {
         this.kakaoUrl = place.getKakaoUrl();
         this.instagramUrl = place.getInstagramUrl();
         this.homepageUrl = place.getHomepageUrl();
+    }
+
+    @QueryProjection
+    public PlaceResponse(String name, String address, String longitudeX, String latitudeY, Float naverStar, Float kakaoStar, Integer instagramHashtag, String naverUrl, String kakaoUrl, String instagramUrl, String homepageUrl) {
+        this.name = name;
+        this.address = address;
+        this.longitudeX = longitudeX;
+        this.latitudeY = latitudeY;
+        this.naverStar = naverStar;
+        this.kakaoStar = kakaoStar;
+        this.instagramHashtag = instagramHashtag;
+        this.naverUrl = naverUrl;
+        this.kakaoUrl = kakaoUrl;
+        this.instagramUrl = instagramUrl;
+        this.homepageUrl = homepageUrl;
     }
 }
