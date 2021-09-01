@@ -6,7 +6,7 @@ import { makeInfoWindow } from '../../utils/KakaoMapUtil';
 
 const KakaoMapContainer = styled.div`
   width: 100%;
-  height: 880px;
+  height: 100vh;
   /* border: 1px solid black; */
 
   /* margin: 50px auto 0; */
