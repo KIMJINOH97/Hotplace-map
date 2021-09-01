@@ -8,17 +8,17 @@ const { Header, Footer, Content } = Layout;
 
 const HotPlaceMapScreen = () => {
   return (
-    <Layout>
+    <Layout style={{ height: '100vh' }}>
       <SiderBar></SiderBar>
       <Layout>
-        <Header
+        {/* <Header
           className="site-layout-sub-header-background"
           style={{ padding: 0, backgroundColor: 'white' }}
-        ></Header>
+        ></Header> */}
         <Content>
           <KakaoMap></KakaoMap>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Hotplace-map</Footer>
+        {/* <Footer style={{ textAlign: 'center' }}>Hotplace-map</Footer> */}
       </Layout>
     </Layout>
   );
