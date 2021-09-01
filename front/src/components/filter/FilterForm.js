@@ -9,6 +9,8 @@ import {
   queryState,
   storeState,
   subCategoryState,
+  foodListState,
+  totalState,
 } from '../../atom';
 
 import FilterSelect from './FilterSelect';
@@ -21,6 +23,8 @@ const FilterForm = () => {
   const [subCategory, setSubCategory] = useRecoilState(subCategoryState);
   const [storeList, setStoreList] = useRecoilState(storeState);
   const [query, setQuery] = useRecoilState(queryState);
+  const [, setFoodList] = useRecoilState(foodListState);
+  const [, setTotal] = useRecoilState(totalState);
 
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
@@ -91,16 +95,35 @@ const FilterForm = () => {
     getSubCategory();
   }, []);
 
-  const onClickEvent = async () => {
+  const searchPlaces = async () => {
     console.log(query);
-    const result = await placeApi.getPlace(query);
-    const { status, data, message } = result;
+    const { status, data, message } = await placeApi.getPlace(query);
     console.log(data);
     if (status === 200) {
       setStoreList(data);
     } else {
       alert(message);
     }
+  };
+
+  const searchPagingPlaces = async () => {
+    console.log(query);
+    const { status, data, message } = await placeApi.getPlaceByPage(
+      0,
+      5,
+      query
+    );
+    if (status === 200) {
+      setTotal(data.totalElements);
+      setFoodList(data.content);
+    } else {
+      alert(message);
+    }
+  };
+
+  const onClickEvent = async () => {
+    searchPlaces();
+    searchPagingPlaces();
   };
 
   const onInputChange = (event) => {

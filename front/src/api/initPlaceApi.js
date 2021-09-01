@@ -8,14 +8,16 @@ export default (axios) => ({
     }
   },
 
-  getPlaceByPage: async (page, pageSize) => {
+  getPlaceByPage: async (page, pageSize, query) => {
     try {
-      const { data } = await axios.get('/api/places', {
+      const { data } = await axios.post('/api/paging/places', query, {
         params: {
           page: page,
-          pageSize: pageSize,
+          size: pageSize,
         },
       });
+
+      console.log(data, page, pageSize);
 
       return data;
     } catch (e) {
