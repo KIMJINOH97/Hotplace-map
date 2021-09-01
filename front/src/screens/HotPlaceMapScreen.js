@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import KakaoMap from './KakaoMap';
-import SiderBar from './SideBar';
+import React, { useEffect } from 'react';
+import KakaoMap from '../components/map/KakaoMap';
+import SiderBar from '../components/SideBar';
 import { Layout } from 'antd';
 // import 'antd/dist/antd.css';
 
 const { Header, Footer, Content } = Layout;
 
-const HotPlaceMap = () => {
+const HotPlaceMapScreen = () => {
   return (
     <Layout>
       <SiderBar></SiderBar>
@@ -24,4 +24,4 @@ const HotPlaceMap = () => {
   );
 };
 
-export default HotPlaceMap;
+export default HotPlaceMapScreen;

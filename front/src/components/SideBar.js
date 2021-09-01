@@ -1,31 +1,21 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import FilterForm from './FilterForm';
+import FilterForm from './filter/FilterForm';
+import FoodList from './foodList/FoodList';
 
 const { Sider } = Layout;
 
 const SiderBar = () => {
   return (
     <Sider
-      breakpoint="lg"
-      collapsedWidth="0"
+      breakpoint="lg" // breakpoint 값보다 낮아지면 반응형으로 줄어듦
+      // collapsedWidth="0" // breakpoint보다 낮아지면 트리거 발동되서 사이드바 없어짐.
       width="400"
-      style={{ backgroundColor: 'yellow' }}
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+      style={{ padding: '10px', backgroundColor: 'yellow' }}
     >
-      <div className="logo" />
       <FilterForm></FilterForm>
+      <FoodList></FoodList>
     </Sider>
   );
 };
