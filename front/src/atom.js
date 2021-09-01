@@ -59,3 +59,8 @@ export const foodListState = atom({
     },
   ],
 });
+
+export const totalState = atom({
+  key: 'total',
+  default: 0,
+});

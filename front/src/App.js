@@ -6,7 +6,7 @@ import './index.css';
 function App() {
   return (
     <RecoilRoot>
-      <HotPlaceMapScreen></HotPlaceMapScreen>;
+      <HotPlaceMapScreen></HotPlaceMapScreen>
     </RecoilRoot>
   );
 }
