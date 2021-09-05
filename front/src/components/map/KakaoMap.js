@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { storeState } from '../../atom';
+import { foodListState, storeState } from '../../atom';
 import { makeInfoWindow } from '../../utils/KakaoMapUtil';
+
+import MARKER_SMALL from '../../assets/MARKER_SMALL.png';
+import MARKER_NORMAL from '../../assets/MARKER_NORMAL.png';
 
 const KakaoMapContainer = styled.div`
   width: 100%;
@@ -17,9 +20,11 @@ const KakaoMap = (props) => {
   const map = useRef();
   const mapContainerRef = useRef();
   const [markers, setMarkers] = useState([]);
-  const [infoWindows, setInfoWindows] = useState([]);
+  const [, setInfoWindows] = useState([]);
 
-  const [storeList, setStoreList] = useRecoilState(storeState);
+  const storeList = useRecoilValue(storeState);
+  const [foodList] = useRecoilState(foodListState);
+
   useEffect(() => {
     const options = {
       center: new kakao.maps.LatLng(37.5666805, 126.9784147),
@@ -29,58 +34,36 @@ const KakaoMap = (props) => {
     map.current = new kakao.maps.Map(mapContainerRef.current, options);
   }, []);
 
-  const makeOverListener = (map, marker, infowindow) => {
-    return function () {
-      infowindow.open(map, marker);
-    };
-  };
-
-  const setPlaceMarker = (places) => {
+  const setPlaceMarker = (places, foods) => {
     clearMarkers();
-    let avg_latitude_y = 0;
-    let avg_longitude_x = 0;
 
-    const TMP_MARKERS = [];
-    const TMP_INFO_WINDOWS = [];
-    for (let place of places) {
-      const { address, dong, gu, name, latitude_y, longitude_x } = place;
+    const markerSmallSize = new kakao.maps.Size(12, 12);
+    const markerSmallImage = new kakao.maps.MarkerImage(
+      MARKER_SMALL,
+      markerSmallSize
+    );
 
-      TMP_MARKERS.push(
-        new kakao.maps.Marker({
-          map: map.current,
-          position: new kakao.maps.LatLng(
-            parseFloat(latitude_y),
-            parseFloat(longitude_x)
-          ),
-        })
-      );
+    const markerNormalSize = new kakao.maps.Size(36, 36);
+    const markerNormalImage = new kakao.maps.MarkerImage(
+      MARKER_NORMAL,
+      markerNormalSize
+    );
 
-      avg_latitude_y += parseFloat(latitude_y);
-      avg_longitude_x += parseFloat(longitude_x);
+    createMarkers(places, markerSmallImage);
+    createMarkers(foods, markerNormalImage);
 
-      TMP_INFO_WINDOWS.push(
-        new kakao.maps.InfoWindow({
-          content: makeInfoWindow(place),
-          removable: true,
-        })
-      );
+    let sumOfLatitude = 0;
+    let sumOfLongitude = 0;
+
+    foods.forEach(({ latitude_y, longitude_x }) => {
+      sumOfLatitude += parseFloat(latitude_y);
+      sumOfLongitude += parseFloat(longitude_x);
+    });
+
+    const pageLen = foods.length;
+    if (foods.length !== 0) {
+      panTo(sumOfLatitude / pageLen, sumOfLongitude / pageLen);
     }
-    for (let i = 0; i < TMP_MARKERS.length; i++) {
-      kakao.maps.event.addListener(
-        TMP_MARKERS[i],
-        'click',
-        makeOverListener(map.current, TMP_MARKERS[i], TMP_INFO_WINDOWS[i])
-      );
-      // kakao.maps.event.addListener(MARKERS[i],'mouseout',makeOutListener(INFO_WINDOWS[i]));
-    }
-    if (places.length !== 0) {
-      avg_latitude_y = avg_latitude_y / places.length;
-      avg_longitude_x = avg_longitude_x / places.length;
-      panTo(avg_latitude_y, avg_longitude_x);
-    }
-
-    setMarkers(TMP_MARKERS);
-    setInfoWindows(TMP_INFO_WINDOWS);
   };
 
   const panTo = (latitude_y, longitude_x) => {
@@ -90,6 +73,51 @@ const KakaoMap = (props) => {
     );
 
     map.current.panTo(moveLatLon);
+  };
+
+  const makeOverListener = (map, marker, infowindow) => {
+    return function () {
+      infowindow.open(map, marker);
+    };
+  };
+
+  const createMarkers = (placeList, markerImage) => {
+    const TMP_MARKERS = [];
+    const TMP_INFO_WINDOWS = [];
+    for (let place of placeList) {
+      const { latitude_y, longitude_x } = place;
+      const marker = createMarker(latitude_y, longitude_x, markerImage);
+      const infoWindow = createInfoWindow(place);
+
+      TMP_MARKERS.push(marker);
+      TMP_INFO_WINDOWS.push(infoWindow);
+
+      kakao.maps.event.addListener(
+        marker,
+        'click',
+        makeOverListener(map.current, marker, infoWindow)
+      );
+    }
+    setMarkers(TMP_MARKERS);
+    setInfoWindows(TMP_INFO_WINDOWS);
+  };
+
+  const createMarker = (latitude_y, longitude_x, markerImage) => {
+    return new kakao.maps.Marker({
+      map: map.current,
+      position: new kakao.maps.LatLng(
+        parseFloat(latitude_y),
+        parseFloat(longitude_x)
+      ),
+      image: markerImage,
+    });
+  };
+
+  const createInfoWindow = (place) => {
+    return new kakao.maps.InfoWindow({
+      content: makeInfoWindow(place),
+      removable: true,
+    });
   };
 
   const clearMarkers = () => {
@@ -102,9 +130,9 @@ const KakaoMap = (props) => {
 
   useEffect(() => {
     if (storeList.length > 0) {
-      setPlaceMarker(storeList);
+      setPlaceMarker(storeList, foodList);
     }
-  }, [storeList]);
+  }, [storeList, foodList]);
 
   return <KakaoMapContainer ref={mapContainerRef}></KakaoMapContainer>;
 };
