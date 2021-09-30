@@ -1,15 +1,12 @@
-package com.hotplace.api.place.domain;
+package com.hotplace.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hotplace.api.category.domain.Category;
-import com.hotplace.api.dong.domain.Dong;
-import com.hotplace.api.gu.domain.Gu;
-import com.hotplace.api.sub_category.domain.SubCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -84,4 +81,5 @@ public class Place {
 
     @Column(name = "homepage_url")
     private String homepageUrl;
+
 }
