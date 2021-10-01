@@ -1,8 +1,10 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Tabs } from 'antd';
+import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 import FilterForm from './filter/FilterForm';
-import FoodList from './foodList/FoodList';
+import FoodList from './sidebar/FoodList';
+import UserBasket from './sidebar/UserBasket';
 
 const { Sider } = Layout;
 
@@ -15,7 +17,28 @@ const SiderBar = () => {
       style={{ padding: '10px', backgroundColor: 'yellow' }}
     >
       <FilterForm></FilterForm>
-      <FoodList></FoodList>
+      <Tabs defaultActiveKey="2" size="large">
+        <Tabs.TabPane
+          tab={
+            <div style={{ width: '120px' }}>
+              <HomeOutlined /> 음식점
+            </div>
+          }
+          key="1"
+        >
+          <FoodList />
+        </Tabs.TabPane>
+        <Tabs.TabPane
+          tab={
+            <div style={{ width: '120px' }}>
+              <ShoppingCartOutlined /> 장바구니
+            </div>
+          }
+          key="2"
+        >
+          <UserBasket />
+        </Tabs.TabPane>
+      </Tabs>
     </Sider>
   );
 };

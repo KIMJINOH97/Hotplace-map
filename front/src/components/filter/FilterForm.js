@@ -158,11 +158,11 @@ const FilterForm = () => {
           />
         </>
       )}
-      <Input
+      <Input.Search
         placeholder="검색어를 입력하세요"
         maxLength={20}
         onChange={onInputChange}
-      ></Input>
+      />
       <KakaoSlider></KakaoSlider>
       <NaverSlider></NaverSlider>
       <Button onClick={onClickEvent}>검색</Button>
