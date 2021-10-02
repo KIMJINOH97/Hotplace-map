@@ -37,6 +37,7 @@ web-server/api/.gradle
 web-server/api/bin/
 web-server/api/out/
 web-server/api/build/
+web-server/api/main/resources/static/**
 web-server/!gradle/wrapper/gradle-wrapper.jar
 web-server/api/!**/src/main/**
 web-server/api/!**/src/test/**
