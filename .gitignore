@@ -61,6 +61,8 @@ web-server/*.ipr
 web-server/out/
 
 ### Front ###
+front/build
+
 ### react ###
 .DS_*
 logs
