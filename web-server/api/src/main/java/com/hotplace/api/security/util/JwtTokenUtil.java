@@ -49,6 +49,7 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    // createToken에서 만들 때 넣어줬던 subject 추출
     public String getPayload(String token){
         return Jwts.parser()
                 .setSigningKey(secretKey)
@@ -57,6 +58,7 @@ public class JwtTokenUtil {
                 .getSubject();
     }
 
+    // 토큰 정보를 이용해 user 조회 후 Authentication 객체 생성
     public Authentication getAuthentication(String token){
         String providerId = getPayload(token);
         User user = userRepository.findByProviderId(providerId).orElseThrow(
@@ -85,6 +87,7 @@ public class JwtTokenUtil {
         return request.getHeader("X-Auth-Token");
     }
 
+    // 토큰 유효성 판단 expire 시간 검증
     public boolean validateToken(String token){
         try {
             Jws<Claims> claims = Jwts.parser()
