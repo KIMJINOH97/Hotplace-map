@@ -16,6 +16,7 @@ import {
 import FilterSelect from './FilterSelect';
 import KakaoSlider from './KakaoSlider.js';
 import NaverSlider from './NaverSlider.js';
+import InstaSlider from './InstaSlider.js';
 
 const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);
@@ -137,6 +138,10 @@ const FilterForm = () => {
     return gu.length && dong.length && subCategory.length;
   };
 
+  const check = () => {
+    console.log(query);
+  };
+
   return (
     <>
       {isLoad() && (
@@ -163,8 +168,10 @@ const FilterForm = () => {
         maxLength={20}
         onChange={onInputChange}
       />
-      <KakaoSlider></KakaoSlider>
-      <NaverSlider></NaverSlider>
+      <Button onClick={check}>check!!</Button>
+      <KakaoSlider />
+      <NaverSlider />
+      <InstaSlider />
       <Button onClick={onClickEvent}>검색</Button>
     </>
   );

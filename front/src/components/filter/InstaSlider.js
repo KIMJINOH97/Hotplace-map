@@ -6,14 +6,7 @@ import { queryState } from '../../atom';
 const InstaSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
   const [activated, setActivated] = useState(true);
-  const [curValue, setCurValue] = useState(1000);
-
-  useEffect(() => {
-    setQuery({
-      ...query,
-      minimum_instagram_hashtag: curValue,
-    });
-  }, []);
+  const [curValue, setCurValue] = useState(10000);
 
   const handleDisabledChange = (counterActive) => {
     setActivated(counterActive);
@@ -52,10 +45,10 @@ const InstaSlider = () => {
         />
       </div>
       <Slider
-        step={10}
+        step={1000}
         defaultValue={curValue}
         min={0}
-        max={10000}
+        max={100000}
         disabled={!activated}
         onChange={sliderOnChange}
       />

@@ -27,15 +27,22 @@ export const queryState = atom({
     dong: 1,
     sub_category: 1,
     place_name: '',
-    minimum_kakao_rating: null,
-    minimum_naver_rating: null,
-    minimum_instagram_hashtag: null,
+    minimum_kakao_rating: 3.0,
+    minimum_naver_rating: 3.0,
+    minimum_instagram_hashtag: 10000,
   },
 });
 
 export const foodListState = atom({
   key: 'foodList',
   default: [
+    {
+      id: 1,
+      name: '상수동 밥한끼',
+      naverRating: 4.5,
+      kakaoRating: 4.5,
+      instagramHashtag: 10000,
+    },
     {
       id: 1,
       name: '상수동 밥한끼',

@@ -8,13 +8,6 @@ const NaverSlider = () => {
   const [activated, setActivated] = useState(true);
   const [curValue, setCurValue] = useState(3);
 
-  useEffect(() => {
-    setQuery({
-      ...query,
-      minimum_naver_rating: curValue,
-    });
-  }, []);
-
   const handleDisabledChange = (counterActive) => {
     setActivated(counterActive);
 
