@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const loginHandler = {
+  kakao: () => (window.location.href = `/oauth2/authorization/kakao`),
+  naver: () => (window.location.href = `/oauth2/authorization/naver`),
+};
+
 const LoginButton = ({
   height = '45px',
   width = '90px',
   image,
   top = '10px',
   right = '10px',
+  provider,
 }) => {
   return (
     <Wrapper height={height} width={width} top={top} right={right}>
-      <ButtonImage src={image} />
+      <ButtonImage src={image} onClick={loginHandler[provider]} />
     </Wrapper>
   );
 };

@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() // h2화면 보이게 처리
             .and()
                 .authorizeRequests() // url 권한 관리
-                .antMatchers("/", "/oauth2/**", "/h2-console/**", "/h2-console")
+                .antMatchers("/", "/oauth2/**", "/h2-console/**", "/h2-console","/api/**","/index")
                 .permitAll()
                 .anyRequest().authenticated() // 위 주소 뺀 나머지 인증과정 거침
             .and()
