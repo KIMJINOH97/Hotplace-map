@@ -27,9 +27,9 @@ export const queryState = atom({
     dong: 1,
     sub_category: 1,
     place_name: '',
-    minimum_kakao_rating: 3.0,
-    minimum_naver_rating: 3.0,
-    minimum_instagram_hashtag: 10000,
+    minimum_kakao_rating: null,
+    minimum_naver_rating: null,
+    minimum_instagram_hashtag: null,
   },
 });
 

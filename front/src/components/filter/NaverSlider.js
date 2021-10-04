@@ -5,7 +5,7 @@ import { queryState } from '../../atom';
 
 const NaverSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
-  const [activated, setActivated] = useState(true);
+  const [activated, setActivated] = useState(false);
   const [curValue, setCurValue] = useState(3);
 
   const handleDisabledChange = (counterActive) => {

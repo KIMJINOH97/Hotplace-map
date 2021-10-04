@@ -5,7 +5,7 @@ import { queryState } from '../../atom';
 
 const InstaSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
-  const [activated, setActivated] = useState(true);
+  const [activated, setActivated] = useState(false);
   const [curValue, setCurValue] = useState(10000);
 
   const handleDisabledChange = (counterActive) => {
