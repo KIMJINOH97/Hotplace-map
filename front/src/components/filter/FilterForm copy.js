@@ -23,7 +23,7 @@ const { Panel } = Collapse;
 
 const layout = {
   labelCol: {
-    span: 6,
+    span: 8,
   },
   wrapperCol: {
     span: 16,
@@ -162,93 +162,51 @@ const FilterForm = () => {
     <>
       {isLoad() && (
         <>
-          <Form {...layout} name="nest-messages">
-            <Form.Item
-              label="구"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curGu}
-                onChangeMethod={onChangeGu}
-                optionList={gu}
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="동"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curDong}
-                onChangeMethod={onChangeDong}
-                optionList={dong}
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="카테고리"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curSubCategory}
-                onChangeMethod={onChangeSubCategory}
-                optionList={subCategory}
-              />
-            </Form.Item>
-            <Form.Item
-              label="검색어"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input
-                placeholder="검색어를 입력하세요"
-                maxLength={20}
-                onChange={onInputChange}
-              />
-            </Form.Item>
-            <Collapse
-              bordered={false}
-              expandIcon={({ isActive }) => (
-                <CaretRightOutlined rotate={isActive ? 90 : 0} />
-              )}
-              className="site-collapse-custom-collapse"
-            >
-              <Panel
-                header="SNS 별 필터링"
-                key="1"
-                className="site-collapse-custom-panel"
-              >
-                <KakaoSlider />
-                <NaverSlider />
-                <InstaSlider />
-              </Panel>
-            </Collapse>
-            {/* <KakaoSlider />
-      <NaverSlider />
-      <InstaSlider /> */}
-            <Button type="primary" onClick={onClickEvent}>
-              검색
-            </Button>
-          </Form>
+          <FilterSelect
+            currentSelect={curGu}
+            onChangeMethod={onChangeGu}
+            optionList={gu}
+          />
+          <FilterSelect
+            currentSelect={curDong}
+            onChangeMethod={onChangeDong}
+            optionList={dong}
+          />
+          <FilterSelect
+            currentSelect={curSubCategory}
+            onChangeMethod={onChangeSubCategory}
+            optionList={subCategory}
+          />
         </>
       )}
-
+      <Input
+        placeholder="검색어를 입력하세요"
+        maxLength={20}
+        onChange={onInputChange}
+      />
       <Button onClick={check}>check!!</Button>
+      <Collapse
+        bordered={false}
+        defaultActiveKey={['1']}
+        expandIcon={({ isActive }) => (
+          <CaretRightOutlined rotate={isActive ? 90 : 0} />
+        )}
+        className="site-collapse-custom-collapse"
+      >
+        <Panel
+          header="SNS 별 필터링"
+          key="1"
+          className="site-collapse-custom-panel"
+        >
+          <KakaoSlider />
+          <NaverSlider />
+          <InstaSlider />
+        </Panel>
+      </Collapse>
+      {/* <KakaoSlider />
+      <NaverSlider />
+      <InstaSlider /> */}
+      <Button onClick={onClickEvent}>검색</Button>
     </>
   );
 };

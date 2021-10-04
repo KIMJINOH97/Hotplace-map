@@ -23,7 +23,8 @@ const KakaoMap = (props) => {
   const [, setInfoWindows] = useState([]);
 
   const storeList = useRecoilValue(storeState);
-  const [foodList] = useRecoilState(foodListState);
+  // const [foodList] = useRecoilState(foodListState);
+  const foodList = useRecoilValue(foodListState);
 
   useEffect(() => {
     const options = {
@@ -55,12 +56,31 @@ const KakaoMap = (props) => {
     let sumOfLatitude = 0;
     let sumOfLongitude = 0;
 
+    console.log(`foods :`);
+    for (let i = 0; i < foods.length; i++) {
+      console.log(`${i} , ${JSON.stringify(foods[i])}`);
+    }
+
     foods.forEach(({ latitude_y, longitude_x }) => {
       sumOfLatitude += parseFloat(latitude_y);
       sumOfLongitude += parseFloat(longitude_x);
+      console.log(
+        `
+        latitude_y : ${latitude_y}
+        longitude_x : ${longitude_x}
+        `
+      );
     });
 
     const pageLen = foods.length;
+    console.log(`
+    좌표값 출력
+    pageLen : ${pageLen}
+    sumOfLatitude : ${sumOfLatitude}
+    sumOfLongitude : ${sumOfLongitude}
+    sumOfLatitude / pageLen : ${sumOfLatitude / pageLen}
+    sumOfLongitude / pageLen : ${sumOfLongitude / pageLen}
+    `);
     if (foods.length !== 0) {
       panTo(sumOfLatitude / pageLen, sumOfLongitude / pageLen);
     }
@@ -132,7 +152,7 @@ const KakaoMap = (props) => {
     if (storeList.length > 0) {
       setPlaceMarker(storeList, foodList);
     }
-  }, [storeList, foodList]);
+  }, [foodList]);
 
   return <KakaoMapContainer ref={mapContainerRef}></KakaoMapContainer>;
 };

@@ -5,15 +5,8 @@ import { queryState } from '../../atom';
 
 const KakaoSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
-  const [activated, setActivated] = useState(true);
+  const [activated, setActivated] = useState(false);
   const [curValue, setCurValue] = useState(3);
-
-  useEffect(() => {
-    setQuery({
-      ...query,
-      minimum_kakao_rating: curValue,
-    });
-  }, []);
 
   const handleDisabledChange = (counterActive) => {
     setActivated(counterActive);
@@ -41,14 +34,8 @@ const KakaoSlider = () => {
     });
   };
 
-  const check = () => {
-    console.log(activated);
-    console.log(query);
-  };
-
   return (
     <>
-      <Button onClick={check}>check!!</Button>
       <div>
         KAKAO 별점:
         <Switch
