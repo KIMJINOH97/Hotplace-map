@@ -16,8 +16,17 @@ const HotPlaceMapScreen = () => {
       <SiderBar></SiderBar>
       <Layout>
         <Content>
-          <LoginButton image={KAKAO_LOGIN_SHORT} right={'10px'} />
-          <LoginButton image={NAVER_LOGIN} width={'100px'} right={'110px'} />
+          <LoginButton
+            image={KAKAO_LOGIN_SHORT}
+            right={'10px'}
+            provider="kakao"
+          />
+          <LoginButton
+            image={NAVER_LOGIN}
+            width={'100px'}
+            right={'110px'}
+            provider="naver"
+          />
           <KakaoMap></KakaoMap>
         </Content>
       </Layout>
