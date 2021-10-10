@@ -57,18 +57,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(
-            @Value("${spring.security.oauth2.client.registration.kakao.client-id}") String kakaoClientId,
-            @Value("${spring.security.oauth2.client.registration.kakao.client-secret}") String kakaoClientSecret
-    ){
-        List<ClientRegistration> registrations = new ArrayList<>();
-        registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
-                .clientId(kakaoClientId)
-                .clientSecret(kakaoClientSecret)
-                .jwkSetUri("temp")
-                .build());
-
-        return new InMemoryClientRegistrationRepository(registrations);
-    }
+//    @Bean
+//    public ClientRegistrationRepository clientRegistrationRepository(
+//            @Value("${spring.security.oauth2.client.registration.kakao.client-id}") String kakaoClientId,
+//            @Value("${spring.security.oauth2.client.registration.kakao.client-secret}") String kakaoClientSecret
+//    ){
+//        List<ClientRegistration> registrations = new ArrayList<>();
+//        registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
+//                .clientId(kakaoClientId)
+//                .clientSecret(kakaoClientSecret)
+//                .jwkSetUri("temp")
+//                .build());
+//
+//        return new InMemoryClientRegistrationRepository(registrations);
+//    }
 }
