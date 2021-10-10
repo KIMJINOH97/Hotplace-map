@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout, Tabs } from 'antd';
 import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-
 import FilterForm from './filter/FilterForm';
 import FoodList from './sidebar/FoodList';
 import UserBasket from './sidebar/UserBasket';
