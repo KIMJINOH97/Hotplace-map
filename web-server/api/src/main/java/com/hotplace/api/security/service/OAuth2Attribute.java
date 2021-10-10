@@ -22,34 +22,34 @@ public class OAuth2Attribute {
 
     public OAuth2Attribute(){}
 
-    public static OAuth2Attribute of(String registrationId, String providerId, Map<String, Object> attributes){
+    public static OAuth2Attribute of(String registrationId, Map<String, Object> attributes){
         if (registrationId.equals("kakao")){
-            return ofKakao(registrationId, providerId, attributes);
+            return ofKakao(registrationId, attributes);
         }else{
-            return ofNaver(registrationId, providerId, attributes);
+            return ofNaver(registrationId, attributes);
         }
     }
 
-    public static OAuth2Attribute ofKakao(String registrationId, String providerId, Map<String, Object> attributes) {
+    public static OAuth2Attribute ofKakao(String registrationId, Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         return OAuth2Attribute.builder()
-                .profileUrl((String) ((LinkedHashMap<String, Object>)kakaoAccount.get("profile")).get("profile_image_url"))
-                .name((String) properties.get("nickname"))
-                .email((String) kakaoAccount.get("email"))
+                .profileUrl(String.valueOf(((Map<String, Object>) kakaoAccount.get("profile")).get("profile_image_url")))
+                .name(String.valueOf(properties.get("nickname")))
+                .email(String.valueOf(kakaoAccount.get("email")))
                 .registrationId(registrationId)
-                .providerId(providerId)
+                .providerId(String.valueOf(attributes.get("id")))
                 .build();
     }
 
-    public static OAuth2Attribute ofNaver(String registrationId, String providerId, Map<String, Object> attributes) {
+    public static OAuth2Attribute ofNaver(String registrationId, Map<String, Object> attributes) {
         Map<String, Object> naverResponse = (Map<String, Object>) attributes.get("response");
         return OAuth2Attribute.builder()
-                .profileUrl((String) naverResponse.get("profile_image"))
-                .name((String) naverResponse.get("name"))
-                .email((String) naverResponse.get("email"))
+                .profileUrl(String.valueOf(naverResponse.get("profile_image")))
+                .name(String.valueOf(naverResponse.get("name")))
+                .email(String.valueOf(naverResponse.get("email")))
                 .registrationId(registrationId)
-                .providerId(providerId)
+                .providerId((String) naverResponse.get("id"))
                 .build();
     }
 
