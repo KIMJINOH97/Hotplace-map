@@ -1,14 +1,13 @@
 package com.hotplace.api.security.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotplace.api.entity.User;
 import com.hotplace.api.repository.UserRepository;
+import com.hotplace.api.security.service.PrincipalDetails;
 import com.hotplace.api.security.util.CookieUtils;
 import com.hotplace.api.security.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -29,9 +28,9 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+        PrincipalDetails oauth2User = (PrincipalDetails) authentication.getPrincipal();
 
-        String providerId = oauth2User.getName();
+        String providerId = oauth2User.getUserProviderId();
         logger.info("인증 성공? success handler provider id : " + providerId);
 
         User user = userRepository.findByProviderId(providerId).orElseThrow(
