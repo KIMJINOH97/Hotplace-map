@@ -45,7 +45,11 @@ const HotPlaceMapScreen = () => {
   }, [token]);
 
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout
+      style={{
+        height: '1000px',
+      }}
+    >
       <SiderBar></SiderBar>
       <Layout>
         <Content>
