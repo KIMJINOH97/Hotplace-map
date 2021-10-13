@@ -12,6 +12,8 @@ import {
   subCategoryState,
   foodListState,
   totalState,
+  tokenState,
+  userState,
 } from '../../atom';
 
 import FilterSelect from './FilterSelect';
@@ -38,7 +40,8 @@ const FilterForm = () => {
   const [query, setQuery] = useRecoilState(queryState);
   const [, setFoodList] = useRecoilState(foodListState);
   const [, setTotal] = useRecoilState(totalState);
-
+  const [token, setToken] = useRecoilState(tokenState);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
   const [curSubCategory, setCurSubCategory] = useState();
@@ -152,6 +155,8 @@ const FilterForm = () => {
 
   const check = () => {
     console.log(query);
+    console.log(token);
+    console.log(userInfo);
   };
 
   function callback(key) {

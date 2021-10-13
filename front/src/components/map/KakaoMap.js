@@ -54,7 +54,6 @@ const KakaoMap = (props) => {
   });
 
   const storeList = useRecoilValue(storeState);
-  // const [foodList] = useRecoilState(foodListState);
   const foodList = useRecoilValue(foodListState);
 
   useEffect(() => {
