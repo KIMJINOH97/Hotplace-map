@@ -80,7 +80,6 @@ const KakaoMap = (props) => {
 
       const pageLen = foodList.length;
       console.log('useEffect 트리거!');
-      console.log('나는 귀여워!!!');
       console.log(`sumOfLatitude / pageLen  ${sumOfLatitude / pageLen}`);
       console.log(`sumOfLongitude / pageLen ${sumOfLongitude / pageLen}`);
       setState({
@@ -98,25 +97,13 @@ const KakaoMap = (props) => {
       style={{
         // 지도의 크기
         width: '100%',
-        height: '100vh',
+        height: '1000px',
       }}
       level={3} // 지도의 확대 레벨>
     >
-      {console.log('좋아!', storeList)}
       {storeList.map((store, index) => {
         return (
           <SmallMarker store={store} index={index} key={store.name + index} />
-          // <MapMarker
-          //   key={store.name + index}
-          //   position={{
-          //     lat: parseFloat(store.latitude_y),
-          //     lng: parseFloat(store.longitude_x),
-          //   }}
-          //   image={{
-          //     src: MARKER_SMALL,
-          //     size: markerSmallSize,
-          //   }}
-          // ></MapMarker>
         );
       })}
       {foodList.map((store, index) => {

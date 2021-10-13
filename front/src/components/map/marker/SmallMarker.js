@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MapMarker, useMap } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
 
 import MARKER_SMALL from '../../../assets/MARKER_SMALL.png';
+import InfoWindowCard from '../infowindow/InfoWindowCard';
 const markerSmallSize = { width: 12, height: 12 };
 /*
 
@@ -21,63 +22,43 @@ naver_url: "https://map.naver.com/v5/entry/place/1048166619"
 const SmallMarker = ({ store, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const map = useMap();
+
+  const position = {
+    lat: parseFloat(store.latitude_y),
+    lng: parseFloat(store.longitude_x),
+  };
+
   useEffect(() => {
     console.log('kakaomap marker start!!!');
     console.log(store, index);
   }, []);
 
-  //   return (
-  //     <MapMarker
-  //       key={store.name + index}
-  //       position={{
-  //         lat: parseFloat(store.latitude_y),
-  //         lng: parseFloat(store.longitude_x),
-  //       }}
-  //       image={{
-  //         src: MARKER_SMALL,
-  //         size: markerSmallSize,
-  //       }}
-  //     ></MapMarker>
-  //   );
-
   return (
-    <MapMarker
-      position={{
-        lat: parseFloat(store.latitude_y),
-        lng: parseFloat(store.longitude_x),
-      }}
-      image={{
-        src: MARKER_SMALL,
-        size: markerSmallSize,
-      }}
-      clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-      onClick={() => setIsOpen(true)}
-    >
+    <>
+      <MapMarker
+        position={position}
+        image={{
+          src: MARKER_SMALL,
+          size: markerSmallSize,
+        }}
+        clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+        onClick={() => setIsOpen(true)}
+      />
       {isOpen && (
         <>
-          {/* <div>{store.name}</div>
-            <button>!!!</button> */}
-          <div style={{ minWidth: '150px' }}>
-            <img
-              alt="close"
-              width="14"
-              height="13"
-              src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-              style={{
-                position: 'absolute',
-                right: '5px',
-                top: '5px',
-                cursor: 'pointer',
-              }}
-              onClick={() => setIsOpen(false)}
-            />
-            <div style={{ padding: '5px', color: '#000' }}>Hello World!</div>
-            <div>{store.name}</div>
-            <button>!!!!</button>
-          </div>
+          <CustomOverlayMap position={position}>
+            <div className="wrap">
+              <div className="info">
+                <InfoWindowCard
+                  place={store}
+                  onClick={() => setIsOpen(false)}
+                />
+              </div>
+            </div>
+          </CustomOverlayMap>
         </>
       )}
-    </MapMarker>
+    </>
   );
 };
 

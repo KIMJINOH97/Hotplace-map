@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 
-const InfoWindowCard = ({ place }) => {
+const InfoWindowCard = ({ place, onClick }) => {
   const {
     name,
     address,
@@ -22,12 +22,15 @@ const InfoWindowCard = ({ place }) => {
 
   return (
     <Card title={name} style={{ width: 300 }}>
-      <p>{kakao_url}</p>
+      {/* <p>{kakao_url}</p>
       <p>{naver_url}</p>
       <p>{instagram_url}</p>
       <p>{instagram_hashtag}</p>
       <p>{kakao_star}</p>
-      <p>{naver_star}</p>
+      <p>{naver_star}</p> */}
+      <Button type="primary" onClick={onClick}>
+        닫기
+      </Button>
     </Card>
   );
 };
