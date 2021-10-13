@@ -6,7 +6,6 @@ import { Layout } from 'antd';
 import KAKAO_LOGIN_SHORT from '../assets/KAKAO_LOGIN_SHORT.png';
 import NAVER_LOGIN from '../assets/NAVER_LOGIN.png';
 
-import LoginButton from '../utils/LoginButton';
 import { useRecoilState } from 'recoil';
 import { tokenState, userState } from '../atom';
 import { getAllCookie, getCookie, removeCookie } from '../utils/CookieUtils';
