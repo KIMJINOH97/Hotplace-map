@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, InputNumber, Button, Input, Collapse } from 'antd';
+import { Form, InputNumber, Button, Input, Collapse, Row, Col } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { useRecoilState } from 'recoil';
 import { cityApi, placeApi } from '../../api/index.js';
@@ -163,50 +163,61 @@ const FilterForm = () => {
       {isLoad() && (
         <>
           <Form {...layout} name="nest-messages">
-            <Form.Item
-              label="구"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curGu}
-                onChangeMethod={onChangeGu}
-                optionList={gu}
-              />
-            </Form.Item>
+            <Row gutter={16}>
+              <Col span={10}>
+                <Form.Item
+                  label="구"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <FilterSelect
+                    currentSelect={curGu}
+                    onChangeMethod={onChangeGu}
+                    optionList={gu}
+                  />
+                </Form.Item>
+              </Col>
 
-            <Form.Item
-              label="동"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curDong}
-                onChangeMethod={onChangeDong}
-                optionList={dong}
-              />
-            </Form.Item>
+              <Col span={10}>
+                <Form.Item
+                  label="동"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <FilterSelect
+                    currentSelect={curDong}
+                    onChangeMethod={onChangeDong}
+                    optionList={dong}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
 
-            <Form.Item
-              label="카테고리"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <FilterSelect
-                currentSelect={curSubCategory}
-                onChangeMethod={onChangeSubCategory}
-                optionList={subCategory}
-              />
-            </Form.Item>
+            <Row gutter={12}>
+              <Col span={20} offset={2}>
+                <Form.Item
+                  label="카테고리"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <FilterSelect
+                    currentSelect={curSubCategory}
+                    onChangeMethod={onChangeSubCategory}
+                    optionList={subCategory}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
             <Form.Item
               label="검색어"
               rules={[

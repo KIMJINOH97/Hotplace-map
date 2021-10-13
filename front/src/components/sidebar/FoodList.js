@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { List, Pagination } from 'antd';
+import { Col, List, Pagination, Row, Statistic, Tag } from 'antd';
+import { LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 import { placeApi } from '../../api';
 import { foodListState, queryState, totalState } from '../../atom';
@@ -42,9 +43,39 @@ const FoodList = () => {
         renderItem={(item, i) => (
           <List.Item key={item.name + i}>
             <div>가게 이름: {item.name}</div>
-            <div>네이버 별점: {item.naver_star}</div>
-            <div>카카오 별점: {item.kakao_star}</div>
-            <div>인스타그램 해시태그: {item.instagram_hashtag}</div>
+
+            {/* <div>네이버 별점: {item.naver_star}</div>
+          <div>카카오 별점: {item.kakao_star}</div>
+          <div>인스타그램 해시태그: {item.instagram_hashtag}</div> */}
+            <Row gutter={16}>
+              <Col span={8}>
+                <Statistic
+                  // title="instagram"
+                  title={<Tag color="purple">Instagram</Tag>}
+                  value={item.instagram_hashtag}
+                  prefix={<LikeOutlined />}
+                  valueStyle={{ 'font-size': '15px' }}
+                />
+              </Col>
+              <Col span={8}>
+                <Statistic
+                  title={<Tag color="green">Naver</Tag>}
+                  value={item.naver_star}
+                  prefix={<StarOutlined />}
+                  suffix="/ 5.0"
+                  valueStyle={{ 'font-size': '15px' }}
+                />
+              </Col>
+              <Col span={8}>
+                <Statistic
+                  title={<Tag color="gold">Kakao</Tag>}
+                  value={item.kakao_star}
+                  prefix={<StarOutlined />}
+                  suffix="/ 5.0"
+                  valueStyle={{ 'font-size': '15px' }}
+                />
+              </Col>
+            </Row>
           </List.Item>
         )}
       ></List>
@@ -53,6 +84,7 @@ const FoodList = () => {
         defaultCurrent={1}
         defaultPageSize={5}
         total={total}
+        size={'small'}
         showSizeChanger={false}
       />
     </>
