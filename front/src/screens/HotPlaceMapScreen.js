@@ -1,28 +1,25 @@
-import React, { useEffect } from 'react';
-import KakaoMap from '../components/map/KakaoMap';
-import SiderBar from '../components/SideBar';
-import { Layout } from 'antd';
+import React, { useEffect } from "react";
+import KakaoMap from "../components/map/KakaoMap";
+import SiderBar from "../components/SideBar";
+import { Layout } from "antd";
 
-import KAKAO_LOGIN_SHORT from '../assets/KAKAO_LOGIN_SHORT.png';
-import NAVER_LOGIN from '../assets/NAVER_LOGIN.png';
-
-import { useRecoilState } from 'recoil';
-import { tokenState, userState } from '../atom';
-import { getAllCookie, getCookie, removeCookie } from '../utils/CookieUtils';
-import { userApi } from '../api';
-import UserCard from '../components/user/UserCard';
+import { useRecoilState } from "recoil";
+import { tokenState, userState } from "../atom";
+import { getCookie } from "../utils/CookieUtils";
+import { userApi } from "../api";
+import UserCard from "../components/user/UserCard";
 
 const { Content } = Layout;
 const { REACT_APP_TOKEN_KEY } = process.env;
 
 const HotPlaceMapScreen = () => {
   const [token, setToken] = useRecoilState(tokenState);
-  const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [, setUserInfo] = useRecoilState(userState);
 
   useEffect(() => {
     const authToken = getCookie(REACT_APP_TOKEN_KEY);
     if (authToken !== null && authToken !== undefined) {
-      console.log('hello!');
+      console.log("hello!");
       console.log(authToken);
       setToken(authToken);
     }
@@ -36,7 +33,7 @@ const HotPlaceMapScreen = () => {
       const { name, email, profileUrl } = data; //해당 속성이 존재하는지 확인하는 용도 없으면 throw e
       setUserInfo(data);
     } catch (e) {
-      console.error('로그인 오류!');
+      console.error("로그인 오류!");
       console.error(e);
       setToken(null);
       setUserInfo(null);
@@ -45,10 +42,10 @@ const HotPlaceMapScreen = () => {
   }
 
   useEffect(() => {
-    console.log('use  ~~ effect');
+    console.log("use  ~~ effect");
     if (token !== null && token !== undefined) {
       // 사용자 정보 불러오기
-      console.log('tokentrigger');
+      console.log("tokentrigger");
       console.log(token);
       getUserInfo(token);
     }
@@ -57,7 +54,7 @@ const HotPlaceMapScreen = () => {
   return (
     <Layout
       style={{
-        height: '1000px',
+        height: "1000px",
       }}
     >
       <SiderBar></SiderBar>
