@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button, Slider, Switch } from 'antd';
-import { useRecoilState } from 'recoil';
-import { queryState } from '../../atom';
+import React, { useState } from "react";
+import { Slider, Switch } from "antd";
+import { useRecoilState } from "recoil";
+import { queryState } from "../../atom";
+
+import styled from "styled-components";
 
 const NaverSlider = () => {
   const [query, setQuery] = useRecoilState(queryState);
@@ -35,16 +37,17 @@ const NaverSlider = () => {
   };
 
   return (
-    <>
-      <div>
-        NAVER 별점:{' '}
+    <Wrapper>
+      <SwitchBox>
+        <SwitchLabel>Naver 별점</SwitchLabel>
         <Switch
           size="small"
           checked={activated}
           onChange={handleDisabledChange}
         />
-      </div>
+      </SwitchBox>
       <Slider
+        style={{ margin: 0 }}
         step={0.1}
         defaultValue={curValue}
         min={0}
@@ -52,8 +55,24 @@ const NaverSlider = () => {
         disabled={!activated}
         onChange={sliderOnChange}
       />
-    </>
+    </Wrapper>
   );
 };
 
 export default NaverSlider;
+
+const Wrapper = styled.div`
+  height: 50px;
+`;
+
+const SwitchLabel = styled.div`
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  margin-right: 8px;
+`;
+
+const SwitchBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+`;
