@@ -1,7 +1,8 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default (axios) => ({
   getPlace: async (query) => {
     try {
-      const { data } = await axios.post('/api/places', query);
+      const { data } = await axios.post("/api/places", query);
       return data;
     } catch (e) {
       console.log(e);
@@ -10,7 +11,7 @@ export default (axios) => ({
 
   getPlaceByPage: async (page, pageSize, query) => {
     try {
-      const { data } = await axios.post('/api/paging/places', query, {
+      const { data } = await axios.post("/api/paging/places", query, {
         params: {
           page: page,
           size: pageSize,

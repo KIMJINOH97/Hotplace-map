@@ -1,7 +1,8 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (axios) => ({
   getGuList: async () => {
     try {
-      const { data } = await axios.get('/api/gu');
+      const { data } = await axios.get("/api/gu");
       return data;
     } catch (e) {
       console.log(e);
@@ -19,7 +20,7 @@ export default (axios) => ({
 
   getSubCategory: async () => {
     try {
-      const { data } = await axios.get('/api/sub_category');
+      const { data } = await axios.get("/api/sub_category");
       return data;
     } catch (e) {
       console.log(e);
