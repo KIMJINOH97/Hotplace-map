@@ -28,13 +28,18 @@ public class PlaceRepositoryCustomImpl implements PlaceRepositoryCustom{
     public List<PlaceResponse> search(PlaceRequest condition) {
         List<PlaceResponse> result = queryFactory
                 .select(new QPlaceResponse(
+                        place.id,
                         place.name,
                         place.address,
+                        place.roadAddress,
+                        place.phoneNumber,
                         place.longitudeX,
                         place.latitudeY,
                         place.naverStar,
                         place.kakaoStar,
                         place.instagramHashtag,
+                        place.naverBlogReview,
+                        place.naverBuyerReview,
                         place.naverUrl,
                         place.kakaoUrl,
                         place.instagramUrl,
@@ -57,13 +62,18 @@ public class PlaceRepositoryCustomImpl implements PlaceRepositoryCustom{
     public Page<PlaceResponse> searchPage(PlaceRequest condition, Pageable pageable) {
         List<PlaceResponse> result = queryFactory
                 .select(new QPlaceResponse(
+                        place.id,
                         place.name,
                         place.address,
+                        place.roadAddress,
+                        place.phoneNumber,
                         place.longitudeX,
                         place.latitudeY,
                         place.naverStar,
                         place.kakaoStar,
                         place.instagramHashtag,
+                        place.naverBlogReview,
+                        place.naverBuyerReview,
                         place.naverUrl,
                         place.kakaoUrl,
                         place.instagramUrl,

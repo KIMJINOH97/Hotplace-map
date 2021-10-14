@@ -31,7 +31,7 @@ public class User extends BaseTimeEntity {
     private String providerId;
 
     @OneToMany(mappedBy = "user")
-    private List<Favorite> favorites = new ArrayList<>();
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     public User(Integer id, String profile, String name, String email, String provider, String providerId){
         this.id = id;
