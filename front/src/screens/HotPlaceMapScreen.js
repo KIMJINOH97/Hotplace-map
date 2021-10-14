@@ -6,41 +6,51 @@ import { Layout } from 'antd';
 import KAKAO_LOGIN_SHORT from '../assets/KAKAO_LOGIN_SHORT.png';
 import NAVER_LOGIN from '../assets/NAVER_LOGIN.png';
 
-import LoginButton from '../utils/LoginButton';
 import { useRecoilState } from 'recoil';
-import { tokenState } from '../atom';
-import { getAllCookie, getCookie } from '../utils/CookieUtils';
+import { tokenState, userState } from '../atom';
+import { getAllCookie, getCookie, removeCookie } from '../utils/CookieUtils';
+import { userApi } from '../api';
+import UserCard from '../components/user/UserCard';
 
 const { Content } = Layout;
 const { REACT_APP_TOKEN_KEY } = process.env;
 
 const HotPlaceMapScreen = () => {
   const [token, setToken] = useRecoilState(tokenState);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
 
   useEffect(() => {
     const authToken = getCookie(REACT_APP_TOKEN_KEY);
-    console.log(`파싱 결과 : authToken is ${authToken}`);
-
-    if (authToken != null) {
+    if (authToken !== null && authToken !== undefined) {
+      console.log('hello!');
+      console.log(authToken);
       setToken(authToken);
     }
-
-    //추후 에 없어질 코드
-    const allCookies = getAllCookie();
-    console.log('show all cookies!!!');
-    console.log(allCookies);
-
-    //추후 에 없어질 코드 end/
   }, []);
 
-  useEffect(() => {
-    if (token != null) {
-      console.log(
-        'recoil 변수 token 의 값이 변경되었기 떄문에 나오는 로그입니다'
-      );
-      console.log(`recoil 변수 token is ${token}`);
+  async function getUserInfo(userToken) {
+    try {
+      const result = await userApi.getUserInfo(userToken);
+      const { status, data, message } = result;
+      console.log(result);
+      const { name, email, profileUrl } = data; //해당 속성이 존재하는지 확인하는 용도 없으면 throw e
+      setUserInfo(data);
+    } catch (e) {
+      console.error('로그인 오류!');
+      console.error(e);
+      setToken(null);
+      setUserInfo(null);
+      // removeCookie(REACT_APP_TOKEN_KEY);
+    }
+  }
 
-      console.log('여기서 사용자의 정보를 받아오는 API 연결');
+  useEffect(() => {
+    console.log('use  ~~ effect');
+    if (token !== null && token !== undefined) {
+      // 사용자 정보 불러오기
+      console.log('tokentrigger');
+      console.log(token);
+      getUserInfo(token);
     }
   }, [token]);
 
@@ -51,19 +61,10 @@ const HotPlaceMapScreen = () => {
       }}
     >
       <SiderBar></SiderBar>
+      {/* <button onClick={() => getUserInfo(token)}>로그인 테스트</button> */}
       <Layout>
         <Content>
-          <LoginButton
-            image={KAKAO_LOGIN_SHORT}
-            right={'10px'}
-            provider="kakao"
-          />
-          <LoginButton
-            image={NAVER_LOGIN}
-            width={'100px'}
-            right={'110px'}
-            provider="naver"
-          />
+          <UserCard />
           <KakaoMap></KakaoMap>
         </Content>
       </Layout>

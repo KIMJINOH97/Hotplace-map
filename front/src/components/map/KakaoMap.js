@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { foodListState, storeState } from '../../atom';
 import { Map, MapInfoWindow, MapMarker } from 'react-kakao-maps-sdk';
-import { makeInfoWindow } from '../../utils/KakaoMapUtil';
 
 // import MARKER_SMALL from '../../assets/MARKER_SMALL.png';
 import MARKER_NORMAL from '../../assets/MARKER_NORMAL.png';
@@ -54,7 +53,6 @@ const KakaoMap = (props) => {
   });
 
   const storeList = useRecoilValue(storeState);
-  // const [foodList] = useRecoilState(foodListState);
   const foodList = useRecoilValue(foodListState);
 
   useEffect(() => {

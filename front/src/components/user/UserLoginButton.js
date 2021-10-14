@@ -6,7 +6,7 @@ const loginHandler = {
   naver: () => (window.location.href = `/oauth2/authorization/naver`),
 };
 
-const LoginButton = ({
+const UserLoginButton = ({
   height = '45px',
   width = '90px',
   image,
@@ -21,7 +21,7 @@ const LoginButton = ({
   );
 };
 
-export default LoginButton;
+export default UserLoginButton;
 
 const Wrapper = styled.div`
   position: absolute;
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   width: ${({ width }) => width};
   z-index: 401;
   border-radius: 12px;
-  background-color: red;
+  background-color: white;
 `;
 
 const ButtonImage = styled.img`
