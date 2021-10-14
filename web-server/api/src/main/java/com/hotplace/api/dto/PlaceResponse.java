@@ -18,7 +18,7 @@ public class PlaceResponse {
 
     private String address;
 
-    @JsonProperty("read_address")
+    @JsonProperty("road_address")
     private String roadAddress;
 
     @JsonProperty("phone_number")
