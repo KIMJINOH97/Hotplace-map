@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Select } from 'antd';
-import { makeOption } from '../../utils/FilterUtil';
+import React from "react";
+import { Select } from "antd";
+import { makeOption } from "../../utils/FilterUtil";
 
 const FilterSelect = ({ currentSelect, onChangeMethod, optionList }) => {
   return (
     <Select
       value={currentSelect}
-      style={{ width: 120 }}
+      style={{ width: 100 }}
       onChange={onChangeMethod}
+      dropdownStyle={{ borderRadius: "0.25rem" }}
     >
       {makeOption(optionList)}
     </Select>
