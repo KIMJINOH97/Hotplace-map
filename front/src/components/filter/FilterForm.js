@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Form, InputNumber, Button, Input, Collapse, Row, Col } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
-import { useRecoilState } from 'recoil';
-import { cityApi, placeApi } from '../../api/index.js';
+import React, { useState, useEffect } from "react";
+import { Button, Input, Collapse } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
+import { useRecoilState } from "recoil";
+import { cityApi, placeApi } from "../../api/index.js";
+import styled from "styled-components";
 
 import {
   dongState,
@@ -14,23 +15,14 @@ import {
   totalState,
   tokenState,
   userState,
-} from '../../atom';
+} from "../../atom";
 
-import FilterSelect from './FilterSelect';
-import KakaoSlider from './KakaoSlider.js';
-import NaverSlider from './NaverSlider.js';
-import InstaSlider from './InstaSlider.js';
+import FilterSelect from "./FilterSelect";
+import KakaoSlider from "./KakaoSlider.js";
+import NaverSlider from "./NaverSlider.js";
+import InstaSlider from "./InstaSlider.js";
 
 const { Panel } = Collapse;
-
-const layout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
 
 const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);
@@ -167,82 +159,52 @@ const FilterForm = () => {
     <>
       {isLoad() && (
         <>
-          <Form {...layout} name="nest-messages">
-            <Row gutter={16}>
-              <Col span={10}>
-                <Form.Item
-                  label="구"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <FilterSelect
-                    currentSelect={curGu}
-                    onChangeMethod={onChangeGu}
-                    optionList={gu}
-                  />
-                </Form.Item>
-              </Col>
-
-              <Col span={10}>
-                <Form.Item
-                  label="동"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <FilterSelect
-                    currentSelect={curDong}
-                    onChangeMethod={onChangeDong}
-                    optionList={dong}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={12}>
-              <Col span={20} offset={2}>
-                <Form.Item
-                  label="카테고리"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <FilterSelect
-                    currentSelect={curSubCategory}
-                    onChangeMethod={onChangeSubCategory}
-                    optionList={subCategory}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Form.Item
-              label="검색어"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
+          <FormContainer>
+            <SelectContainer>
+              <FilterSelect
+                currentSelect={curGu}
+                onChangeMethod={onChangeGu}
+                optionList={gu}
+              />
+              <FilterSelect
+                currentSelect={curDong}
+                onChangeMethod={onChangeDong}
+                optionList={dong}
+              />
+              <FilterSelect
+                currentSelect={curSubCategory}
+                onChangeMethod={onChangeSubCategory}
+                optionList={subCategory}
+              />
+            </SelectContainer>
+            <InputBox>
               <Input
                 placeholder="검색어를 입력하세요"
-                maxLength={20}
+                style={{
+                  height: "40px",
+                  width: "80%",
+                  borderRadius: "0.25rem",
+                }}
+                maxLength={16}
                 onChange={onInputChange}
               />
-            </Form.Item>
+              <Button
+                type="primary"
+                onClick={onClickEvent}
+                style={{ height: "40px", borderRadius: "0.25rem" }}
+              >
+                검색
+              </Button>
+            </InputBox>
+          </FormContainer>
+          <FilterContainer>
             <Collapse
               bordered={false}
               expandIcon={({ isActive }) => (
                 <CaretRightOutlined rotate={isActive ? 90 : 0} />
               )}
               className="site-collapse-custom-collapse"
+              style={{ borderRadius: "8x" }}
             >
               <Panel
                 header="SNS 별 필터링"
@@ -254,19 +216,40 @@ const FilterForm = () => {
                 <InstaSlider />
               </Panel>
             </Collapse>
-            {/* <KakaoSlider />
-      <NaverSlider />
-      <InstaSlider /> */}
-            <Button type="primary" onClick={onClickEvent}>
-              검색
-            </Button>
-          </Form>
+          </FilterContainer>
         </>
       )}
-
-      <Button onClick={check}>check!!</Button>
+      {/* <Button onClick={check}>check!!</Button> */}
     </>
   );
 };
 
 export default FilterForm;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  /* background-color: #1467dd;  카카오*/
+  background-color: #6699ff;
+  border-radius: 8px;
+  height: 150px;
+  margin-bottom: 16px;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FilterContainer = styled.div`
+  width: 100%;
+  border-radius: 106px;
+`;

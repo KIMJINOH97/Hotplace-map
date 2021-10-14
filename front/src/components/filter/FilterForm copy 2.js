@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Form, InputNumber, Button, Input, Collapse } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
-import { useRecoilState } from 'recoil';
-import { cityApi, placeApi } from '../../api/index.js';
+import React, { useState, useEffect } from "react";
+import { Form, Button, Input, Collapse, Row, Col } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
+import { useRecoilState } from "recoil";
+import { cityApi, placeApi } from "../../api/index.js";
 
 import {
   dongState,
@@ -12,18 +12,20 @@ import {
   subCategoryState,
   foodListState,
   totalState,
-} from '../../atom';
+  tokenState,
+  userState,
+} from "../../atom";
 
-import FilterSelect from './FilterSelect';
-import KakaoSlider from './KakaoSlider.js';
-import NaverSlider from './NaverSlider.js';
-import InstaSlider from './InstaSlider.js';
+import FilterSelect from "./FilterSelect";
+import KakaoSlider from "./KakaoSlider.js";
+import NaverSlider from "./NaverSlider.js";
+import InstaSlider from "./InstaSlider.js";
 
 const { Panel } = Collapse;
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 6,
   },
   wrapperCol: {
     span: 16,
@@ -38,7 +40,8 @@ const FilterForm = () => {
   const [query, setQuery] = useRecoilState(queryState);
   const [, setFoodList] = useRecoilState(foodListState);
   const [, setTotal] = useRecoilState(totalState);
-
+  const [token, setToken] = useRecoilState(tokenState);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
   const [curSubCategory, setCurSubCategory] = useState();
@@ -152,6 +155,8 @@ const FilterForm = () => {
 
   const check = () => {
     console.log(query);
+    console.log(token);
+    console.log(userInfo);
   };
 
   function callback(key) {
@@ -161,52 +166,100 @@ const FilterForm = () => {
   return (
     <>
       {isLoad() && (
-        <>
-          <FilterSelect
-            currentSelect={curGu}
-            onChangeMethod={onChangeGu}
-            optionList={gu}
-          />
-          <FilterSelect
-            currentSelect={curDong}
-            onChangeMethod={onChangeDong}
-            optionList={dong}
-          />
-          <FilterSelect
-            currentSelect={curSubCategory}
-            onChangeMethod={onChangeSubCategory}
-            optionList={subCategory}
-          />
-        </>
+        <Form {...layout} name="nest-messages">
+          <Row gutter={16}>
+            <Col span={10}>
+              <Form.Item
+                label="구"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <FilterSelect
+                  currentSelect={curGu}
+                  onChangeMethod={onChangeGu}
+                  optionList={gu}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={10}>
+              <Form.Item
+                label="동"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <FilterSelect
+                  currentSelect={curDong}
+                  onChangeMethod={onChangeDong}
+                  optionList={dong}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={20}>
+            <Col span={20} offset={2}>
+              <Form.Item
+                label="카테고리"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <FilterSelect
+                  currentSelect={curSubCategory}
+                  onChangeMethod={onChangeSubCategory}
+                  optionList={subCategory}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Form.Item
+            label="검색어"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              placeholder="검색어를 입력하세요"
+              style={{ height: "40px", borderRadius: "0.25rem" }}
+              maxLength={20}
+              onChange={onInputChange}
+            />
+          </Form.Item>
+          <Collapse
+            bordered={false}
+            expandIcon={({ isActive }) => (
+              <CaretRightOutlined rotate={isActive ? 90 : 0} />
+            )}
+            className="site-collapse-custom-collapse"
+          >
+            <Panel
+              header="SNS 별 필터링"
+              key="1"
+              className="site-collapse-custom-panel"
+            >
+              <KakaoSlider />
+              <NaverSlider />
+              <InstaSlider />
+            </Panel>
+          </Collapse>
+          <Button type="primary" onClick={onClickEvent}>
+            검색
+          </Button>
+        </Form>
       )}
-      <Input
-        placeholder="검색어를 입력하세요"
-        maxLength={20}
-        onChange={onInputChange}
-      />
-      <Button onClick={check}>check!!</Button>
-      <Collapse
-        bordered={false}
-        defaultActiveKey={['1']}
-        expandIcon={({ isActive }) => (
-          <CaretRightOutlined rotate={isActive ? 90 : 0} />
-        )}
-        className="site-collapse-custom-collapse"
-      >
-        <Panel
-          header="SNS 별 필터링"
-          key="1"
-          className="site-collapse-custom-panel"
-        >
-          <KakaoSlider />
-          <NaverSlider />
-          <InstaSlider />
-        </Panel>
-      </Collapse>
-      {/* <KakaoSlider />
-      <NaverSlider />
-      <InstaSlider /> */}
-      <Button onClick={onClickEvent}>검색</Button>
+      {/* <Button onClick={check}>check!!</Button> */}
     </>
   );
 };
