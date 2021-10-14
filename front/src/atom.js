@@ -5,6 +5,11 @@ export const tokenState = atom({
   default: null,
 });
 
+export const userState = atom({
+  key: 'userInfo',
+  default: null,
+});
+
 export const guState = atom({
   key: 'gu',
   default: [],

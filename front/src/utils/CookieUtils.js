@@ -11,3 +11,8 @@ export const getCookie = (name) => {
 export const getAllCookie = () => {
   return cookie.loadAll();
 };
+
+export const removeCookie = (name) => {
+  // remove
+  cookie.remove(name);
+};
