@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
-
+import { focusedIdState } from '../../../atom'
 import MARKER_NORMAL from '../../../assets/MARKER_NORMAL.png';
 import InfoWindowCard from '../infowindow/InfoWindowCard';
 
@@ -8,6 +9,7 @@ const markerNormalSize = { width: 36, height: 36 };
 
 const NormalMarker = ({ store, index }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
   const map = useMap();
 
   const position = {
@@ -19,6 +21,10 @@ const NormalMarker = ({ store, index }) => {
     console.log(store, index);
   });
 
+  const {
+    id
+  } = store
+
   return (
     <>
       <MapMarker
@@ -28,16 +34,16 @@ const NormalMarker = ({ store, index }) => {
           size: markerNormalSize,
         }}
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-        onClick={() => setIsOpen(true)}
+        onClick={() => { setFocusedId(id) }}
       />
-      {isOpen && (
+      {focusedId === id && (
         <>
-          <CustomOverlayMap position={position}>
+          <CustomOverlayMap position={position} >
             <div className="wrap">
               <div className="info">
                 <InfoWindowCard
                   place={store}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setFocusedId(null)}
                 />
               </div>
             </div>

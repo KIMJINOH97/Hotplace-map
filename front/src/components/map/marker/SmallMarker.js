@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
-
+import { focusedIdState } from '../../../atom'
 import MARKER_SMALL from '../../../assets/MARKER_SMALL.png';
 import InfoWindowCard from '../infowindow/InfoWindowCard';
 const markerSmallSize = { width: 12, height: 12 };
@@ -21,6 +22,7 @@ naver_url: "https://map.naver.com/v5/entry/place/1048166619"
 
 const SmallMarker = ({ store, index }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
   const map = useMap();
 
   const position = {
@@ -33,6 +35,11 @@ const SmallMarker = ({ store, index }) => {
     console.log(store, index);
   }, []);
 
+  const {
+    id
+  } = store
+
+
   return (
     <>
       <MapMarker
@@ -42,16 +49,16 @@ const SmallMarker = ({ store, index }) => {
           size: markerSmallSize,
         }}
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-        onClick={() => setIsOpen(true)}
+        onClick={() => { setFocusedId(id) }}
       />
-      {isOpen && (
+      {focusedId === id && (
         <>
           <CustomOverlayMap position={position}>
             <div className="wrap">
               <div className="info">
                 <InfoWindowCard
                   place={store}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setFocusedId(null)}
                 />
               </div>
             </div>
