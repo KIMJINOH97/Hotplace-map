@@ -48,6 +48,11 @@ export const foodListState = atom({
   default: [],
 });
 
+export const focusedIdState = atom({
+  key: 'focusedId',
+  default: null
+})
+
 export const totalState = atom({
   key: 'total',
   default: 0,

@@ -4,12 +4,13 @@ import { Col, List, Pagination, Row, Statistic, Tag } from 'antd';
 import { LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 import { placeApi } from '../../api';
-import { foodListState, queryState, totalState } from '../../atom';
+import { focusedIdState, foodListState, queryState, totalState } from '../../atom';
 
 const FoodList = () => {
   const [foodList, setFoodList] = useRecoilState(foodListState);
   const query = useRecoilValue(queryState);
   const total = useRecoilValue(totalState);
+  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
 
   const searchPagingPlaces = async (page, pageSize) => {
     const { status, data, message } = await placeApi.getPlaceByPage(
@@ -41,8 +42,8 @@ const FoodList = () => {
         itemLayout="vertical"
         dataSource={foodList}
         renderItem={(item, i) => (
-          <List.Item key={item.name + i}>
-            <div>가게 이름: {item.name}</div>
+          <List.Item key={item.name + i} >
+            <div><a onClick={() => { setFocusedId(item.id) }}>{item.name} </a> </div>
 
             {/* <div>네이버 별점: {item.naver_star}</div>
           <div>카카오 별점: {item.kakao_star}</div>
