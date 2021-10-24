@@ -16,10 +16,6 @@ body {
   font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
   line-height: 1.5;
 }
-.wrap * {
-  padding: 0;
-  margin: 0;
-}
 .wrap .info {
   width: 400px;
   height: 300px;
