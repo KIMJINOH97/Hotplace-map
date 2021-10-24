@@ -29,4 +29,12 @@ public class BookmarkController {
     ){
         return bookmarkService.createBookmark(oAuth2User.getAttribute("user"),id);
     }
+
+    @DeleteMapping("/bookmark/{id}")
+    public ApiForm<?> deleteBookmark(
+            @AuthenticationPrincipal OAuth2User oAuth2User,
+            @PathVariable("id") Integer id
+    ){
+        return bookmarkService.deleteBookmark(oAuth2User.getAttribute("user"),id);
+    }
 }
