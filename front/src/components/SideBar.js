@@ -21,7 +21,7 @@ const SiderBar = () => {
       <Tabs defaultActiveKey="1" size="middle">
         <Tabs.TabPane
           tab={
-            <div style={{ width: '120px' }}>
+            <div style={{ width: '150px' }}>
               <HomeOutlined /> 음식점
             </div>
           }
@@ -31,8 +31,8 @@ const SiderBar = () => {
         </Tabs.TabPane>
         <Tabs.TabPane
           tab={
-            <div style={{ width: '120px' }}>
-              <ShoppingCartOutlined /> 장바구니
+            <div style={{ width: '150px' }}>
+              <ShoppingCartOutlined /> 북마크
             </div>
           }
           key="2"

@@ -54,4 +54,19 @@ public class BookmarkService {
     }
 
 
+    @Transactional
+    public ApiForm<?> deleteBookmark(User user, Integer placeId) {
+        try{
+            Place place = placeRepository.findById(placeId)
+                    .orElseThrow(() -> new RuntimeException("해당 place_id 는 유효하지 않음!"));
+
+            Bookmark bookmark = bookmarkRepository.findByUserAndPlace(user, place)
+                    .orElseThrow(() -> new RuntimeException("해당 북마크는 존재하지 않습니다!"));
+
+            bookmarkRepository.delete(bookmark);
+            return ApiForm.succeed(null,"북마크 제거 성공!");
+        }catch (Exception e){
+            return ApiForm.failed(404,e.getMessage());
+        }
+    }
 }

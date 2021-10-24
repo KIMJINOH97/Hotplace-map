@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Affix, Avatar, Button, Card, Col, Row, Statistic } from 'antd';
-import { useRecoilState } from 'recoil';
-import { tokenState, userState } from '../../atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { bookmarkListState, tokenState, userState } from '../../atom';
 import { LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { removeCookie } from '../../utils/CookieUtils';
 
@@ -19,6 +19,7 @@ const UserInfoCard = ({
 }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [token, setToken] = useRecoilState(tokenState);
+  const bookmarkList = useRecoilValue(bookmarkListState);
 
   const logout = () => {
     setUserInfo(null);
@@ -49,7 +50,7 @@ const UserInfoCard = ({
             <Col span={12}>
               <Statistic
                 title="Bookmark"
-                value={12}
+                value={bookmarkList.length}
                 prefix={<StarOutlined />}
               />
             </Col>

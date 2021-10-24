@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests() // url 권한 관리
                 .antMatchers("/login/oauth2/code/kakao").permitAll()
-                .antMatchers("/", "/oauth2/**", "/h2-console/**","/oauth2Login","/login/oauth2/*" ,"/h2-console","/api/**","/index","/static/**","/login/oauth2/**")
+                .antMatchers("/", "/oauth2/**", "/h2-console/**","/oauth2Login","/login/oauth2/*" ,"/h2-console","/api/**","/user/**","/user/**/*","/index","/static/**","/login/oauth2/**")
                 .permitAll()
                 .anyRequest().authenticated() // 위 주소 뺀 나머지 인증과정 거침
             .and()

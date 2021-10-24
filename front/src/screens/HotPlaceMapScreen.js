@@ -4,9 +4,9 @@ import SiderBar from "../components/SideBar";
 import { Layout } from "antd";
 
 import { useRecoilState } from "recoil";
-import { tokenState, userState } from "../atom";
+import { bookmarkListState, tokenState, userState } from "../atom";
 import { getCookie } from "../utils/CookieUtils";
-import { userApi } from "../api";
+import { bookmarkApi, userApi } from "../api";
 import UserCard from "../components/user/UserCard";
 
 const { Content } = Layout;
@@ -15,6 +15,7 @@ const { REACT_APP_TOKEN_KEY } = process.env;
 const HotPlaceMapScreen = () => {
   const [token, setToken] = useRecoilState(tokenState);
   const [, setUserInfo] = useRecoilState(userState);
+  const [bookmarkList, setBookmarkList] = useRecoilState(bookmarkListState);
 
   useEffect(() => {
     const authToken = getCookie(REACT_APP_TOKEN_KEY);
@@ -24,6 +25,20 @@ const HotPlaceMapScreen = () => {
       setToken(authToken);
     }
   }, []);
+
+  async function getAllBookmark(userToken) {
+    try {
+      const result = await bookmarkApi.getAllBookmark(userToken)
+      const { status, data, message } = result;
+      setBookmarkList(data);
+      console.log("getAllBookmark getAllBookmark getAllBookmark")
+      console.log(data);
+      console.log("북마크 불러오기 성공!");
+      console.log("getAllBookmark getAllBookmark getAllBookmark")
+    } catch (e) {
+      console.error("북마크 불러오기 실패!")
+    }
+  }
 
   async function getUserInfo(userToken) {
     try {
@@ -47,7 +62,12 @@ const HotPlaceMapScreen = () => {
       // 사용자 정보 불러오기
       console.log("tokentrigger");
       console.log(token);
-      getUserInfo(token);
+      initData(token);
+    }
+
+    async function initData(userToken) {
+      getUserInfo(userToken);
+      getAllBookmark(userToken);
     }
   }, [token]);
 
