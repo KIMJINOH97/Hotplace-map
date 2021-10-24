@@ -7,12 +7,20 @@ import NAVER_LOGO from '../../../assets/NAVER_LOGO.png';
 import KAKAO_MAP_LOGO from '../../../assets/KAKAO_MAP_LOGO.png';
 import INSTAGRAM_LOGO from '../../../assets/INSTAGRAM_LOGO.png';
 import DetailInfoModal from './DetailInfoModal';
+import { useRecoilState } from 'recoil';
+import { bookmarkListState, tokenState, userState } from '../../../atom';
+import { bookmarkApi } from '../../../api';
 
 const value_style = {
   fontSize: '20px'
 }
 
 const InfoWindowCard = ({ place, onClick }) => {
+
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [token, setToken] = useRecoilState(tokenState);
+  const [bookmark, setBookmark] = useRecoilState(bookmarkListState);
+
   const {
     id,
     name,
@@ -28,6 +36,7 @@ const InfoWindowCard = ({ place, onClick }) => {
     naver_blog_review_count,
     naver_buyer_review_count
   } = place;
+
   useEffect(() => {
     console.log('infowindow debug');
     console.log(name);
@@ -49,8 +58,42 @@ const InfoWindowCard = ({ place, onClick }) => {
     return val;
   }
 
+  async function getAllBookmark() {
+    try {
+      const result = await bookmarkApi.getAllBookmark(token)
+      const { status, data, message } = result;
+      setBookmark(data);
+      console.log(data);
+      console.log("북마크 불러오기 성공!");
+    } catch (e) {
+      console.error("북마크 불러오기 실패!")
+    }
+  }
+
+  async function createBookmark(userToken, id) {
+    try {
+      const result = await bookmarkApi.createBookmark(userToken, id);
+      const { status, data, message } = result;
+      console.log(result);
+      console.log(data);
+      await getAllBookmark();
+      alert("북마크 성공!");
+    } catch (e) {
+      console.error("북마크 등록 오류!");
+      //에러 두가지 가능
+      // 1. 로그인 오류
+      // 2. 북마크 오류
+      alert("북마크 실패!");
+    }
+  }
+
   return (
-    <Card title={name} style={{ height: '100%' }} extra={<Button type="primary" onClick={onClick}>X</Button>}>
+    <Card title={name} style={{ height: '100%' }} extra={
+      <>
+        <a onClick={() => { createBookmark(token, id); }} >북마크 </a>
+        <Button type="primary" onClick={onClick}>X</Button>
+      </>
+    }>
       <div style={{ width: 350 }}>주소 : {address}</div>
       <p>전화번호 : {phone_number}</p>
       <br />
