@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { foodListState, storeState } from '../../atom';
+import { bookmarkListState, foodListState, storeState, tabIdxState } from '../../atom';
 import { Map, MapInfoWindow, MapMarker } from 'react-kakao-maps-sdk';
 
 // import MARKER_SMALL from '../../assets/MARKER_SMALL.png';
@@ -53,7 +53,9 @@ const KakaoMap = (props) => {
   });
 
   const storeList = useRecoilValue(storeState);
-  const foodList = useRecoilValue(foodListState);
+  const foodList = useRecoilValue(foodListState)
+  const bookmarkList = useRecoilValue(bookmarkListState);
+  const tabIdx = useRecoilValue(tabIdxState);
 
   useEffect(() => {
     if (foodList.length > 0) {
@@ -99,12 +101,12 @@ const KakaoMap = (props) => {
       }}
       level={3} // 지도의 확대 레벨>
     >
-      {storeList.map((store, index) => {
+      {tabIdx === 1 && storeList.map((store, index) => {
         return (
           <SmallMarker store={store} index={index} key={store.name + index} />
         );
       })}
-      {foodList.map((store, index) => {
+      {tabIdx === 1 && foodList.map((store, index) => {
         return (
           <NormalMarker
             store={store}
@@ -113,6 +115,12 @@ const KakaoMap = (props) => {
           ></NormalMarker>
         );
       })}
+      {tabIdx === 2 && bookmarkList.map((store, index) => {
+        return (
+          <SmallMarker store={store} index={index} key={store.name + index} />
+        );
+      })
+      }
     </Map>
   );
 };

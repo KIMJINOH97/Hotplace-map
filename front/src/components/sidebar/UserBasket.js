@@ -71,7 +71,7 @@ const UserBasket = () => {
           onChange: page => {
             console.log(page);
           },
-          pageSize: 6,
+          pageSize: 4,
         }}
         renderItem={(item, i) => (
           <List.Item key={item.name + i} >
