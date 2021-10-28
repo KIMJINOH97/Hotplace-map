@@ -1,13 +1,24 @@
 import React from 'react';
 import { Layout, Tabs } from 'antd';
 import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+
+import { useRecoilState } from 'recoil';
 import FilterForm from './filter/FilterForm';
 import FoodList from './sidebar/FoodList';
 import UserBasket from './sidebar/UserBasket';
-
+import { tabIdxState } from '../atom';
 const { Sider } = Layout;
 
 const SiderBar = () => {
+
+  const [tabIdx, setTabIdx] = useRecoilState(tabIdxState);
+
+
+  const onTabChange = (value) => {
+    setTabIdx(parseInt(value));
+  }
+
+
   return (
     <Sider
       collapsible={false}
@@ -18,7 +29,11 @@ const SiderBar = () => {
       style={{ padding: '10px', backgroundColor: '#a6cfe2' }}
     >
       <FilterForm></FilterForm>
-      <Tabs defaultActiveKey="1" size="middle">
+      <Tabs defaultActiveKey="1"
+        size="middle"
+        onChange={(index) => { onTabChange(index) }}
+      // animated={{ inkBar: true, tabPane: true }}
+      >
         <Tabs.TabPane
           tab={
             <div style={{ width: '150px' }}>

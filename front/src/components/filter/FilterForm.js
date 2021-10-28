@@ -15,6 +15,7 @@ import {
   totalState,
   tokenState,
   userState,
+  tabIdxState,
 } from "../../atom";
 
 import FilterSelect from "./FilterSelect";
@@ -34,6 +35,9 @@ const FilterForm = () => {
   const [, setTotal] = useRecoilState(totalState);
   const [token, setToken] = useRecoilState(tokenState);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [tabIdx, setTabIdx] = useRecoilState(tabIdxState);
+
+
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
   const [curSubCategory, setCurSubCategory] = useState();
@@ -192,6 +196,7 @@ const FilterForm = () => {
                 type="primary"
                 onClick={onClickEvent}
                 style={{ height: "40px", borderRadius: "0.25rem" }}
+                disabled={tabIdx !== 1}
               >
                 검색
               </Button>
@@ -218,7 +223,8 @@ const FilterForm = () => {
             </Collapse>
           </FilterContainer>
         </>
-      )}
+      )
+      }
       {/* <Button onClick={check}>check!!</Button> */}
     </>
   );

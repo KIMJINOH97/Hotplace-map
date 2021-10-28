@@ -62,3 +62,8 @@ export const totalState = atom({
   key: 'total',
   default: 0,
 });
+
+export const tabIdxState = atom({
+  key: 'tabIdx',
+  default: 1,
+})
