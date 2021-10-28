@@ -42,15 +42,6 @@ naver_url: "https://map.naver.com/v5/entry/place/1048166619"
 const KakaoMap = (props) => {
   const map = useRef();
   // const mapContainerRef = useRef();
-  const [markers, setMarkers] = useState([]);
-  const [, setInfoWindows] = useState([]);
-
-  const [state, setState] = useState({
-    // 지도의 초기 위치
-    center: { lat: 37.5666805, lng: 126.9784147 },
-    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-    isPanto: false,
-  });
 
   const storeList = useRecoilValue(storeState);
   const foodList = useRecoilValue(foodListState)
@@ -83,11 +74,6 @@ const KakaoMap = (props) => {
       console.log('useEffect 트리거!');
       console.log(`sumOfLatitude / pageLen  ${sumOfLatitude / pageLen}`);
       console.log(`sumOfLongitude / pageLen ${sumOfLongitude / pageLen}`);
-      setState({
-        center: { lat: sumOfLatitude / pageLen, lng: sumOfLongitude / pageLen },
-        // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-        isPanto: true,
-      });
 
       setCoord({ lat: sumOfLatitude / pageLen, lng: sumOfLongitude / pageLen });
     }
