@@ -67,3 +67,12 @@ export const tabIdxState = atom({
   key: 'tabIdx',
   default: 1,
 })
+
+
+export const coordState = atom({
+  key: 'coord',
+  default: {
+    lat: 37.5666805,
+    lng: 126.9784147
+  }
+})

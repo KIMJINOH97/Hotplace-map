@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { bookmarkListState, foodListState, storeState, tabIdxState } from '../../atom';
+import { bookmarkListState, coordState, foodListState, storeState, tabIdxState } from '../../atom';
 import { Map, MapInfoWindow, MapMarker } from 'react-kakao-maps-sdk';
 
 // import MARKER_SMALL from '../../assets/MARKER_SMALL.png';
@@ -56,6 +56,7 @@ const KakaoMap = (props) => {
   const foodList = useRecoilValue(foodListState)
   const bookmarkList = useRecoilValue(bookmarkListState);
   const tabIdx = useRecoilValue(tabIdxState);
+  const [coord, setCoord] = useRecoilState(coordState);
 
   useEffect(() => {
     if (foodList.length > 0) {
@@ -87,13 +88,15 @@ const KakaoMap = (props) => {
         // 지도 위치 변경시 panto를 이용할지에 대해서 정의
         isPanto: true,
       });
+
+      setCoord({ lat: sumOfLatitude / pageLen, lng: sumOfLongitude / pageLen });
     }
   }, [foodList]);
 
   return (
     <Map
-      center={state.center}
-      isPanto={state.isPanto}
+      center={coord}
+      isPanto={true}
       style={{
         // 지도의 크기
         width: '100%',

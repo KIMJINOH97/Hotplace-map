@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Col, List, Pagination, Row, Statistic, Tag } from 'antd';
-import { bookmarkListState, tokenState, userState } from '../../atom';
+import { bookmarkListState, coordState, focusedIdState, tokenState, userState } from '../../atom';
 import { LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { bookmarkApi } from '../../api';
 import DetailInfoModal from '../map/infowindow/DetailInfoModal';
@@ -12,6 +12,8 @@ const UserBasket = () => {
   // const
   const userInfo = useRecoilValue(userState);
   const [bookmarkList, setBookmarkList] = useRecoilState(bookmarkListState);
+  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
+  const [coord, setCoord] = useRecoilState(coordState);
 
   const check = () => {
     console.log(token);
@@ -62,6 +64,14 @@ const UserBasket = () => {
     }
   }
 
+  const onClickListItem = (store) => {
+    setFocusedId(store.id);
+    setCoord({
+      lat: parseFloat(store.latitude_y),
+      lng: parseFloat(store.longitude_x)
+    })
+  }
+
   return (
     <>
       <List
@@ -75,7 +85,7 @@ const UserBasket = () => {
         }}
         renderItem={(item, i) => (
           <List.Item key={item.name + i} >
-            <div>{item.name} </div>
+            <div><a onClick={() => { onClickListItem(item) }}>{item.name} </a> </div>
             <DetailInfoModal place={item} />
             <button onClick={() => { deleteBookmarkHandler(item.id) }} >북마크 제거</button>
             <Row gutter={16}>
