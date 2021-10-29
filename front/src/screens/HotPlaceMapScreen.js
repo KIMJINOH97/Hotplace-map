@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import KakaoMap from "../components/map/KakaoMap";
-import SiderBar from "../components/SideBar";
-import { Layout } from "antd";
+import React, { useEffect } from 'react';
+import KakaoMap from '../components/map/KakaoMap';
+import SiderBar from '../components/SideBar';
+import { Layout } from 'antd';
 
-import { useRecoilState } from "recoil";
-import { bookmarkListState, tokenState, userState } from "../atom";
-import { getCookie } from "../utils/CookieUtils";
-import { bookmarkApi, userApi } from "../api";
-import UserCard from "../components/user/UserCard";
+import { useRecoilState } from 'recoil';
+import { bookmarkListState, tokenState, userState } from '../atom';
+import { getCookie } from '../utils/CookieUtils';
+import { bookmarkApi, userApi } from '../api';
+import UserCard from '../components/user/UserCard';
 
 const { Content } = Layout;
 const { REACT_APP_TOKEN_KEY } = process.env;
@@ -20,7 +20,7 @@ const HotPlaceMapScreen = () => {
   useEffect(() => {
     const authToken = getCookie(REACT_APP_TOKEN_KEY);
     if (authToken !== null && authToken !== undefined) {
-      console.log("hello!");
+      console.log('hello!');
       console.log(authToken);
       setToken(authToken);
     }
@@ -28,15 +28,15 @@ const HotPlaceMapScreen = () => {
 
   async function getAllBookmark(userToken) {
     try {
-      const result = await bookmarkApi.getAllBookmark(userToken)
+      const result = await bookmarkApi.getAllBookmark(userToken);
       const { status, data, message } = result;
       setBookmarkList(data);
-      console.log("getAllBookmark getAllBookmark getAllBookmark")
+      console.log('getAllBookmark getAllBookmark getAllBookmark');
       console.log(data);
-      console.log("북마크 불러오기 성공!");
-      console.log("getAllBookmark getAllBookmark getAllBookmark")
+      console.log('북마크 불러오기 성공!');
+      console.log('getAllBookmark getAllBookmark getAllBookmark');
     } catch (e) {
-      console.error("북마크 불러오기 실패!")
+      console.error('북마크 불러오기 실패!');
     }
   }
 
@@ -48,7 +48,7 @@ const HotPlaceMapScreen = () => {
       const { name, email, profileUrl } = data; //해당 속성이 존재하는지 확인하는 용도 없으면 throw e
       setUserInfo(data);
     } catch (e) {
-      console.error("로그인 오류!");
+      console.error('로그인 오류!');
       console.error(e);
       setToken(null);
       setUserInfo(null);
@@ -57,10 +57,10 @@ const HotPlaceMapScreen = () => {
   }
 
   useEffect(() => {
-    console.log("use  ~~ effect");
+    console.log('use  ~~ effect');
     if (token !== null && token !== undefined) {
       // 사용자 정보 불러오기
-      console.log("tokentrigger");
+      console.log('tokentrigger');
       console.log(token);
       initData(token);
     }
@@ -74,7 +74,7 @@ const HotPlaceMapScreen = () => {
   return (
     <Layout
       style={{
-        height: "1000px",
+        height: '100vh',
       }}
     >
       <SiderBar></SiderBar>
