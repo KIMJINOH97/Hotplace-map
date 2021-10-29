@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Button, Input, Collapse } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
-import { useRecoilState } from "recoil";
-import { cityApi, placeApi } from "../../api/index.js";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { Button, Input, Collapse } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+import { useRecoilState } from 'recoil';
+import { cityApi, placeApi } from '../../api/index.js';
+import styled from 'styled-components';
 
 import {
   dongState,
@@ -15,12 +15,13 @@ import {
   totalState,
   tokenState,
   userState,
-} from "../../atom";
+  focusedIdState,
+} from '../../atom';
 
-import FilterSelect from "./FilterSelect";
-import KakaoSlider from "./KakaoSlider.js";
-import NaverSlider from "./NaverSlider.js";
-import InstaSlider from "./InstaSlider.js";
+import FilterSelect from './FilterSelect';
+import KakaoSlider from './KakaoSlider.js';
+import NaverSlider from './NaverSlider.js';
+import InstaSlider from './InstaSlider.js';
 
 const { Panel } = Collapse;
 
@@ -28,18 +29,20 @@ const FilterForm = () => {
   const [gu, setGu] = useRecoilState(guState);
   const [dong, setDong] = useRecoilState(dongState);
   const [subCategory, setSubCategory] = useRecoilState(subCategoryState);
-  const [storeList, setStoreList] = useRecoilState(storeState);
+
   const [query, setQuery] = useRecoilState(queryState);
+  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
+  const [, setStoreList] = useRecoilState(storeState);
   const [, setFoodList] = useRecoilState(foodListState);
   const [, setTotal] = useRecoilState(totalState);
   const [token, setToken] = useRecoilState(tokenState);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
   const [curSubCategory, setCurSubCategory] = useState();
 
   const guSelectChange = async (value, idx) => {
-    console.log(value, idx);
     const data = await getDongListByGuId(idx.key);
     setDong(data);
   };
@@ -79,20 +82,17 @@ const FilterForm = () => {
   }
 
   const onChangeGu = (value, key) => {
-    console.log(value, key);
     setQuery({ ...query, gu: parseInt(key.key) });
     setCurGu(value);
     guSelectChange(value, key);
   };
 
   const onChangeDong = (value, key) => {
-    console.log(value, key);
     setQuery({ ...query, dong: parseInt(key.key) });
     setCurDong(value);
   };
 
   const onChangeSubCategory = (value, key) => {
-    console.log(value, key);
     setQuery({ ...query, sub_category: parseInt(key.key) });
     setCurSubCategory(value);
   };
@@ -130,6 +130,7 @@ const FilterForm = () => {
   };
 
   const onClickEvent = async () => {
+    setFocusedId({ ...focusedId, normal: null, small: null }); // 이미 켜진 infowindow 끄기
     searchPlaces();
     searchPagingPlaces();
   };
@@ -160,6 +161,7 @@ const FilterForm = () => {
       {isLoad() && (
         <>
           <FormContainer>
+            <ProjectName>SNS Integrated Map</ProjectName>
             <SelectContainer>
               <FilterSelect
                 currentSelect={curGu}
@@ -181,9 +183,9 @@ const FilterForm = () => {
               <Input
                 placeholder="검색어를 입력하세요"
                 style={{
-                  height: "40px",
-                  width: "80%",
-                  borderRadius: "0.25rem",
+                  height: '40px',
+                  width: '80%',
+                  borderRadius: '0.25rem',
                 }}
                 maxLength={16}
                 onChange={onInputChange}
@@ -191,7 +193,10 @@ const FilterForm = () => {
               <Button
                 type="primary"
                 onClick={onClickEvent}
-                style={{ height: "40px", borderRadius: "0.25rem" }}
+                style={{
+                  height: '40px',
+                  borderRadius: '0.25rem',
+                }}
               >
                 검색
               </Button>
@@ -204,7 +209,7 @@ const FilterForm = () => {
                 <CaretRightOutlined rotate={isActive ? 90 : 0} />
               )}
               className="site-collapse-custom-collapse"
-              style={{ borderRadius: "8x" }}
+              style={{ borderRadius: '8x' }}
             >
               <Panel
                 header="SNS 별 필터링"
@@ -236,6 +241,13 @@ const FormContainer = styled.div`
   border-radius: 8px;
   height: 150px;
   margin-bottom: 16px;
+`;
+
+const ProjectName = styled.div`
+  font-size: 23px;
+  color: white;
+  font-weight: 700;
+  height: 22px;
 `;
 
 const SelectContainer = styled.div`
