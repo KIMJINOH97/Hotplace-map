@@ -51,12 +51,15 @@ export const foodListState = atom({
 export const bookmarkListState = atom({
   key: 'bookmarkList',
   default: [],
-})
+});
 
 export const focusedIdState = atom({
   key: 'focusedId',
-  default: null
-})
+  default: {
+    normal: null,
+    small: null,
+  },
+});
 
 export const totalState = atom({
   key: 'total',
