@@ -15,8 +15,9 @@ import {
   totalState,
   tokenState,
   userState,
-  focusedIdState,
-} from '../../atom';
+
+  tabIdxState,
+} from "../../atom";
 
 import FilterSelect from './FilterSelect';
 import KakaoSlider from './KakaoSlider.js';
@@ -37,7 +38,7 @@ const FilterForm = () => {
   const [, setTotal] = useRecoilState(totalState);
   const [token, setToken] = useRecoilState(tokenState);
   const [userInfo, setUserInfo] = useRecoilState(userState);
-
+  const [tabIdx, setTabIdx] = useRecoilState(tabIdxState);
   const [curGu, setCurGu] = useState();
   const [curDong, setCurDong] = useState();
   const [curSubCategory, setCurSubCategory] = useState();
@@ -193,10 +194,8 @@ const FilterForm = () => {
               <Button
                 type="primary"
                 onClick={onClickEvent}
-                style={{
-                  height: '40px',
-                  borderRadius: '0.25rem',
-                }}
+                style={{ height: "40px", borderRadius: "0.25rem" }}
+                disabled={tabIdx !== 1}
               >
                 검색
               </Button>
@@ -223,7 +222,8 @@ const FilterForm = () => {
             </Collapse>
           </FilterContainer>
         </>
-      )}
+      )
+      }
       {/* <Button onClick={check}>check!!</Button> */}
     </>
   );

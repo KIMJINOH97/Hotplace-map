@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { foodListState, storeState } from '../../atom';
+import { bookmarkListState, coordState, foodListState, storeState, tabIdxState } from '../../atom';
 import { Map, MapInfoWindow, MapMarker } from 'react-kakao-maps-sdk';
 
 // import MARKER_SMALL from '../../assets/MARKER_SMALL.png';
@@ -48,7 +48,10 @@ const KakaoMap = (props) => {
   });
 
   const storeList = useRecoilValue(storeState);
-  const foodList = useRecoilValue(foodListState);
+  const foodList = useRecoilValue(foodListState)
+  const bookmarkList = useRecoilValue(bookmarkListState);
+  const tabIdx = useRecoilValue(tabIdxState);
+  const [coord, setCoord] = useRecoilState(coordState);
 
   useEffect(() => {
     if (foodList.length > 0) {
@@ -75,18 +78,15 @@ const KakaoMap = (props) => {
       console.log('useEffect 트리거!');
       console.log(`sumOfLatitude / pageLen  ${sumOfLatitude / pageLen}`);
       console.log(`sumOfLongitude / pageLen ${sumOfLongitude / pageLen}`);
-      setState({
-        center: { lat: sumOfLatitude / pageLen, lng: sumOfLongitude / pageLen },
-        // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-        isPanto: true,
-      });
+
+      setCoord({ lat: sumOfLatitude / pageLen, lng: sumOfLongitude / pageLen });
     }
   }, [foodList]);
 
   return (
     <Map
-      center={state.center}
-      isPanto={state.isPanto}
+      center={coord}
+      isPanto={true}
       style={{
         // 지도의 크기
         width: '100%',
@@ -94,12 +94,12 @@ const KakaoMap = (props) => {
       }}
       level={3} // 지도의 확대 레벨>
     >
-      {storeList.map((store, index) => {
+      {tabIdx === 1 && storeList.map((store, index) => {
         return (
           <SmallMarker store={store} index={index} key={store.name + index} />
         );
       })}
-      {foodList.map((store, index) => {
+      {tabIdx === 1 && foodList.map((store, index) => {
         return (
           <NormalMarker
             store={store}
@@ -108,6 +108,12 @@ const KakaoMap = (props) => {
           />
         );
       })}
+      {tabIdx === 2 && bookmarkList.map((store, index) => {
+        return (
+          <SmallMarker store={store} index={index} key={store.name + index} />
+        );
+      })
+      }
     </Map>
   );
 };

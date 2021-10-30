@@ -16,6 +16,7 @@ const FoodList = () => {
   const query = useRecoilValue(queryState);
   const total = useRecoilValue(totalState);
   const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
+  
   const valueStyle = { 'font-size': '15px' };
 
   const searchPagingPlaces = async (page, pageSize) => {
@@ -42,16 +43,22 @@ const FoodList = () => {
     return;
   };
 
+  const onClickListItem = (store) => {
+    setFocusedId(store.id);
+    setCoord({
+      lat: parseFloat(store.latitude_y),
+      lng: parseFloat(store.longitude_x)
+    })
+  }
+
   return (
     <>
       <List
         itemLayout="vertical"
         dataSource={foodList}
         renderItem={(item, i) => (
-          <List.Item key={item.name + i}>
-            <div>
-              <a onClick={() => setFocusedId(item.id)}></a>
-            </div>
+          <List.Item key={item.name + i} >
+            <div><a onClick={() => { onClickListItem(item) }}>{item.name} </a> </div>
 
             {/* <div>네이버 별점: {item.naver_star}</div>
           <div>카카오 별점: {item.kakao_star}</div>
