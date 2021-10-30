@@ -4,14 +4,20 @@ import { Col, List, Pagination, Row, Statistic, Tag } from 'antd';
 import { LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 import { placeApi } from '../../api';
-import { coordState, focusedIdState, foodListState, queryState, totalState } from '../../atom';
+import {
+  focusedIdState,
+  foodListState,
+  queryState,
+  totalState,
+} from '../../atom';
 
 const FoodList = () => {
   const [foodList, setFoodList] = useRecoilState(foodListState);
   const query = useRecoilValue(queryState);
   const total = useRecoilValue(totalState);
   const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
-  const [coord, setCoord] = useRecoilState(coordState);
+  
+  const valueStyle = { 'font-size': '15px' };
 
   const searchPagingPlaces = async (page, pageSize) => {
     const { status, data, message } = await placeApi.getPlaceByPage(
@@ -64,7 +70,7 @@ const FoodList = () => {
                   title={<Tag color="purple">Instagram</Tag>}
                   value={item.instagram_hashtag}
                   prefix={<LikeOutlined />}
-                  valueStyle={{ 'font-size': '15px' }}
+                  valueStyle={valueStyle}
                 />
               </Col>
               <Col span={8}>
@@ -73,7 +79,7 @@ const FoodList = () => {
                   value={item.naver_star}
                   prefix={<StarOutlined />}
                   suffix="/ 5.0"
-                  valueStyle={{ 'font-size': '15px' }}
+                  valueStyle={valueStyle}
                 />
               </Col>
               <Col span={8}>
@@ -82,7 +88,7 @@ const FoodList = () => {
                   value={item.kakao_star}
                   prefix={<StarOutlined />}
                   suffix="/ 5.0"
-                  valueStyle={{ 'font-size': '15px' }}
+                  valueStyle={valueStyle}
                 />
               </Col>
             </Row>
