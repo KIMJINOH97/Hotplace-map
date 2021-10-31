@@ -15,8 +15,8 @@ import {
   totalState,
   tokenState,
   userState,
-
   tabIdxState,
+  focusedIdState,
 } from "../../atom";
 
 import FilterSelect from './FilterSelect';

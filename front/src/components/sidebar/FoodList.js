@@ -9,6 +9,7 @@ import {
   foodListState,
   queryState,
   totalState,
+  coordState
 } from '../../atom';
 
 const FoodList = () => {
@@ -16,7 +17,7 @@ const FoodList = () => {
   const query = useRecoilValue(queryState);
   const total = useRecoilValue(totalState);
   const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
-  
+  const [coord, setCoord] = useRecoilState(coordState)
   const valueStyle = { 'font-size': '15px' };
 
   const searchPagingPlaces = async (page, pageSize) => {
@@ -44,7 +45,10 @@ const FoodList = () => {
   };
 
   const onClickListItem = (store) => {
-    setFocusedId(store.id);
+    setFocusedId({
+      normal: null,
+      small: store.id
+    });
     setCoord({
       lat: parseFloat(store.latitude_y),
       lng: parseFloat(store.longitude_x)
