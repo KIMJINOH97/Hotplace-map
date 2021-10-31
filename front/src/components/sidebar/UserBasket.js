@@ -65,7 +65,10 @@ const UserBasket = () => {
   }
 
   const onClickListItem = (store) => {
-    setFocusedId(store.id);
+    setFocusedId({
+      normal: null,
+      small: store.id
+    });
     setCoord({
       lat: parseFloat(store.latitude_y),
       lng: parseFloat(store.longitude_x)
