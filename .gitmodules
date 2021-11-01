@@ -1,0 +1,3 @@
+[submodule "hotplace-config"]
+	path = hotplace-config
+	url = https://github.com/KIMJINOH97/hotplace-config
