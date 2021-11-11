@@ -11,13 +11,14 @@ import {
   totalState,
   coordState
 } from '../../atom';
+import FoodContent from './FoodContent';
 
 const FoodList = () => {
   const [foodList, setFoodList] = useRecoilState(foodListState);
   const query = useRecoilValue(queryState);
   const total = useRecoilValue(totalState);
-  const [focusedId, setFocusedId] = useRecoilState(focusedIdState);
-  const [coord, setCoord] = useRecoilState(coordState)
+  const [, setFocusedId] = useRecoilState(focusedIdState);
+  const [, setCoord] = useRecoilState(coordState);
   const valueStyle = { 'font-size': '15px' };
 
   const searchPagingPlaces = async (page, pageSize) => {
@@ -52,8 +53,8 @@ const FoodList = () => {
     setCoord({
       lat: parseFloat(store.latitude_y),
       lng: parseFloat(store.longitude_x)
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -61,41 +62,17 @@ const FoodList = () => {
         itemLayout="vertical"
         dataSource={foodList}
         renderItem={(item, i) => (
-          <List.Item key={item.name + i} >
-            <div><a onClick={() => { onClickListItem(item) }}>{item.name} </a> </div>
-
-            {/* <div>네이버 별점: {item.naver_star}</div>
-          <div>카카오 별점: {item.kakao_star}</div>
-          <div>인스타그램 해시태그: {item.instagram_hashtag}</div> */}
-            <Row gutter={16}>
-              <Col span={8}>
-                <Statistic
-                  // title="instagram"
-                  title={<Tag color="purple">Instagram</Tag>}
-                  value={item.instagram_hashtag}
-                  prefix={<LikeOutlined />}
-                  valueStyle={valueStyle}
-                />
-              </Col>
-              <Col span={8}>
-                <Statistic
-                  title={<Tag color="green">Naver</Tag>}
-                  value={item.naver_star}
-                  prefix={<StarOutlined />}
-                  suffix="/ 5.0"
-                  valueStyle={valueStyle}
-                />
-              </Col>
-              <Col span={8}>
-                <Statistic
-                  title={<Tag color="gold">Kakao</Tag>}
-                  value={item.kakao_star}
-                  prefix={<StarOutlined />}
-                  suffix="/ 5.0"
-                  valueStyle={valueStyle}
-                />
-              </Col>
-            </Row>
+          <List.Item key={item.name + i}>
+            <div>
+              <a
+                onClick={() => {
+                  onClickListItem(item);
+                }}
+              >
+                {item.name}
+              </a>
+            </div>
+            <FoodContent item={item} />
           </List.Item>
         )}
       ></List>
