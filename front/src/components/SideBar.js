@@ -1,23 +1,20 @@
 import React from 'react';
-import { Layout, Tabs } from 'antd';
-import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-
+import { Layout } from 'antd';
 import { useRecoilState } from 'recoil';
 import FilterForm from './filter/FilterForm';
 import FoodList from './sidebar/FoodList';
 import UserBasket from './sidebar/UserBasket';
 import { tabIdxState } from '../atom';
+import styled from 'styled-components';
 const { Sider } = Layout;
 
+const menuList = {
+  1: <FoodList />,
+  2: <UserBasket />
+};
+
 const SiderBar = () => {
-
   const [tabIdx, setTabIdx] = useRecoilState(tabIdxState);
-
-
-  const onTabChange = (value) => {
-    setTabIdx(parseInt(value));
-  }
-
 
   return (
     <Sider
@@ -28,35 +25,54 @@ const SiderBar = () => {
       height="95%"
       style={{ padding: '10px', backgroundColor: '#a6cfe2' }}
     >
-      <FilterForm></FilterForm>
-      <Tabs defaultActiveKey="1"
-        size="middle"
-        onChange={(index) => { onTabChange(index) }}
-      // animated={{ inkBar: true, tabPane: true }}
-      >
-        <Tabs.TabPane
-          tab={
-            <div style={{ width: '150px' }}>
-              <HomeOutlined /> 음식점
-            </div>
-          }
-          key="1"
-        >
-          <FoodList />
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          tab={
-            <div style={{ width: '150px' }}>
-              <ShoppingCartOutlined /> 북마크
-            </div>
-          }
-          key="2"
-        >
-          <UserBasket />
-        </Tabs.TabPane>
-      </Tabs>
+      <FilterForm />
+      <TabList>
+        <Tab index={1} tabIdx={tabIdx} onClick={() => setTabIdx(1)}>
+          <TabName>음식점</TabName>
+        </Tab>
+        <Tab index={2} tabIdx={tabIdx} onClick={() => setTabIdx(2)}>
+          <TabName>북마크</TabName>
+        </Tab>
+      </TabList>
+      <div>{menuList[tabIdx]}</div>
     </Sider>
   );
 };
 
 export default SiderBar;
+
+const TabList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  border-radius: 8px;
+  height: 40px;
+  width: 100%;
+`;
+
+const Tab = styled.div`
+  display: flex;
+  width: 100px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  background-color: ${({ index, tabIdx }) => (tabIdx === index ? '#1890ff' : '#6699ff')};
+  border-radius: 8px;
+  margin-right: 10px;
+  transition: all 0.9s, color 0.3;
+  cursor: pointer;
+  :hover {
+    background-color: #1890ff; //#1467dd #6699ff
+  }
+`;
+
+const TabName = styled.div`
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+`;
