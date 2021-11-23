@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.hotplace.api.dto.api_form.ApiForm.succeed;
+import static com.hotplace.api.service.CoordinateUtil.*;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -60,5 +61,19 @@ public class PlaceService {
     public ApiForm<Page<PlaceResponse>> searchPage(PlaceRequest request, Pageable pageable){
         Page<PlaceResponse> page = placeRepository.searchPage(request, pageable);
         return succeed(page, "페이지 검색에 성공 했습니다.");
+    }
+
+    public ApiForm<List<PlaceResponse>> searchPlacesByCurrentLocation(Double latitude, Double longitude, Integer distance) {
+        Double leftTopLatitude = latitude - ONE_KILOMETER_LATITUDE * distance;
+        Double leftTopLongitude = longitude - ONE_KILOMETER_LONGITUDE * distance;
+        Double rightDownLatitude = latitude + ONE_KILOMETER_LATITUDE * distance;
+        Double rightDownLongitude = longitude + ONE_KILOMETER_LONGITUDE * distance;
+
+        return succeed(placeRepository.findPlaceByDistance(leftTopLatitude, rightDownLatitude, leftTopLongitude, rightDownLongitude)
+                .stream()
+                .filter(o -> calculateTwoCoordinate(Double.valueOf(o.getLatitudeY()), Double.valueOf(o.getLongitudeX()),
+                        latitude, longitude) > distance)
+                .map(PlaceResponse::new)
+                .collect(Collectors.toList()), "현재 위치 중심으로 조회에 성공했습니다.");
     }
 }

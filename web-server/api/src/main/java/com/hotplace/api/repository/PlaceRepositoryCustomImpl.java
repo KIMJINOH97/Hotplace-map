@@ -114,7 +114,10 @@ public class PlaceRepositoryCustomImpl implements PlaceRepositoryCustom{
     }
 
     private BooleanExpression subCategoryEq(Integer subCategory){
-        return subCategory == null ? null : place.subCategory.id.eq(subCategory);
+        if (subCategory == null || subCategory == 7){
+            return null;
+        }
+        return place.subCategory.id.eq(subCategory);
     }
 
     private BooleanExpression placeNameContains(String placeName){
