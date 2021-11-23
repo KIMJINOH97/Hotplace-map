@@ -10,7 +10,9 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "PLACE")
+@Table(name = "PLACE", indexes = {
+        @Index(name = "placeMultiIndex", columnList = "latitude_y, longitude_x")
+})
 @Entity
 public class Place {
     @Id
@@ -35,10 +37,10 @@ public class Place {
     private String phoneNumber;
 
     @Column(name = "longitude_x")
-    private String longitudeX;
+    private Double longitudeX;
 
     @Column(name = "latitude_y")
-    private String latitudeY;
+    private Double latitudeY;
 
     @Column(name = "road_address")
     private String roadAddress;

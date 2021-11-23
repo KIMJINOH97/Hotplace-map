@@ -25,10 +25,10 @@ public class PlaceResponse {
     private String phoneNumber;
 
     @JsonProperty("longitude_x")
-    private String longitudeX;
+    private Double longitudeX;
 
     @JsonProperty("latitude_y")
-    private String latitudeY;
+    private Double latitudeY;
 
     @JsonProperty("naver_star")
     private Float naverStar;
@@ -98,8 +98,8 @@ public class PlaceResponse {
             String address,
             String roadAddress,
             String phoneNumber,
-            String longitudeX,
-            String latitudeY,
+            Double longitudeX,
+            Double latitudeY,
             Float naverStar,
             Float kakaoStar,
             Integer instagramHashtag,
