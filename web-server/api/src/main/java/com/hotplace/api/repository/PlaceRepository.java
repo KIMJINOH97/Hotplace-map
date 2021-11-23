@@ -18,4 +18,8 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> , PlaceRe
     List<Place> findPlaceBySearch(@Param("gu") Integer gu, @Param("dong") Integer dong,
                                   @Param("subCategory") Integer subCategory, @Param("name") String name);
 
+    @Query("select P from Place P where (P.latitudeY between :leftLat and :rightLat) " +
+            "and (P.longitudeX between :leftLong and :rightLong)")
+    List<Place> findPlaceByDistance(@Param("leftLat") double leftLat, @Param("rightLat") double rightLat,
+                                    @Param("leftLong") double leftLong, @Param("rightLong") double rightLong);
 }
