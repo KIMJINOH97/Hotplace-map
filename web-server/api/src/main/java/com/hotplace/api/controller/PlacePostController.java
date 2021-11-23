@@ -43,4 +43,15 @@ public class PlacePostController {
         log.info("latitude: {}, longitude: {}", latitude, longitude);
         return placeService.searchPlacesByCurrentLocation(latitude, longitude, distance);
     }
+
+    @PostMapping("/places/current")
+    public ApiForm<List<PlaceResponse>> searchPlacesByLocation(
+            @RequestParam ("latitude") Double latitude,
+            @RequestParam ("longitude") Double longitude,
+            @RequestParam ("distance") Integer distance,
+            @RequestBody PlaceRequest requestDto
+    ){
+        log.info("latitude: {}, longitude: {}", latitude, longitude);
+        return placeService.searchPlacesByLocation(latitude, longitude, distance,requestDto);
+    }
 }

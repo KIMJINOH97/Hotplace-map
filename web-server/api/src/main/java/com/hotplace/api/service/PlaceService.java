@@ -76,4 +76,21 @@ public class PlaceService {
                 .map(PlaceResponse::new)
                 .collect(Collectors.toList()), "현재 위치 중심으로 조회에 성공했습니다.");
     }
+
+    public ApiForm<List<PlaceResponse>> searchPlacesByLocation(Double latitude, Double longitude, Integer distance, PlaceRequest requestDto) {
+        Double leftTopLatitude = latitude - ONE_KILOMETER_LATITUDE * distance;
+        Double leftTopLongitude = longitude - ONE_KILOMETER_LONGITUDE * distance;
+        Double rightDownLatitude = latitude + ONE_KILOMETER_LATITUDE * distance;
+        Double rightDownLongitude = longitude + ONE_KILOMETER_LONGITUDE * distance;
+
+        List<PlaceResponse> result =
+                placeRepository
+                .searchByLocation(leftTopLatitude, leftTopLongitude, rightDownLatitude, rightDownLongitude, requestDto)
+                .stream()
+                .filter(o -> calculateTwoCoordinate(Double.valueOf(o.getLatitudeY()), Double.valueOf(o.getLongitudeX()), latitude, longitude) > distance)
+                .collect(Collectors.toList());
+
+        return succeed(result,"현재 위치 중심과 조건으로 조회에 성공했습니다.");
+
+    }
 }
