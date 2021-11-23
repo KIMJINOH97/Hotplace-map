@@ -8,6 +8,7 @@ import { bookmarkListState, tokenState, userState } from '../atom';
 import { getCookie } from '../utils/CookieUtils';
 import { bookmarkApi, userApi } from '../api';
 import UserCard from '../components/user/UserCard';
+import CurrrentLocationButton from '../components/map/location/CurrentLocationButton';
 
 const { Content } = Layout;
 const { REACT_APP_TOKEN_KEY } = process.env;
@@ -82,6 +83,7 @@ const HotPlaceMapScreen = () => {
       <Layout>
         <Content>
           <UserCard />
+          <CurrrentLocationButton />
           <KakaoMap></KakaoMap>
         </Content>
       </Layout>

@@ -40,18 +40,20 @@ naver_url: "https://map.naver.com/v5/entry/place/1048166619"
  */
 
 const KakaoMap = (props) => {
-  const [state, setState] = useState({
-    // 지도의 초기 위치
-    center: { lat: 37.5666805, lng: 126.9784147 },
-    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-    isPanto: false,
-  });
+  // const [state, setState] = useState({
+  //   // 지도의 초기 위치
+  //   center: { lat: 37.5666805, lng: 126.9784147 },
+  //   // 지도 위치 변경시 panto를 이용할지에 대해서 정의
+  //   isPanto: false,
+  // });
 
   const storeList = useRecoilValue(storeState);
   const foodList = useRecoilValue(foodListState)
   const bookmarkList = useRecoilValue(bookmarkListState);
   const tabIdx = useRecoilValue(tabIdxState);
   const [coord, setCoord] = useRecoilState(coordState);
+
+  const [map, setMap] = useState();
 
   useEffect(() => {
     if (foodList.length > 0) {
@@ -83,6 +85,7 @@ const KakaoMap = (props) => {
     }
   }, [foodList]);
 
+
   return (
     <Map
       center={coord}
@@ -93,6 +96,13 @@ const KakaoMap = (props) => {
         height: '100vh',
       }}
       level={3} // 지도의 확대 레벨>
+      onCreate={(map) => setMap(map)}
+      onDragEnd={(map) => {
+        setCoord({
+          lat: map.getCenter().getLat(),
+          lng: map.getCenter().getLng(),
+        })
+      }}
     >
       {tabIdx === 1 && storeList.map((store, index) => {
         return (
