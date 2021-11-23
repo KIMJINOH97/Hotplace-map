@@ -30,12 +30,18 @@ const CurrrentLocationButton = () => {
         console.log(coord);
     }
 
-    return <Affix style={{ position: 'absolute', bottom: 10, right: 10, zIndex: 2 }}>
+    return <Affix style={affixAttr}>
 
         <GPSButton>
             <GPSImage src={GPS} onClick={onClickEvent} />
         </GPSButton>
     </Affix>
+}
+const affixAttr = {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    zIndex: 2
 }
 
 const GPSButton = styled.button`
