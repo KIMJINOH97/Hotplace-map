@@ -7,10 +7,14 @@ import GPS from '../../../assets/GPS.png';
 
 const CurrrentLocationButton = () => {
   const [coord, setCoord] = useRecoilState(coordState);
-  const [, setCurrentCoord] = useRecoilState(currentCoordState);
+  const [currentCoord, setCurrentCoord] = useRecoilState(currentCoordState);
 
   const onClickEvent = () => {
     console.log('onClickEvent');
+    if (currentCoord) {
+      setCurrentCoord(null);
+      return;
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
