@@ -23,7 +23,7 @@ const SiderBar = () => {
       // collapsedWidth="0" // breakpoint보다 낮아지면 트리거 발동되서 사이드바 없어짐.
       width="400"
       height="95%"
-      style={{ padding: '10px', backgroundColor: '#a6cfe2' }}
+      style={{ padding: '10px', backgroundColor: '#a6cfe2', overflow: 'auto' }}
     >
       <FilterForm />
       <TabList>
