@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Col, List, Pagination, Row, Statistic, Tag } from 'antd';
-import { LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { List, Pagination } from 'antd';
 
 import { placeApi } from '../../api';
 import {
@@ -19,7 +18,6 @@ const FoodList = () => {
   const total = useRecoilValue(totalState);
   const [, setFocusedId] = useRecoilState(focusedIdState);
   const [, setCoord] = useRecoilState(coordState);
-  const valueStyle = { 'font-size': '15px' };
 
   const searchPagingPlaces = async (page, pageSize) => {
     const { status, data, message } = await placeApi.getPlaceByPage(
