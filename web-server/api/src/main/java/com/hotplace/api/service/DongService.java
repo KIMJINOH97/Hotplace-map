@@ -24,7 +24,7 @@ public class DongService {
     }
 
     public ApiForm<List<DongDto>> findAllByGuId(Integer guId){
-        List<DongDto> dongDtos = dongRepository.findAllByGuId(guId)
+        List<DongDto> dongDtos = dongRepository.findAllByGuIdOrderByName(guId)
                 .stream()
                 .map(o -> new DongDto(o.getId(), o.getName()))
                 .collect(Collectors.toList());
