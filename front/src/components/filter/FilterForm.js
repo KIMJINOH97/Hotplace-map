@@ -16,8 +16,8 @@ import {
   tokenState,
   userState,
   tabIdxState,
-  focusedIdState,
-} from "../../atom";
+  focusedIdState
+} from '../../atom';
 
 import FilterSelect from './FilterSelect';
 import KakaoSlider from './KakaoSlider.js';
@@ -76,7 +76,7 @@ const FilterForm = () => {
     const { status, data, message } = result;
     if (status === 200) {
       setSubCategory(data);
-      setCurSubCategory(data[0].name);
+      setCurSubCategory(data[6].name);
     } else {
       alert(message);
     }
@@ -117,11 +117,7 @@ const FilterForm = () => {
 
   const searchPagingPlaces = async () => {
     console.log(query);
-    const { status, data, message } = await placeApi.getPlaceByPage(
-      0,
-      5,
-      query
-    );
+    const { status, data, message } = await placeApi.getPlaceByPage(0, 5, query);
     if (status === 200) {
       setTotal(data.totalElements);
       setFoodList(data.content);
@@ -139,7 +135,7 @@ const FilterForm = () => {
   const onInputChange = (event) => {
     setQuery({
       ...query,
-      place_name: event.target.value,
+      place_name: event.target.value
     });
   };
 
@@ -186,7 +182,7 @@ const FilterForm = () => {
                 style={{
                   height: '40px',
                   width: '80%',
-                  borderRadius: '0.25rem',
+                  borderRadius: '0.25rem'
                 }}
                 maxLength={16}
                 onChange={onInputChange}
@@ -194,7 +190,7 @@ const FilterForm = () => {
               <Button
                 type="primary"
                 onClick={onClickEvent}
-                style={{ height: "40px", borderRadius: "0.25rem" }}
+                style={{ height: '40px', borderRadius: '0.25rem' }}
                 disabled={tabIdx !== 1}
               >
                 검색
@@ -222,8 +218,7 @@ const FilterForm = () => {
             </Collapse>
           </FilterContainer>
         </>
-      )
-      }
+      )}
       {/* <Button onClick={check}>check!!</Button> */}
     </>
   );
