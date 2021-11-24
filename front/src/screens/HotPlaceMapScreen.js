@@ -8,6 +8,8 @@ import { bookmarkListState, tokenState, userState } from '../atom';
 import { getCookie } from '../utils/CookieUtils';
 import { bookmarkApi, userApi } from '../api';
 import UserCard from '../components/user/UserCard';
+import CurrrentLocationButton from '../components/map/location/CurrentLocationButton';
+import CurrentMapFilterButton from '../components/map/location/CurrentMapFilterButton';
 
 const { Content } = Layout;
 const { REACT_APP_TOKEN_KEY } = process.env;
@@ -80,8 +82,10 @@ const HotPlaceMapScreen = () => {
       <SiderBar></SiderBar>
       {/* <button onClick={() => getUserInfo(token)}>로그인 테스트</button> */}
       <Layout>
-        <Content>
+        <Content style={{ position: 'relative' }}>
           <UserCard />
+          <CurrentMapFilterButton />
+          <CurrrentLocationButton />
           <KakaoMap></KakaoMap>
         </Content>
       </Layout>

@@ -30,27 +30,19 @@ const UserBasket = () => {
 
   async function getAllBookmark(userToken) {
     try {
-      console.log('getAllBookmark');
       const result = await bookmarkApi.getAllBookmark(userToken);
       const { status, data, message } = result;
       setBookmarkList(data);
-      console.log('getAllBookmark getAllBookmark getAllBookmark');
-      console.log(data);
-      console.log('북마크 불러오기 성공!');
-      console.log('getAllBookmark getAllBookmark getAllBookmark');
     } catch (e) {
       console.error('북마크 불러오기 실패!');
     }
   }
 
   async function deleteBookmark(userToken, place_id) {
-    console.log('deleteBookmark');
-    console.log(userToken, place_id);
     const result = await bookmarkApi.deleteBookmark(userToken, place_id);
     const { status, data, message } = result;
 
     if (status === 200) {
-      console.log('북마크 제거성공 콘솔');
       alert('북마크를 제거하였습니다!');
     } else {
       throw new Error('북마크 제거 실패!!');
@@ -59,7 +51,6 @@ const UserBasket = () => {
 
   const deleteBookmarkHandler = async (place_id) => {
     try {
-      console.log('deleteBookmarkHandler');
       await deleteBookmark(token, place_id);
       await getAllBookmark(token);
     } catch (e) {

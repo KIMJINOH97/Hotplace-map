@@ -35,7 +35,7 @@ export const queryState = atom({
   default: {
     gu: 1,
     dong: 1,
-    sub_category: 1,
+    sub_category: 7,
     place_name: '',
     minimum_kakao_rating: null,
     minimum_naver_rating: null,
@@ -77,4 +77,9 @@ export const coordState = atom({
     lat: 37.5666805,
     lng: 126.9784147
   }
+});
+
+export const currentCoordState = atom({
+  key: 'current coord',
+  default: null
 });

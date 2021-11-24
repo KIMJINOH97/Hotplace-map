@@ -10,4 +10,5 @@ import java.util.List;
 public interface PlaceRepositoryCustom {
     List<PlaceResponse> search(final PlaceRequest condition);
     Page<PlaceResponse> searchPage(PlaceRequest condition, Pageable pageable);
+    List<PlaceResponse> searchByLocation(Double leftTopLatitude, Double leftTopLongitude,Double rightDownLatitude, Double rightDownLongitude,  PlaceRequest requestDto);
 }

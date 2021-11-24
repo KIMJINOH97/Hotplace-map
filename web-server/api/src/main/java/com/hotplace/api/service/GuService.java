@@ -18,7 +18,7 @@ public class GuService {
 
     public ApiForm<List<GuDto>> findAll(){
         List<GuDto> guDtos = new ArrayList<GuDto>();
-        guRepository.findAll().forEach((gu) -> guDtos.add(new GuDto(gu.getId(), gu.getName())));
+        guRepository.findAllByOrderByName().forEach((gu) -> guDtos.add(new GuDto(gu.getId(), gu.getName())));
         return succeed(guDtos, "구 정보를 가져왔습니다.");
     }
 }

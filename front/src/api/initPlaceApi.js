@@ -2,7 +2,7 @@
 export default (axios) => ({
   getPlace: async (query) => {
     try {
-      const { data } = await axios.post("/api/places", query);
+      const { data } = await axios.post('/api/places', query);
       return data;
     } catch (e) {
       console.log(e);
@@ -11,11 +11,11 @@ export default (axios) => ({
 
   getPlaceByPage: async (page, pageSize, query) => {
     try {
-      const { data } = await axios.post("/api/paging/places", query, {
+      const { data } = await axios.post('/api/paging/places', query, {
         params: {
           page: page,
-          size: pageSize,
-        },
+          size: pageSize
+        }
       });
 
       console.log(data, page, pageSize);
@@ -25,4 +25,20 @@ export default (axios) => ({
       console.log(e);
     }
   },
+
+  getPlaceByLocation: async (query, latitude, longitude, distance) => {
+    try {
+      const { data } = await axios.post('/api/places/current', query, {
+        params: {
+          latitude,
+          longitude,
+          distance
+        }
+      });
+
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 });
