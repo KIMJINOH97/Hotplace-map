@@ -63,7 +63,7 @@ public class PlaceService {
         return succeed(page, "페이지 검색에 성공 했습니다.");
     }
 
-    public ApiForm<List<PlaceResponse>> searchPlacesByCurrentLocation(Double latitude, Double longitude, Integer distance) {
+    public ApiForm<List<PlaceResponse>> searchPlacesByCurrentLocation(Double latitude, Double longitude, Double distance) {
         Double leftTopLatitude = latitude - ONE_KILOMETER_LATITUDE * distance;
         Double leftTopLongitude = longitude - ONE_KILOMETER_LONGITUDE * distance;
         Double rightDownLatitude = latitude + ONE_KILOMETER_LATITUDE * distance;
@@ -72,12 +72,12 @@ public class PlaceService {
         return succeed(placeRepository.findPlaceByDistance(leftTopLatitude, rightDownLatitude, leftTopLongitude, rightDownLongitude)
                 .stream()
                 .filter(o -> calculateTwoCoordinate(Double.valueOf(o.getLatitudeY()), Double.valueOf(o.getLongitudeX()),
-                        latitude, longitude) > distance)
+                        latitude, longitude) < distance)
                 .map(PlaceResponse::new)
                 .collect(Collectors.toList()), "현재 위치 중심으로 조회에 성공했습니다.");
     }
 
-    public ApiForm<List<PlaceResponse>> searchPlacesByLocation(Double latitude, Double longitude, Integer distance, PlaceRequest requestDto) {
+    public ApiForm<List<PlaceResponse>> searchPlacesByLocation(Double latitude, Double longitude, Double distance, PlaceRequest requestDto) {
         Double leftTopLatitude = latitude - ONE_KILOMETER_LATITUDE * distance;
         Double leftTopLongitude = longitude - ONE_KILOMETER_LONGITUDE * distance;
         Double rightDownLatitude = latitude + ONE_KILOMETER_LATITUDE * distance;
@@ -87,7 +87,7 @@ public class PlaceService {
                 placeRepository
                 .searchByLocation(leftTopLatitude, leftTopLongitude, rightDownLatitude, rightDownLongitude, requestDto)
                 .stream()
-                .filter(o -> calculateTwoCoordinate(Double.valueOf(o.getLatitudeY()), Double.valueOf(o.getLongitudeX()), latitude, longitude) > distance)
+                .filter(o -> calculateTwoCoordinate(Double.valueOf(o.getLatitudeY()), Double.valueOf(o.getLongitudeX()), latitude, longitude) < distance)
                 .collect(Collectors.toList());
 
         return succeed(result,"현재 위치 중심과 조건으로 조회에 성공했습니다.");

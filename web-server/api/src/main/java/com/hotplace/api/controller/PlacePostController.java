@@ -39,7 +39,7 @@ public class PlacePostController {
     @GetMapping("/places/current")
     public ApiForm<List<PlaceResponse>> searchPlacesByCurrentLocation(@RequestParam ("latitude") Double latitude,
                                                                       @RequestParam ("longitude") Double longitude,
-                                                                      @RequestParam ("distance") Integer distance){
+                                                                      @RequestParam ("distance") Double distance){
         log.info("latitude: {}, longitude: {}", latitude, longitude);
         return placeService.searchPlacesByCurrentLocation(latitude, longitude, distance);
     }
@@ -48,7 +48,7 @@ public class PlacePostController {
     public ApiForm<List<PlaceResponse>> searchPlacesByLocation(
             @RequestParam ("latitude") Double latitude,
             @RequestParam ("longitude") Double longitude,
-            @RequestParam ("distance") Integer distance,
+            @RequestParam ("distance") Double distance,
             @RequestBody PlaceRequest requestDto
     ){
         log.info("latitude: {}, longitude: {}", latitude, longitude);
