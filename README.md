@@ -4,6 +4,14 @@
 URL : [SNS-Integration-Map](https://sns-integration-map.cf)
 
 
+## 🌈 여러 SNS 정보를 한 눈에 볼 수 있습니다. 
+
+여러번 웹사이트를 검색하는 일은 이제 그만!
+
+네이버, 카카오 맵의 평점, 인스타그램의 해시태그 등의 정보를 검색 한 번에 볼 수 있어요.
+
+SNS별 필터링 및 현재위치 기준으로 검색할 수도 있어요.
+
 ## CI/CD
 ![CI-CD](images/CI_CD.png)
 
